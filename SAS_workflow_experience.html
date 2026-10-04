@@ -470,9 +470,9 @@ header .tabs button:active{transform:none}
 @keyframes shell-signal{0%{opacity:0;transform:translateX(-110%)}20%{opacity:1}80%{opacity:1}100%{opacity:0;transform:translateX(110%)}}
 @media(hover:hover) and (pointer:fine){.flow-art:hover .flow-signal{animation:shell-signal 1.4s ease-in-out 1}}
 body.is-focused .intro,body.is-focused #sidebar,body.is-focused .site-footer{display:none}
-body.is-focused main{grid-template-columns:minmax(0,1fr);width:94%;margin-top:24px;margin-bottom:24px}
-body.is-focused .experience{height:calc(100dvh - 140px);min-height:640px}
-@media(max-width:1200px){body.is-focused .experience{height:calc(100dvh - 196px)}}
+body.is-focused main{grid-template-columns:minmax(0,1fr);width:92%;margin-top:24px;margin-bottom:24px}
+
+
 @media(max-width:760px){
  header{grid-template-columns:minmax(0,1fr) auto;padding:14px 5%;gap:14px 10px}
  header .brand{grid-column:1/-1;grid-row:1}
@@ -489,7 +489,7 @@ body.is-focused .experience{height:calc(100dvh - 140px);min-height:640px}
  .intro-note{font-size:10px}
  .intro .intro-link{min-height:48px;gap:15px;padding:11px 15px}
  body.is-focused main{width:94%;margin-top:16px;margin-bottom:16px}
- body.is-focused .experience{height:calc(100dvh - 184px);min-height:720px}
+
 }
 @media(max-width:380px){
  header{padding-left:4%;padding-right:4%;gap:12px 6px}
@@ -731,7 +731,7 @@ main{display:block;width:92%;max-width:1472px;min-height:0;margin:0 auto;backgro
 .card-action{display:inline-flex;align-items:center;gap:9px;font-size:11px;white-space:nowrap;font-weight:500}
 .card-action .lab-icon{width:16px;height:16px;transition:transform .2s}
 .chooser-note{font-size:11px;line-height:1.8;color:#626b56;margin:12px 0 0}
-.lab-workspace{display:grid;grid-template-columns:238px minmax(0,1fr);border:1px solid #ced2c4;border-radius:12px;background:#fcfbf6;overflow:hidden}
+.lab-workspace{--sidebar-width:238px;display:grid;grid-template-columns:var(--sidebar-width) minmax(0,1fr);border:1px solid #ced2c4;border-radius:12px;background:#fcfbf6;overflow:hidden}
 .workspace-caption{grid-column:1/-1;display:flex;justify-content:space-between;align-items:center;gap:16px;padding:14px 22px;background:#e3e6da;border-bottom:1px solid #ced2c4;font-size:10px;color:#59634e}
 .workspace-caption>span:first-child{display:flex;align-items:center;gap:8px;font:10px/1.5 Consolas,monospace;letter-spacing:1px}
 .workspace-caption i{display:inline-block;width:5px;height:5px;border-radius:50%;background:#758563}
@@ -744,8 +744,8 @@ body.is-focused .card-title{font-size:13px;margin:0;gap:9px}
 body.is-focused .card-icon{width:27px;height:27px;border:0;background:transparent}
 body.is-focused .card-icon .lab-icon{width:19px;height:19px}
 body.is-focused .card-selected .lab-icon{width:16px;height:16px}
-body.is-focused .lab-workspace{grid-template-columns:minmax(0,1fr)}
-body.is-focused .experience{height:calc(100dvh - 192px);min-height:640px}
+body.is-focused .lab-workspace{grid-template-columns:minmax(0,1fr);width:calc(100% - var(--sidebar-width));margin-inline:auto}
+
 @media(hover:hover) and (pointer:fine){
  .intro .intro-link:hover{background:#fffaf0;box-shadow:0 5px 18px #0002;transform:translateY(-2px)}
  .workflow-picker .workflow-card:hover{border-color:#839371;box-shadow:0 8px 20px #35402509;transform:translateY(-2px)}
@@ -758,7 +758,7 @@ body.is-focused .experience{height:calc(100dvh - 192px);min-height:640px}
  header{height:84px;min-height:84px}.header-note{display:none}
  .intro{padding:35px 3.3%;gap:30px}.intro h1{font-size:clamp(36px,4.8vw,58px)}
  .journey-preview{padding:18px 17px 15px}.journey-tag{font-size:8px;padding:4px 5px}
- .lab-workspace{grid-template-columns:210px minmax(0,1fr)}
+ .lab-workspace{--sidebar-width:210px}
  .workflow-picker .workflow-card{padding:20px 20px 17px}.card-detail{font-size:9px}
 }
 @media(max-width:900px){
@@ -776,7 +776,7 @@ body.is-focused .experience{height:calc(100dvh - 192px);min-height:640px}
  main{width:94%;display:block}.workflow-chooser{padding:30px 0 23px}.chooser-heading{align-items:flex-start;gap:13px;margin:0 5px 17px;flex-wrap:wrap}.chooser-heading h2{font-size:22px;margin-top:7px}.section-index{font-size:9px}.workspace-jump{font-size:11px;padding:6px 0;gap:8px}.tabs.workflow-picker{grid-template-columns:1fr;gap:12px}
  .workflow-picker .workflow-card{padding:18px 19px 15px}.card-eyebrow{font-size:9px}.card-count{font-size:10px}.card-title{margin-top:14px;font-size:22px}.card-description{min-height:0;margin:10px 0 14px;font-size:12px;max-width:none}.card-bottom{padding-top:12px}.card-detail{display:block;font-size:9px}.card-action{font-size:10px}.chooser-note{font-size:10px;margin:11px 6px 0}
  .lab-workspace{display:flex;flex-direction:column;border-radius:10px}.workspace-caption{padding:12px;gap:8px;flex-wrap:wrap}.workspace-caption>span:first-child{font-size:9px;letter-spacing:.5px}.workspace-caption>span:last-child{font-size:9px}.lab-workspace #sidebar{flex-shrink:0}
- body.is-focused .experience{height:calc(100dvh - 208px);min-height:720px}
+
 }
 @media(max-width:380px){
  .intro{padding:26px 6%;gap:24px}.intro h1{font-size:34px}.intro .intro-copy>p{font-size:12px}.journey-preview{padding:13px 11px}.journey-row{gap:8px;padding:10px}.journey-tag{display:none}.journey-file{font-size:9px}.journey-preview figcaption{font-size:8px}.intro .journey-process p{font-size:9px}
@@ -842,7 +842,7 @@ html{scroll-padding-top:112px}
 #experience{scroll-margin-top:16px}
 body.is-focused .workspace-caption{display:flex}
 body.is-focused .workflow-chooser{display:none}
-body.is-focused .experience{height:calc(100dvh - 198px)}
+
 .site-footer{line-height:1.8}
 .footer-mark{display:none}
 @media(hover:hover) and (pointer:fine){
@@ -857,7 +857,7 @@ body.is-focused .experience{height:calc(100dvh - 198px)}
  .workspace-caption{gap:16px}.workspace-mode{padding-inline:13px}
 }
 @media(max-width:1000px){
- .lab-workspace{display:flex;flex-direction:column}
+ .lab-workspace{--sidebar-width:0px;display:flex;flex-direction:column}
  .lab-workspace #sidebar{display:block;padding:14px 16px 0;border-right:0;border-bottom:1px solid #d7d8cd;flex-shrink:0}
  #sidebar>.eyebrow,#sidebar .sidebar-title,#sidebar .sidebar-description,#sidebar .aside-bottom{display:none}
  #sidebar .steps{display:flex;overflow:auto;gap:8px;scrollbar-width:thin;padding:0 0 12px}
@@ -887,7 +887,7 @@ body.is-focused .experience{height:calc(100dvh - 198px)}
  #workspace-step-label{font-size:11px}html{scroll-padding-top:140px}
  #experience{scroll-margin-top:16px}
  body.is-focused .workspace-identity{display:none}
- body.is-focused .experience{height:calc(100dvh - 219px)}
+
 }
 @media(max-width:380px){
  .intro h1{font-size:34px}.intro .intro-copy>p{font-size:13px}.intro .intro-actions{align-items:flex-start;flex-direction:column;gap:10px}.intro .intro-note{font-size:11px}
@@ -994,6 +994,13 @@ body.is-focused .experience{height:calc(100dvh - 198px)}
  .experience:has(>.win11-transfer.is-maximized)>.wx-coach{left:6px;right:6px;bottom:6px;min-height:0;max-height:58px;overflow:auto;padding:8px 12px}
  .experience:has(>.win11-transfer.is-maximized)>.wx-coach .wx-coach-label{display:none}
 }
+
+/* Workflow identities stay legible in both navigation sizes. */
+.workflow-brand{display:block;width:28px;height:28px;flex:none;object-fit:contain}
+.workflow-card .card-icon,.workflow-card[aria-selected=true] .card-icon{background:#fffdf8;border-color:#d3d8c8}
+.workspace-mode{display:inline-flex;align-items:center;justify-content:center;gap:7px}
+.workspace-mode .workflow-brand{width:19px;height:19px}
+@media(max-width:380px){.workspace-mode{gap:5px;padding-inline:6px}.workspace-mode .workflow-brand{width:17px;height:17px}}
 </style>
 </head>
 <body>
@@ -1063,23 +1070,24 @@ Colors inherit currentColor; original path geometry is retained. -->
 <div id="shell-status" class="shell-sr-only" role="status" aria-live="polite" aria-atomic="true"></div>
 <main><section id="workflow-chooser" class="workflow-chooser" aria-labelledby="chooser-title">
  <div class="chooser-heading"><div><span class="section-index">01 / 選擇工作方式</span><h2 id="chooser-title">選一種方式，親手走一遍。</h2></div><a class="workspace-jump" href="#experience">進入操作區 <svg class="lab-icon " width="24" height="24" aria-hidden="true" focusable="false"><use href="#lab-icon-arrow-right"/></svg></a></div>
+ <!-- OpenClaw icon embedded from openclaw/openclaw, ui/public/favicon-32.png at 2851e89750f52d89c3233dc0d7ed589be54d06ed. -->
  <nav class="tabs workflow-picker" role="tablist" aria-label="流程體驗">
   <button id="tab-original" class="workflow-card" role="tab" aria-label="手動作業" aria-selected="true" aria-controls="experience" aria-describedby="original-summary" data-mode="original">
    <span class="card-topline"><span class="card-eyebrow">01 / ORIGINAL WORKFLOW</span><span class="card-count"><b id="original-step-count">9</b> 個教學步驟</span></span>
-   <span class="card-title"><span class="card-icon"><svg class="lab-icon " width="24" height="24" aria-hidden="true" focusable="false"><use href="#lab-icon-document-text"/></svg></span><span>手動作業</span><span class="card-selected" aria-hidden="true"><svg class="lab-icon " width="24" height="24" aria-hidden="true" focusable="false"><use href="#lab-icon-tick-circle"/></svg></span></span>
+   <span class="card-title"><span class="card-icon"><svg class="workflow-brand" viewBox="0 0 32 32" width="28" height="28" aria-hidden="true" focusable="false"><rect x="10" y="3" width="20" height="26" rx="2" fill="#185c37"/><path fill="#33c481" d="M12 3h16a2 2 0 0 1 2 2v7H12z"/><path fill="#21a366" d="M12 12h18v9H12z"/><path stroke="#fff" stroke-opacity=".3" d="M21 3v26M12 12h18M12 21h18"/><rect x="1" y="8" width="18" height="18" rx="2" fill="#107c41"/><path fill="#fff" d="m5 12 3 4.5L5 22h3l2-3.5 2 3.5h3l-3-5.5 3-4.5h-3l-2 3-2-3z"/></svg></span><span>手動作業</span><span class="card-selected" aria-hidden="true"><svg class="lab-icon " width="24" height="24" aria-hidden="true" focusable="false"><use href="#lab-icon-tick-circle"/></svg></span></span>
    <span class="card-description" id="original-summary">從匯出資料、建立樞紐分析到填寫報表，理解每個環節。</span>
    <span class="card-bottom"><span class="card-detail">整理資料 · 逐項填表 · 人工核對</span><span class="card-action"><span id="original-card-status">正在體驗</span><svg class="lab-icon " width="24" height="24" aria-hidden="true" focusable="false"><use href="#lab-icon-arrow-right"/></svg></span></span>
   </button>
   <button id="tab-skill" class="workflow-card" role="tab" aria-label="人機協作" aria-selected="false" aria-controls="experience" aria-describedby="skill-summary" data-mode="skill">
    <span class="card-topline"><span class="card-eyebrow">02 / OPENCLAW SKILL</span><span class="card-count"><b id="skill-step-count">5</b> 個教學步驟</span></span>
-   <span class="card-title"><span class="card-icon"><svg class="lab-icon " width="24" height="24" aria-hidden="true" focusable="false"><use href="#lab-icon-cpu"/></svg></span><span>人機協作</span><span class="card-selected" aria-hidden="true"><svg class="lab-icon " width="24" height="24" aria-hidden="true" focusable="false"><use href="#lab-icon-tick-circle"/></svg></span></span>
+   <span class="card-title"><span class="card-icon"><img class="workflow-brand workflow-brand-claw" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAADvklEQVR42u1WSWwTVxj+3piMiZMYJaUWMoeKtqoqSumJLiDSBkQoIiSorah6qlSVQhepSk/cWqlXIAjEKi4IBBcWsVySABIS4gCIG0IKKCRsIRAM8TLz7Jl5j//JjsczzjKOfeDAJ32a5Z///763zsMbDbl+fbPs7PyZ2CYBFjgPYCpH5aoaszewYcMnVOQv2dFxiNhP93EQnra3x56tWtX6tK2t6zHxQWtr673ly2Mg0HcLKe8i8aDKVTUwDVh23ToExMY5odD+cc5NS4hFQkr4qTF2P97UVJ+TciuAswgADTNAN805hm3/nbHtI0nOF5CQK17ORQ+TyQXDL18eH0wk/hsaHtYxAxh1J6ZBw1zGzgohVhdFhICjrlOzNH6Jcd4FIFNxD4hwOBIGej3iikCeUgbhakvXe626ukjFBiKc75BSrigtOGhy3CfS+0lNDPEshonS+36FI8T2igzMBdZIYEtp8d4Xr/DN8wS+/vQj9CfGIX29cflVCl0pA53LluLKeNpjwgG2pjRtTWADlPwvJbJSA9eTaYiGeoh4DDdSGfiH5VbaKMZvZUxPvFDr/0AG6hn7XOS73tOKn2ItWPpoFJ/tOYYf322GP/7dO/Ow+MEIluw+io3NTW7c5RdjVBs+MFm4JteuXZa1rPcE0B5i7NeSxKCz3qUQZXFJbND1w/HGxj7SGXr/2rWbACRL5pfhAe44W0zLArdtZIm06WBeODwrE34jC6NRRKmWqsuJZv66D8CfGgNi9OI3Ei8GDeILw1DJVdBdKY11dcXapmvi90wqNV9LAmF6YL4gGGOeYrJcIFgcQIJzjwFqrCJLk7YW7+t7RMG7ps/h/EgkgEiw+Gg6DSOXA88LT2gMdAwMPNEASApsIwoVVFf6oSAcCqnkmpA7DsZMU4mLQiOF6TjblLaGPE4bQnxFgc0ftLSciLqTr2a9oISTudzxLGkQvwRwBgQ2tHIlfPheACedyZdUtaviBwCnpt2IxgzjHH382DeTa8ERS9fPB9mKLXK/V5b/AasbCmAPgFwQA9Ci0Z2UdNdXpBoTgzT+PZX8jrM2sJkSrUlNAJWYUD36CwBe6ZHsigN0z7DLBWG3qjXbM+FeIcQfUkoxpQlgql6QxH9UjaoOpYT9grFvpbsyylluYtQBOgH0VHcqdtGfzeU+lt4hGSHeId5W9xO94QjRbev6hwAuVHss9yNN3FXS6qsAFhOXqPuJCam+KXyLGhpwIUt2yAI8u6UPtTdAYptIaJMtRHF8HcfpkYX3eIsK8RogyDBwZR3jhAAAAABJRU5ErkJggg==" alt="" aria-hidden="true" width="28" height="28"></span><span>人機協作</span><span class="card-selected" aria-hidden="true"><svg class="lab-icon " width="24" height="24" aria-hidden="true" focusable="false"><use href="#lab-icon-tick-circle"/></svg></span></span>
    <span class="card-description" id="skill-summary">交由 Skill 整理資料，由你決定新單位、檢核並確認歸檔。</span>
    <span class="card-bottom"><span class="card-detail">工具處理 · 人工決策 · 確認歸檔</span><span class="card-action"><span id="skill-card-status">切換體驗</span><svg class="lab-icon " width="24" height="24" aria-hidden="true" focusable="false"><use href="#lab-icon-arrow-right"/></svg></span></span>
   </button>
  </nav><p class="chooser-note">隨時切換，兩種流程的進度會各自保留。步驟數為本教學的操作階段。</p>
 </section><div class="lab-workspace"><div class="workspace-caption" aria-label="操作區導覽">
  <div class="workspace-identity"><span class="workspace-index">02</span><div><strong>輪派作業練習區</strong><span>示範資料 · 放心練習</span></div></div>
- <div class="workspace-controls" role="group" aria-label="切換體驗流程"><button type="button" class="workspace-mode" data-mode="original" aria-pressed="true" aria-controls="experience">手動作業</button><button type="button" class="workspace-mode" data-mode="skill" aria-pressed="false" aria-controls="experience">人機協作</button></div>
+ <div class="workspace-controls" role="group" aria-label="切換體驗流程"><button type="button" class="workspace-mode" data-mode="original" aria-pressed="true" aria-controls="experience"><svg class="workflow-brand" viewBox="0 0 32 32" width="28" height="28" aria-hidden="true" focusable="false"><rect x="10" y="3" width="20" height="26" rx="2" fill="#185c37"/><path fill="#33c481" d="M12 3h16a2 2 0 0 1 2 2v7H12z"/><path fill="#21a366" d="M12 12h18v9H12z"/><path stroke="#fff" stroke-opacity=".3" d="M21 3v26M12 12h18M12 21h18"/><rect x="1" y="8" width="18" height="18" rx="2" fill="#107c41"/><path fill="#fff" d="m5 12 3 4.5L5 22h3l2-3.5 2 3.5h3l-3-5.5 3-4.5h-3l-2 3-2-3z"/></svg><span>手動作業</span></button><button type="button" class="workspace-mode" data-mode="skill" aria-pressed="false" aria-controls="experience"><img class="workflow-brand workflow-brand-claw" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAADvklEQVR42u1WSWwTVxj+3piMiZMYJaUWMoeKtqoqSumJLiDSBkQoIiSorah6qlSVQhepSk/cWqlXIAjEKi4IBBcWsVySABIS4gCIG0IKKCRsIRAM8TLz7Jl5j//JjsczzjKOfeDAJ32a5Z///763zsMbDbl+fbPs7PyZ2CYBFjgPYCpH5aoaszewYcMnVOQv2dFxiNhP93EQnra3x56tWtX6tK2t6zHxQWtr673ly2Mg0HcLKe8i8aDKVTUwDVh23ToExMY5odD+cc5NS4hFQkr4qTF2P97UVJ+TciuAswgADTNAN805hm3/nbHtI0nOF5CQK17ORQ+TyQXDL18eH0wk/hsaHtYxAxh1J6ZBw1zGzgohVhdFhICjrlOzNH6Jcd4FIFNxD4hwOBIGej3iikCeUgbhakvXe626ukjFBiKc75BSrigtOGhy3CfS+0lNDPEshonS+36FI8T2igzMBdZIYEtp8d4Xr/DN8wS+/vQj9CfGIX29cflVCl0pA53LluLKeNpjwgG2pjRtTWADlPwvJbJSA9eTaYiGeoh4DDdSGfiH5VbaKMZvZUxPvFDr/0AG6hn7XOS73tOKn2ItWPpoFJ/tOYYf322GP/7dO/Ow+MEIluw+io3NTW7c5RdjVBs+MFm4JteuXZa1rPcE0B5i7NeSxKCz3qUQZXFJbND1w/HGxj7SGXr/2rWbACRL5pfhAe44W0zLArdtZIm06WBeODwrE34jC6NRRKmWqsuJZv66D8CfGgNi9OI3Ei8GDeILw1DJVdBdKY11dcXapmvi90wqNV9LAmF6YL4gGGOeYrJcIFgcQIJzjwFqrCJLk7YW7+t7RMG7ps/h/EgkgEiw+Gg6DSOXA88LT2gMdAwMPNEASApsIwoVVFf6oSAcCqnkmpA7DsZMU4mLQiOF6TjblLaGPE4bQnxFgc0ftLSciLqTr2a9oISTudzxLGkQvwRwBgQ2tHIlfPheACedyZdUtaviBwCnpt2IxgzjHH382DeTa8ERS9fPB9mKLXK/V5b/AasbCmAPgFwQA9Ci0Z2UdNdXpBoTgzT+PZX8jrM2sJkSrUlNAJWYUD36CwBe6ZHsigN0z7DLBWG3qjXbM+FeIcQfUkoxpQlgql6QxH9UjaoOpYT9grFvpbsyylluYtQBOgH0VHcqdtGfzeU+lt4hGSHeId5W9xO94QjRbev6hwAuVHss9yNN3FXS6qsAFhOXqPuJCam+KXyLGhpwIUt2yAI8u6UPtTdAYptIaJMtRHF8HcfpkYX3eIsK8RogyDBwZR3jhAAAAABJRU5ErkJggg==" alt="" aria-hidden="true" width="28" height="28"><span>人機協作</span></button></div>
  <div class="workspace-position"><span id="workspace-step-label">步驟 01 / 09</span><span class="workspace-meter" aria-hidden="true"><span id="workspace-meter-fill"></span></span></div>
  </div><aside id="sidebar"></aside><section id="experience" class="experience" role="tabpanel" aria-labelledby="tab-original" tabindex="0"></section></div></main>
 <footer class="site-footer"><span>SAS <span class="footer-divider">/</span> 為照顧，留一點餘裕。</span><span>互動教學 · 全程使用示範資料 <span class="footer-mark" aria-hidden="true">↗</span></span></footer>

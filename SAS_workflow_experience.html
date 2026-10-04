@@ -2,6 +2,8 @@
 <html lang="zh-Hant">
 <head>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#f4f2eb">
+<meta name="description" content="親手體驗每月 A 派 B 報表的兩種工作方式：從手動整理到人機協作，讓時間回到照顧本身。">
 <title>SAS｜輪派作業互動體驗</title>
 <style>
 :root{--ink:#1d2f3d;--muted:#666666;--accent:#f58026;--line:#dddddd;--paper:#f9f9f9;--amber:#d84315;--wash:#fff3e0;--white:#fff}
@@ -199,11 +201,888 @@ main{flex:1;min-height:0;display:grid;grid-template-columns:242px minmax(0,1fr)}
 #unit-reply-hint{margin:14px 0 0;line-height:1.8}
 #unit-reply{scroll-margin-block:18px}
 #unit-reply-error:empty{display:none}
+/* Editorial interface only. The original simulation CSS above is preserved verbatim. */
+:root{--lab-ink:#242a25;--lab-muted:#666a60;--lab-accent:#b94a29;--lab-line:#deded3;--lab-paper:#f4f2eb;--lab-wash:#eee9dd;--lab-white:#fffef9}
+html{scroll-behavior:smooth;scroll-padding-top:24px}
+body{height:auto;min-height:100dvh;overflow:auto;background:var(--lab-paper);}
+.skip-link{position:fixed;left:20px;top:-80px;background:var(--lab-ink);color:white;padding:12px 20px;z-index:99;border-radius:4px}
+.skip-link:focus{top:12px}
+header{height:100px;min-height:100px;max-width:1600px;width:100%;margin:auto;padding:0 4%;gap:24px;border-bottom:1px solid var(--lab-line);background:transparent}
+.logo{width:42px;height:46px;object-fit:contain}
+.brand{gap:15px}
+.brand strong{font-size:17px;letter-spacing:.4px;font-weight:600}
+.brand-overline{font:10px/2.2 Consolas,monospace;letter-spacing:1.6px;color:var(--lab-muted)}
+.tabs{background:#e9e7df;border:1px solid #deded3;border-radius:7px;padding:4px;gap:3px}
+.tabs button{font-size:13px;padding:11px 15px;border-radius:4px;color:#62675c;white-space:nowrap}
+.tabs b{color:inherit;font-family:Consolas,monospace;margin-right:7px;font-size:10px}
+.tabs button[aria-selected=true]{background:var(--lab-ink);color:#fffef7;box-shadow:0 2px 4px #242a2515}
+.tab-en{font-size:11px;opacity:.72;margin-left:6px}
+.top-actions{gap:10px}
+.top-actions button{font-size:12px;border-radius:4px;padding:9px 12px}
+.top-actions #fullscreen{border-color:#cecec1}
+.intro{position:relative;display:grid;grid-template-columns:1.2fr 1fr;gap:40px;align-items:center;padding:46px 4% 42px;max-width:1600px;width:100%;margin:auto}
+.intro .eyebrow{display:flex;align-items:center;gap:10px;font:10px/1.5 Consolas,monospace;letter-spacing:1.4px;color:#666a60}
+.edition-dot{width:6px;height:6px;border-radius:50%;background:var(--lab-accent)}
+.edition{border-left:1px solid #bfc2b6;padding-left:12px;margin-left:4px;font-size:10px;letter-spacing:.5px}
+.intro h1{font-size:clamp(30px,3.2vw,51px);font-weight:500;letter-spacing:-1.5px;line-height:1.35;margin:21px 0 15px}
+.intro h1 span{display:block;color:#b7492a}
+.intro p{font-size:13px;line-height:1.9;color:var(--lab-muted);margin:0 0 20px}
+.intro-link{display:inline-flex;align-items:center;gap:36px;font-size:12px;text-decoration:none;padding-bottom:8px;border-bottom:1px solid #989d8f}
+.intro-link span{font-size:20px;line-height:1;transition:transform .2s}
+.intro-link:hover span{transform:translate(3px,3px)}
+.flow-art{height:242px;position:relative;isolation:isolate;overflow:hidden;display:flex;align-items:center;justify-content:center;gap:22px;background:radial-gradient(ellipse at center,#e4e4d66b,transparent 72%)}
+.orbit{position:absolute;width:360px;height:176px;border:1px solid #dcddd0;border-radius:50%;z-index:-1;transform:rotate(-22deg)}
+.orbit-two{transform:rotate(22deg);width:300px;height:225px}
+.art-label{position:absolute;left:20px;top:8px;font:9px Consolas,monospace;letter-spacing:1.8px;color:#666a60}
+.art-cross{position:absolute;color:#979d89;font:18px Consolas,monospace}
+.cross-one{right:18px;top:4px}
+.cross-two{left:20px;bottom:10px}
+.flow-line{position:absolute;left:12%;right:12%;height:1px;background:#acb09d;z-index:-1}
+.flow-node{background:#f9f8f1;width:100px;height:124px;border:1px solid #d2d6c6;border-radius:5px;padding:15px;display:flex;flex-direction:column;justify-content:flex-end;box-shadow:0 8px 18px #333a2b05;transform:rotate(-7deg)}
+.flow-node small{font:8px Consolas,monospace;letter-spacing:1px;color:#62675c;margin-bottom:4px}
+.flow-node strong{font-size:15px;font-weight:500;letter-spacing:2px}
+.node-symbol{font-size:29px;line-height:1;display:block;margin-bottom:auto}
+.node-skill{background:var(--lab-accent);border-color:var(--lab-accent);color:#fff9e9;transform:translateY(-9px) rotate(5deg);box-shadow:0 12px 24px #a9422722}
+.node-skill small{color:#fff9e9}
+.node-skill .node-symbol{font-size:42px}
+.node-human{transform:rotate(-4deg);background:#e9ecdf}
+.art-caption{position:absolute;bottom:6px;right:20px;font-size:10px;letter-spacing:.5px;color:#666a60}
+.art-caption i{display:inline-block;width:5px;height:5px;border-radius:50%;background:#7d8b66;margin-right:6px}
+main{flex:none;display:grid;grid-template-columns:238px minmax(0,1fr);max-width:1472px;width:92%;margin:0 auto;background:#fcfbf6;border:1px solid #d7d8cd;border-radius:10px;overflow:hidden;box-shadow:0 6px 30px #252c2104;min-height:750px}
+aside{padding:29px 22px 24px;background:#eeeee4;border-color:#d7d8cd;overflow:hidden}
+aside .eyebrow{font:9px Consolas,monospace;letter-spacing:2px;color:#646b58}
+.sidebar-title{font-size:21px;line-height:1.6;letter-spacing:-.4px;margin:16px 0 9px;font-weight:500}
+.sidebar-description{font-size:11px;color:#666d5b;margin-bottom:25px}
+.steps{position:relative}
+.steps li{position:relative;gap:9px;padding:10px 8px;font-size:12px;margin:4px 0;border-radius:4px;color:#626859;min-height:40px}
+.steps .active{background:#fffdf5;color:#272e22;box-shadow:0 2px 9px #242a2506}
+.steps .active:after{content:"";height:16px;width:3px;background:var(--lab-accent);position:absolute;left:-22px;top:50%;transform:translateY(-50%)}
+.stepnum{font:10px Consolas,monospace;width:23px;height:23px;color:#747b68}
+.active .stepnum{background:var(--lab-accent);color:white;border-radius:4px}
+.done .stepnum{background:#dfe4d3;color:#3b5431;border-radius:4px}
+.steps .done{color:#505b44}
+.aside-bottom{padding-top:30px}
+.progress-caption{font:9px Consolas,monospace;letter-spacing:1.5px;color:#6d7462;margin-bottom:10px}
+.aside-bottom .small{font:11px "Segoe UI",sans-serif}
+.progress-track{height:3px;background:#d9ddce;margin-top:14px}
+.progress-fill{background:var(--lab-accent)}
+.experience{padding:28px;gap:20px;min-width:0;scroll-margin-top:24px}
+.page-heading{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:13px;padding:0}
+.page-heading>div:first-child{width:auto;min-width:0}
+.page-kicker{font:10px Consolas,"Microsoft JhengHei",sans-serif;letter-spacing:1.5px;color:#787d6d}
+.page-heading h2{font-size:27px;font-weight:500;letter-spacing:-.7px;line-height:1.5;margin-top:5px}
+.page-heading>.badge{grid-column:2;grid-row:1;align-self:center;font-size:10px;background:transparent;border:1px solid #d5d9c9;border-radius:30px;color:#526042;padding:6px 10px}
+.page-heading>.guide{grid-row:2;grid-column:1/-1;justify-self:stretch;width:auto;max-width:none;white-space:normal;background:#f0eee4;border:0;border-left:2px solid #d95630;border-radius:0;padding:11px 14px;justify-content:flex-start;gap:14px;text-align:left;overflow:visible}
+.guide-label{font-size:11px;color:#a44429;white-space:nowrap;font-weight:500}
+.guide-label span{margin-right:4px}
+.guide p{font-size:12px;line-height:1.7;flex:1;min-width:0;color:#535949}
+.site-footer{display:flex;justify-content:space-between;align-items:center;gap:20px;width:92%;max-width:1472px;margin:0 auto;padding:24px 0 30px;font-size:11px;color:#6b705f}
+.footer-divider{margin:0 10px;color:#a6aa9a}
+.footer-mark{font-size:19px;margin-left:20px;color:#46523b}
+@keyframes enter-page{from{opacity:0;transform:translateY(9px)}
+to{opacity:1;transform:translateY(0)}
+}
+.intro-copy{animation:enter-page .5s ease-out both}
+.page-heading{animation:enter-page .3s ease-out both}
+@media(min-width:1600px){
+.experience{padding:32px}
+.intro{padding-top:56px;padding-bottom:50px}
+}
+@media(max-width:1200px){
+header{height:auto;display:grid;grid-template-columns:1fr auto;min-height:115px;padding:16px 4%;gap:12px}
+.brand{grid-row:1;grid-column:1}
+.top-actions{grid-row:1;grid-column:2}
+.tabs{grid-row:2;grid-column:1/-1;justify-self:start}
+.intro{gap:24px}
+.intro h1{font-size:37px}
+.intro .edition{display:none}
+.flow-art{gap:13px}
+.flow-node{width:88px}
+.experience{padding:23px}
+main{grid-template-columns:210px minmax(0,1fr)}
+aside{padding-left:18px;padding-right:18px}
+.steps .active:after{left:-18px}
+.guide p{font-size:12px}
+.page-heading>.guide{justify-self:stretch}
+}
+@media(max-width:900px){
+.intro{grid-template-columns:1.2fr 1fr;padding-top:32px;padding-bottom:32px}
+.intro h1{font-size:32px}
+.flow-node{width:72px;height:106px;padding:10px}
+.flow-art{gap:10px;height:215px}
+.art-label{font-size:7px;letter-spacing:1px;left:0}
+.art-caption{right:0;font-size:9px}
+.flow-node small{font-size:7px;letter-spacing:0}
+.flow-node strong{font-size:13px}
+.orbit{width:245px;height:140px}
+.orbit-two{width:205px;height:180px}
+.experience{padding:20px}
+.page-heading h2{font-size:24px}
+}
+@media(max-width:760px){
+header{min-height:112px;padding:16px 5%;gap:16px 10px}
+.brand strong{font-size:14px}
+.brand-overline{font-size:8px;letter-spacing:1.1px}
+.brand{gap:9px}
+.logo{width:31px;height:37px}
+.top-actions{gap:0}
+.top-actions button{padding:7px;font-size:11px}
+.top-actions #fullscreen{display:none}
+.tabs{width:100%;justify-self:stretch}
+.tabs button{flex:1;padding:10px 7px;font-size:12px}
+.tab-en{font-size:10px}
+.intro{padding:30px 5% 28px;grid-template-columns:1fr;gap:22px}
+.intro h1{font-size:36px;letter-spacing:-1.3px;margin-top:15px}
+.intro h1 span{display:block}
+.intro p{font-size:12px;max-width:410px}
+.intro .eyebrow{font-size:9px;letter-spacing:1px}
+.intro .edition{display:inline;font-size:8px}
+.flow-art{display:none}
+main{width:90%;display:flex;flex-direction:column;min-height:0;border-radius:8px}
+aside{display:block;padding:14px 16px 0;border-right:0;border-bottom:1px solid #d7d8cd;position:relative}
+aside>.eyebrow,.sidebar-title,.sidebar-description,.aside-bottom{display:none}
+.steps{display:flex;overflow:auto;gap:8px;scrollbar-width:thin;padding:0 0 12px}
+.steps li{flex:0 0 auto;font-size:11px;padding:5px 10px;margin:0;min-height:32px;gap:7px}
+.steps li:not(.active):not(.done){opacity:.85}
+.steps .active:after{display:none}
+.stepnum{width:20px;height:20px;font-size:9px}
+.experience{padding:20px 14px 14px;gap:15px;scroll-margin-top:15px}
+.page-heading{gap:12px}
+.page-heading h2{font-size:23px;letter-spacing:-.7px}
+.page-kicker{font-size:9px}
+.page-heading>.badge{font-size:9px;padding:5px 8px}
+.page-heading>.guide{padding:10px 11px;gap:10px}
+.guide-label{font-size:10px}
+.guide p{font-size:11px}
+.site-footer{width:90%;align-items:flex-start;font-size:10px;line-height:1.8;flex-direction:column;gap:7px;padding:21px 0}
+.footer-mark{margin-left:10px}
+}
+@media(max-width:380px){
+.intro h1{font-size:31px}
+.edition{display:none!important}
+.brand strong{font-size:12px}
+.brand-overline{font-size:7px}
+.page-heading h2{font-size:21px}
+.guide-label{display:none}
+.tab-en{display:none}
+.page-heading>.badge{font-size:8px}
+.experience{padding:17px 10px 10px}
+}
+@media(prefers-reduced-motion:reduce){
+html{scroll-behavior:auto}
+}
+header,.intro,#sidebar,.page-heading,.site-footer{color:var(--lab-ink)}
+header button{transition:background .2s,color .2s,box-shadow .2s;touch-action:manipulation}
+.intro a{color:inherit}
+.skip-link:focus-visible,.intro a:focus-visible,header button:focus-visible{outline:2px solid #b7492a;outline-offset:5px}
+main{min-height:0}
+.experience{height:820px;flex:none}
+@media(max-width:760px){.experience{height:850px}}
+
+/* Finish the surrounding composition without reaching into simulated applications. */
+header{height:88px;min-height:88px}
+.brand-overline{font-size:10px;letter-spacing:1.7px}
+.intro{grid-template-columns:1.15fr 1fr;gap:56px;padding-top:48px;padding-bottom:44px}
+.intro h1{font-size:clamp(38px,3.8vw,58px);font-weight:500;letter-spacing:-2px;line-height:1.3;margin:22px 0 18px}
+.intro p{font-size:14px;max-width:470px;line-height:1.9;margin-bottom:25px}
+.intro-link{font-size:13px;gap:44px;transition:border-color .2s;padding-bottom:10px}
+.intro-link:hover{border-color:var(--lab-accent)}
+.flow-art{height:280px;background:#28312b;border-radius:4px;color:#f1efdf;gap:25px;box-shadow:inset 0 0 0 1px #ffffff09;overflow:hidden}
+.flow-art::before{content:"";position:absolute;inset:0;pointer-events:none;background-image:radial-gradient(#aeb5a02b .7px,transparent .7px);background-size:12px 12px;z-index:-2;mask-image:linear-gradient(130deg,#000,transparent 65%)}
+.orbit{border-color:#69745c5c;width:410px;height:184px}
+.orbit-two{width:320px;height:265px}
+.art-label{left:23px;top:20px;color:#bec7b3;font-size:9px;letter-spacing:1.4px}
+.art-cross{color:#a2b28d}.cross-one{right:21px;top:14px}.cross-two{left:22px;bottom:15px}
+.flow-line{background:#91a07877}
+.flow-node{width:105px;height:134px;padding:15px;color:#28312b;box-shadow:0 12px 30px #0002;border-color:#d3d7c9;transition:transform .45s cubic-bezier(.2,.8,.2,1)}
+.node-skill{background:#b94a29;color:#fff7e5;border-color:#b94a29;box-shadow:0 14px 28px #0003}
+.node-skill small{color:#fff7e5}
+.node-human{background:#dce2cd}
+.flow-art:hover .node-data{transform:translateX(-4px) rotate(-10deg)}
+.flow-art:hover .node-skill{transform:translateY(-13px) rotate(2deg)}
+.flow-art:hover .node-human{transform:translateX(4px) rotate(0deg)}
+.art-caption{bottom:20px;right:23px;color:#c9d0be;font-size:11px}
+.art-caption i{background:#c9d0be}
+main{border-radius:6px;border-color:#ced2c4;box-shadow:none}
+aside{background:#e9ece0;border-color:#ced2c4}
+aside .eyebrow{font-size:10px}
+.sidebar-title{font-size:23px;line-height:1.55;letter-spacing:-.5px;margin-top:18px}
+.sidebar-description{font-size:12px;line-height:1.8}
+.steps li{font-size:13px;min-height:43px;padding-top:10px;padding-bottom:10px}
+.steps .active{box-shadow:0 3px 12px #26332208}
+.stepnum{font-size:11px}
+.progress-caption{font-size:10px}
+.aside-bottom .small{font-size:12px}
+.page-kicker{font-size:11px;color:#666d5d}
+.page-heading h2{font-size:28px;letter-spacing:-.8px}
+.page-heading>.badge{font-size:11px;padding:6px 11px}
+.page-heading>.guide{padding:12px 15px;background:#efeee4}
+.guide-label{font-size:12px}.guide p{font-size:13px;line-height:1.75}
+.site-footer{font-size:12px;padding-top:26px;padding-bottom:30px}
+@media(min-width:1600px){.intro{padding-top:58px;padding-bottom:52px}.flow-art{height:302px}}
+@media(max-width:1200px){header{height:auto;min-height:115px}.intro{gap:30px}.intro h1{font-size:42px}.flow-art{gap:16px}.flow-node{width:89px;height:126px;padding:12px}}
+@media(max-width:900px){.intro{gap:24px;grid-template-columns:1.1fr 1fr}.intro h1{font-size:36px}.intro p{font-size:13px}.flow-art{height:256px;gap:10px}.flow-node{width:72px;height:114px;padding:10px}.art-label{font-size:8px;left:15px;letter-spacing:.6px}.art-caption{font-size:10px;right:15px}.orbit{width:285px}.orbit-two{width:225px;height:240px}.steps li{font-size:12px}}
+@media(max-width:760px){
+ header{min-height:112px}.intro{padding:31px 5% 28px;grid-template-columns:1fr;gap:0}.intro h1{font-size:42px;letter-spacing:-1.5px;margin-top:19px;margin-bottom:16px}.intro p{font-size:13px;max-width:440px;margin-bottom:20px}.intro-link{font-size:12px}.intro .edition{font-size:8px}.flow-art{display:none}
+ main{width:94%}aside{padding:12px 12px 0}.steps{gap:7px;padding-bottom:12px}.steps li{min-height:35px;padding:5px 8px;font-size:12px}.stepnum{font-size:10px}.experience{padding:21px 12px 14px;gap:17px;height:850px}.page-heading h2{font-size:25px}.page-kicker{font-size:10px}.page-heading>.badge{font-size:10px;padding:5px 8px}.guide-label{font-size:11px}.guide p{font-size:12px}.page-heading>.guide{padding:10px 12px;gap:10px}.site-footer{width:90%;font-size:11px;padding-top:22px}
+}
+@media(max-width:380px){.intro h1{font-size:36px}.intro p{font-size:12px}.experience{padding:18px 10px 12px}.page-heading h2{font-size:22px}.page-heading>.badge{font-size:9px}.guide-label{display:none}}
+@media(prefers-reduced-motion:reduce){.intro-copy,.page-heading{animation:none}.flow-node,.intro-link,.intro-link span{transition:none}html{scroll-behavior:auto}}
+
+/* Shell interaction references (independent implementation, no runtime dependencies):
+   Magic UI Interactive Hover Button: https://magicui.design/docs/components/interactive-hover-button
+   Magic UI Animated Beam: https://magicui.design/docs/components/animated-beam
+   WAI-ARIA Tabs: https://www.w3.org/WAI/ARIA/apg/patterns/tabs/
+   Styles below intentionally do not target the simulated application. */
+.shell-sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap;border:0}
+header .tabs{position:relative;isolation:isolate;display:grid;grid-template-columns:1fr 1fr;gap:0;padding:4px;border-radius:9px}
+header .tabs::before{content:"";position:absolute;top:4px;bottom:4px;left:4px;width:calc((100% - 8px)/2);border-radius:5px;background:#28312b;box-shadow:0 2px 5px #2430221a;transform:translateX(0);transition:transform .3s cubic-bezier(.22,.8,.25,1);z-index:-1;pointer-events:none}
+body[data-mode="skill"] header .tabs::before{transform:translateX(100%)}
+header .tabs button{min-height:44px;border-radius:5px;font-weight:500;transition:color .2s,box-shadow .2s}
+header .tabs button[aria-selected=true]{background:transparent;box-shadow:none;color:#fffdf6}
+header .tabs button[aria-selected=false]{background:transparent;color:#555e4b}
+header .tabs button[aria-selected=false]:hover{background:#ffffff45;color:#28312b}
+header .tabs button:focus-visible{outline:2px solid #b94a29;outline-offset:6px}
+header .tabs button:active{transform:none}
+.top-actions{gap:7px}
+.top-actions button{min-height:44px;display:inline-flex;align-items:center;justify-content:center;gap:7px;line-height:1.4}
+.top-actions .shell-control{border:1px solid #c6ccbc;background:#faf9f2;color:#394332;border-radius:6px;padding:10px 12px;white-space:nowrap;transition:background .18s,border-color .18s,box-shadow .18s}
+.top-actions .shell-control:hover{background:#e7ecde;border-color:#8c9b7b}
+.top-actions .shell-control[aria-pressed=true]{background:#28312b;border-color:#28312b;color:#fffdf4}
+.top-actions .shell-control:active{box-shadow:inset 0 2px 4px #17211422}
+.top-actions .shell-control svg{flex:none}
+.top-actions #reset:hover{background:#e9e9df;color:#303b28}
+.top-actions button:focus-visible{outline:2px solid #b94a29;outline-offset:4px}
+.intro-actions{display:flex;align-items:center;gap:19px;flex-wrap:wrap}
+.intro .intro-link{position:relative;isolation:isolate;display:inline-flex;align-items:center;gap:20px;min-height:50px;padding:12px 18px;border:1px solid #a9b19d;border-radius:30px;overflow:hidden;background:#fffef8;color:#2b3527;font-size:13px;font-weight:600;line-height:1.5;text-decoration:none;transition:color .26s,border-color .26s,box-shadow .26s}
+.intro .intro-link::before{content:"";position:absolute;inset:0;background:#28312b;clip-path:circle(0% at 25px 50%);transition:clip-path .4s cubic-bezier(.22,.8,.25,1);z-index:-1}
+.intro .intro-link .cta-dot{flex:none;width:7px;height:7px;border-radius:50%;background:#b94a29;transition:background .2s,transform .3s}
+.intro .intro-link .cta-label{font-size:13px;line-height:1.5;transform:none;transition:none}
+.intro .intro-link .cta-arrow{flex:none;transition:transform .3s}
+.intro .intro-link:is(:hover,:focus-visible){color:#fffdf6;border-color:#28312b;box-shadow:0 5px 14px #27342316}
+.intro .intro-link:is(:hover,:focus-visible)::before{clip-path:circle(150% at 25px 50%)}
+.intro .intro-link:is(:hover,:focus-visible) .cta-dot{background:#e4b294}
+.intro .intro-link:is(:hover,:focus-visible) .cta-arrow{transform:translate(2px,2px)}
+.intro .intro-link:active{box-shadow:inset 0 2px 4px #0002}
+.intro-note{font-size:11px;color:#606a54;letter-spacing:.2px}
+.flow-line{overflow:hidden;height:2px}
+.flow-signal{position:absolute;inset:0;background:linear-gradient(90deg,transparent,#dfb17e,transparent);transform:translateX(-110%);opacity:0}
+@keyframes shell-signal{0%{opacity:0;transform:translateX(-110%)}20%{opacity:1}80%{opacity:1}100%{opacity:0;transform:translateX(110%)}}
+@media(hover:hover) and (pointer:fine){.flow-art:hover .flow-signal{animation:shell-signal 1.4s ease-in-out 1}}
+body.is-focused .intro,body.is-focused #sidebar,body.is-focused .site-footer{display:none}
+body.is-focused main{grid-template-columns:minmax(0,1fr);width:94%;margin-top:24px;margin-bottom:24px}
+body.is-focused .experience{height:calc(100dvh - 140px);min-height:640px}
+@media(max-width:1200px){body.is-focused .experience{height:calc(100dvh - 196px)}}
+@media(max-width:760px){
+ header{grid-template-columns:minmax(0,1fr) auto;padding:14px 5%;gap:14px 10px}
+ header .brand{grid-column:1/-1;grid-row:1}
+ header .brand strong{font-size:14px}
+ header .top-actions{grid-column:2;grid-row:2;gap:3px;justify-self:end;margin-left:0}
+ header .top-actions button{padding:9px;min-width:44px;font-size:11px}
+ header .top-actions .shell-control{gap:5px}
+ header .top-actions .shell-control svg{width:13px;height:13px}
+ header .tabs{grid-column:1;grid-row:2;width:100%;justify-self:stretch;min-width:0}
+ header .tabs button{font-size:11px;padding:9px 5px;min-width:0}
+ header .tabs b{font-size:9px;margin-right:4px}
+ header .tab-en{display:none}
+ .intro-actions{gap:12px}
+ .intro-note{font-size:10px}
+ .intro .intro-link{min-height:48px;gap:15px;padding:11px 15px}
+ body.is-focused main{width:94%;margin-top:16px;margin-bottom:16px}
+ body.is-focused .experience{height:calc(100dvh - 184px);min-height:720px}
+}
+@media(max-width:380px){
+ header{padding-left:4%;padding-right:4%;gap:12px 6px}
+ header .tabs button{font-size:10px;padding:8px 4px}
+ header .tabs b{display:none}
+ header .top-actions button{padding:8px 6px;font-size:10px}
+ .intro-actions{gap:10px}
+ .intro-note{flex-basis:100%}
+}
+@media(prefers-reduced-motion:reduce){
+ header .tabs::before,.intro .intro-link,.intro .intro-link::before,.intro .cta-dot,.intro .cta-arrow,.top-actions .shell-control{transition:none!important}
+ .flow-art:hover .flow-signal{animation:none}
+}
+
+/* Skill step 1 only: Windows 11 File Explorer. Other simulations keep their original styles. */
+.win11-transfer{color:#202020;font-family:"Segoe UI","Microsoft JhengHei",sans-serif;background:#fff;border-color:#bcc2c9}
+.win11-transfer .window-bar{height:44px;min-height:44px;gap:0;padding-left:14px;background:#eef2f8;border-bottom:0;color:#202020}
+.win11-transfer .window-bar>.app-icon{background:#fff;color:inherit;border-radius:7px 0 0 0;width:36px;height:34px;align-self:flex-end;padding:8px 6px 6px 12px}
+.win11-transfer .window-bar>.window-name{flex:0 1 230px;align-self:flex-end;background:white;height:34px;border-radius:0 7px 0 0;padding:8px 14px 6px 6px;font-size:12px;line-height:20px}
+.win11-transfer .caption-controls{margin-left:auto}
+.win11-transfer #stage{display:flex;flex-direction:column;overflow:hidden;background:white}
+.win11-transfer .wx-browser{position:relative;display:flex;flex-direction:column;flex:1;min-height:0;outline:none;font-size:12px;line-height:1.5;background:#fff}
+.wx-browser button{color:#222;font:12px/1.5 "Segoe UI","Microsoft JhengHei",sans-serif;box-shadow:none;transition:background .12s;border-radius:4px}
+.wx-browser button:focus-visible,.wx-browser input:focus-visible,.wx-files:focus-visible{outline:2px solid #0067c0;outline-offset:-2px}
+.wx-icon{width:18px;height:18px;display:inline-block;flex:none;vertical-align:middle}
+.wx-folder-icon{width:21px;height:21px}
+.wx-addressbar{display:flex;align-items:center;gap:12px;padding:10px 14px;border-bottom:1px solid #e6e6e6;flex:none;min-height:56px;background:white}
+.wx-history{display:flex;gap:4px;flex:none}
+.wx-history button{display:grid;place-items:center;width:30px;height:32px;padding:6px;border:0;background:transparent}
+.wx-browser button:hover:not(:disabled){background:#f0f0f0}
+.wx-browser button:disabled{opacity:.36;cursor:default}
+.wx-address{min-width:0;display:flex;align-items:center;gap:10px;flex:1;height:34px;padding:0 10px;border:1px solid #dedede;border-bottom-color:#aaa;border-radius:4px;background:#fff;white-space:nowrap;overflow:auto;scrollbar-width:thin}
+.wx-address>.wx-icon:not(.wx-folder-icon){width:14px;height:14px;color:#536777}
+.wx-address button{border:0;background:transparent;padding:4px 5px;white-space:nowrap}
+.wx-search{display:flex;align-items:center;gap:8px;width:190px;height:34px;padding:0 9px;border:1px solid #dedede;border-bottom-color:#aaa;border-radius:4px;color:#666;flex:none}
+.wx-search>.wx-icon{width:14px;height:14px}
+.wx-search input{font:12px "Segoe UI","Microsoft JhengHei",sans-serif;min-width:0;width:100%;border:0;border-radius:0;padding:5px 0;background:transparent;color:#222;outline-offset:2px}
+.wx-commandbar{display:flex;align-items:center;gap:7px;padding:9px 15px;border-bottom:1px solid #e4e4e4;min-height:53px;flex:none;background:#fbfbfb}
+.wx-commandbar button{display:flex;align-items:center;justify-content:center;gap:6px;border:0;background:transparent;padding:6px 8px;min-width:32px;height:32px}
+.wx-commandbar .wx-new{padding:6px 10px;min-width:74px;width:auto;flex:none;white-space:nowrap;opacity:.55}
+.wx-commandbar .wx-new>span:first-child{font-size:20px;line-height:1}
+.wx-separator{height:20px;width:1px;background:#e1e1e1;margin:0 7px;flex:none}
+.wx-view-label{display:inline-flex;align-items:center;gap:7px;white-space:nowrap;margin:0 5px;color:#535353;font-size:12px}
+.wx-view-label .wx-icon{width:16px;height:16px}
+.wx-content{flex:1;min-height:0;display:grid;grid-template-columns:172px minmax(0,1fr);overflow:hidden}
+.wx-navigation{overflow:auto;padding:14px 7px;border-right:1px solid #ebebeb;background:#fcfcfc}
+.wx-navigation button,.wx-nav-static{display:flex;align-items:center;gap:11px;position:relative;width:100%;border:0;background:transparent;text-align:left;min-height:36px;padding:8px 10px;margin:2px 0;white-space:nowrap}
+.wx-navigation button[aria-current=location]{background:#e8eef5}
+.wx-navigation button[aria-current=location]::before{content:"";position:absolute;left:0;top:10px;bottom:10px;width:3px;border-radius:2px;background:#0067c0}
+.wx-navigation button:hover{background:#f0f0f0}
+.wx-navigation .wx-icon:not(.wx-folder-icon){color:#1573b8}
+.wx-pin{margin-left:auto;color:#777;font-size:14px}
+.wx-nav-static{color:#727272}
+.wx-nav-divider{height:1px;background:#e7e7e7;margin:12px 8px}
+.wx-child{padding-left:14px}
+.wx-files{overflow:auto;min-width:0;position:relative;padding:0 12px;background:white}
+.wx-columns,.wx-item{display:grid;grid-template-columns:minmax(210px,1fr) 170px 100px 65px;align-items:center;min-width:570px}
+.wx-columns{height:37px;position:sticky;top:0;z-index:1;background:#fff;color:#666;font-size:11px;border-bottom:1px solid #f0f0f0}
+.wx-columns>span{padding:0 11px;border-right:1px solid #ebebeb;position:relative}.wx-columns>span:last-child{border:0;text-align:right}
+.wx-columns small{position:absolute;left:50%;top:-10px;font-size:12px;color:#444}
+.wx-browser .wx-item{width:100%;padding:2px 0;margin:4px 0 0;border:1px solid transparent;border-radius:4px;background:#fff;text-align:left;min-height:38px;line-height:1.4}
+.wx-item>span{padding:0 10px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:#555;font-size:12px}
+.wx-item>span:last-child{text-align:right}.wx-item .wx-name{display:flex;align-items:center;gap:10px;color:#222}
+.wx-item .wx-xml-icon{width:21px;height:26px}
+.wx-item .wx-name>span{overflow:hidden;text-overflow:ellipsis}
+.wx-browser .wx-item:hover{background:#f2f7fc}
+.wx-browser .wx-item[aria-pressed=true]{background:#e5f3ff;border-color:#c8e4fb}
+.wx-browser .wx-item[aria-pressed=true]:hover:not(:disabled){background:#dceeff}
+.wx-item.is-cut .wx-name{opacity:.43}
+.wx-empty{text-align:center;color:#646464;font-size:12px;margin:24px 12px;white-space:nowrap}
+.wx-statusbar{display:flex;justify-content:space-between;align-items:center;gap:12px;min-height:30px;padding:5px 15px;border-top:1px solid #eee;background:#fbfbfb;font-size:11px;color:#585858;flex:none}
+.wx-navigation .wx-drag-over,.wx-files.wx-drag-over{background:#e5f3ff;box-shadow:inset 0 0 0 2px #0078d4}
+.wx-context{position:absolute;z-index:5;width:235px;max-width:calc(100% - 8px);padding:5px;background:#fcfcfcf7;border:1px solid #d6d6d6;border-radius:8px;box-shadow:0 7px 25px #0003;backdrop-filter:blur(12px);outline:none}
+.wx-context button{display:flex;align-items:center;gap:12px;width:100%;min-height:36px;padding:8px 10px;border:0;background:transparent;text-align:left;font-size:12px}
+.wx-context button:focus{background:#eaeaea;outline:2px solid #0067c0;outline-offset:-2px}
+.wx-context kbd{margin-left:auto;font:11px "Segoe UI",sans-serif;color:#666}
+.wx-coach{display:flex;align-items:center;justify-content:space-between;gap:16px;border:1px solid #d9ddce;border-radius:5px;background:#f0f2e8;padding:12px 15px;flex:none;color:#394332}
+.wx-coach-label{display:block;font-size:10px;font-weight:600;letter-spacing:.6px;color:#5d6a50;margin-bottom:3px}
+.wx-coach p{font-size:12px;line-height:1.7;margin:0}
+.wx-coach button{background:#28312b;border:1px solid #28312b;color:#fff;border-radius:5px;box-shadow:none;font-size:12px;line-height:1.5;padding:11px 14px;white-space:nowrap;flex:none}
+.wx-coach button:hover:not(:disabled){background:#45583d;color:white}
+.wx-coach button:disabled{opacity:1;background:#e0e5d7;color:#7c8573;border-color:#d2d8c8}
+.wx-coach button:focus-visible{outline:2px solid #b94a29;outline-offset:3px}
+.win11-transfer.is-maximized{bottom:105px}
+.experience:has(.win11-transfer.is-maximized)>.wx-coach{position:fixed;left:14px;right:14px;bottom:14px;z-index:9;min-height:76px}
+@media(max-width:1100px){.wx-search{width:145px}.wx-content{grid-template-columns:144px minmax(0,1fr)}.wx-view-label{display:none}.wx-coach{gap:10px;padding:10px 12px}.wx-coach button{font-size:11px;padding:10px}.wx-commandbar{gap:4px}.wx-addressbar{gap:7px;padding:9px 10px}.wx-navigation button{gap:8px;padding-left:8px}.wx-child{padding-left:8px}}
+@media(max-width:680px){
+ .win11-transfer .window-bar{padding-left:6px;height:40px;min-height:40px}.win11-transfer .window-bar>.window-name{font-size:11px;flex-basis:155px}.win11-transfer .window-bar>.app-icon{padding-left:8px;width:30px}
+ .wx-addressbar{display:grid;grid-template-columns:auto minmax(0,1fr);gap:7px;padding:8px}.wx-history{gap:0}.wx-history button{width:27px;padding:5px}.wx-address{gap:4px;padding:0 7px}.wx-address>svg:first-child{display:none}.wx-search{grid-column:1/-1;width:auto;height:31px}.wx-search input{font-size:16px}
+ .wx-commandbar{padding:6px;gap:2px;min-height:46px}.wx-commandbar .wx-new{min-width:59px;font-size:11px;padding:5px}.wx-commandbar button{min-width:29px;width:29px;padding:5px}.wx-separator{margin:0 4px}
+ .wx-content{grid-template-columns:105px minmax(0,1fr)}.wx-navigation{padding:10px 3px}.wx-navigation button,.wx-nav-static{gap:6px;font-size:11px;padding:7px 5px;min-height:38px}.wx-navigation .wx-icon{width:17px;height:17px}.wx-child{padding-left:5px}.wx-pin{display:none}.wx-nav-divider{margin:10px 4px}
+ .wx-files{padding:0 5px}.wx-columns,.wx-item{grid-template-columns:185px 160px 85px 55px;min-width:485px}.wx-columns>span,.wx-item>span{padding-left:7px;padding-right:7px}.wx-item .wx-name{gap:6px}.wx-browser .wx-item{min-height:40px}
+ .wx-empty{font-size:11px;margin:22px 3px;white-space:normal}.wx-statusbar{font-size:10px;padding:5px 9px}.wx-statusbar>span:last-child{display:none}
+ .wx-coach{align-items:stretch;flex-direction:column;gap:9px;padding:11px 12px}.wx-coach p{font-size:11px}.wx-coach button{min-height:42px;text-align:center;font-size:12px;white-space:normal}
+ .win11-transfer.is-maximized{bottom:160px}.experience:has(.win11-transfer.is-maximized)>.wx-coach{left:6px;right:6px;bottom:6px;min-height:140px}
+}
+
+/* Iconsax outer-interface refinement. No selectors below target the simulated apps.
+   Motion reference: lusaxweb/iconsax, components/Download.vue (card / icon scale). */
+.lab-sprite{position:absolute;width:0;height:0;overflow:hidden;pointer-events:none}
+.lab-icon{display:inline-block;flex:none;width:20px;height:20px;fill:none;vertical-align:middle;overflow:visible}
+header{position:relative;z-index:2}
+header .tabs button{display:inline-flex;align-items:center;justify-content:center;gap:8px}
+header .tabs button .tab-en{margin-left:1px}
+header .tabs .lab-icon{width:18px;height:18px;transition:transform .24s cubic-bezier(.2,.8,.2,1),opacity .2s;opacity:.76}
+header .tabs button[aria-selected=true] .lab-icon{opacity:1}
+.lab-tab-label{white-space:nowrap}
+.top-actions .lab-action{position:relative;display:inline-flex;align-items:center}
+.top-actions button .lab-icon{width:18px;height:18px;transition:transform .24s cubic-bezier(.2,.8,.2,1);transform-origin:center}
+.top-actions .shell-control{background:#f9f9f2;border-color:#cbd2c1;border-radius:9px}
+.top-actions #reset{border:1px solid transparent;border-radius:9px}
+.top-actions #fullscreen{border-radius:9px}
+.top-actions button{transition:background .2s,border-color .2s,box-shadow .2s,transform .2s}
+.top-actions button:active:not(:disabled){transform:scale(.96)}
+.top-actions button:focus-visible{outline:2px solid #ad4222;outline-offset:4px}
+.lab-tooltip{position:absolute;top:calc(100% + 10px);right:0;z-index:4;width:max-content;max-width:235px;padding:12px 14px;border:1px solid #47543d;border-radius:10px;background:#28312b;color:#fffdf2;font:12px/1.7 "Segoe UI","Microsoft JhengHei",sans-serif;text-align:left;box-shadow:0 8px 28px #28312b20;opacity:0;visibility:hidden;transform:translateY(-4px);transition:opacity .15s ease .2s,transform .15s ease .2s,visibility .15s .2s}
+.lab-tooltip::before{content:"";position:absolute;left:0;right:0;height:12px;bottom:100%}
+.lab-tooltip small{display:block;font-size:11px;color:#d5ddcb;margin-top:6px}
+.lab-tooltip kbd{display:inline-block;font:10px/1.5 Consolas,monospace;padding:1px 5px;margin-right:4px;background:#ffffff12;border:1px solid #7c8970;border-radius:4px;color:#fff}
+.lab-action:has(button:focus-visible):not([data-tip-dismissed]) .lab-tooltip{opacity:1;visibility:visible;transform:none;transition-delay:0s}
+@media(hover:hover) and (pointer:fine){
+ .lab-action:hover:not([data-tip-dismissed]) .lab-tooltip{opacity:1;visibility:visible;transform:none}
+ header .tabs button:hover .lab-icon{transform:scale(1.12)}
+ .top-actions .shell-control:hover .lab-icon{transform:scale(1.13)}
+ .top-actions #reset:hover .lab-icon{transform:rotate(-35deg)}
+ .top-actions #fullscreen:hover .lab-icon{transform:scale(1.13)}
+}
+.intro .intro-link .cta-arrow{width:21px;height:21px;transform:rotate(40deg);transition:transform .26s ease}
+.intro .intro-link:is(:hover,:focus-visible) .cta-arrow{transform:rotate(0deg) translateX(3px)}
+.intro .flow-node{border-radius:12px;transition:transform .28s ease,box-shadow .28s ease}
+.intro .flow-node>.node-symbol{width:35px;height:35px;margin-bottom:auto;transition:transform .28s ease}
+.intro .node-skill>.node-symbol{width:38px;height:38px}
+@media(hover:hover) and (pointer:fine){
+ .intro .flow-art:hover .flow-node>.node-symbol{transform:scale(1.12)}
+ .intro .flow-art:hover .node-data{transform:translateX(-4px) rotate(-7deg) scale(.98)}
+ .intro .flow-art:hover .node-skill{transform:translateY(-12px) rotate(3deg) scale(.98)}
+ .intro .flow-art:hover .node-human{transform:translateX(4px) rotate(-1deg) scale(.98)}
+}
+#sidebar .stepnum .lab-icon{width:17px;height:17px}
+#sidebar .steps .done .stepnum{background:transparent;color:#48623a}
+#sidebar .steps .done{color:#59634f}
+.page-heading{animation:none}
+.page-heading.lab-step-changed{animation:lab-step-enter .22s ease-out both}
+@keyframes lab-step-enter{from{opacity:.6;transform:translateY(4px)}to{opacity:1;transform:none}}
+#sidebar .lab-just-done .stepnum .lab-icon{animation:lab-complete-mark .3s ease-out both}
+@keyframes lab-complete-mark{0%{opacity:.4;transform:scale(.7)}70%{opacity:1;transform:scale(1.12)}100%{transform:scale(1)}}
+.page-heading>.lab-mode-badge{gap:7px;padding:7px 10px;background:#f7f9f2;border-color:#d4dcc9;border-radius:9px;white-space:nowrap}
+.page-heading>.lab-mode-badge::before{display:none}
+.page-heading>.lab-mode-badge .lab-icon{width:16px;height:16px}
+.page-heading>.lab-mode-badge.lab-complete{background:#eaf2e2;border-color:#c3d4b2;color:#3d592d}
+.page-heading .guide-label{display:inline-flex;align-items:center;gap:6px}
+.page-heading .guide-label .lab-icon{width:16px;height:16px}
+@media(max-width:1200px){header .tabs{justify-self:start}.top-actions button{padding-left:11px;padding-right:11px}}
+@media(max-width:760px){
+ header .tabs button{gap:5px;font-size:11px;padding:9px 6px}
+ header .tabs .lab-icon{width:15px;height:15px}
+ header .top-actions .lab-icon{width:16px;height:16px}
+ header .top-actions .lab-fullscreen{display:none}
+ header .top-actions button{gap:5px;padding:9px 7px;font-size:11px}
+ .lab-tooltip{max-width:220px;font-size:11px;padding:11px 12px}
+ .page-heading>.lab-mode-badge{gap:5px;font-size:10px;padding:6px 8px}
+ .page-heading>.lab-mode-badge .lab-icon{width:14px;height:14px}
+ #sidebar .stepnum .lab-icon{width:15px;height:15px}
+}
+@media(max-width:380px){
+ header .tabs button{gap:4px;font-size:10px;padding:9px 4px}
+ header .tabs .lab-icon{width:14px;height:14px}
+ header .top-actions button{font-size:10px;padding:9px 5px}
+ header .top-actions .lab-icon{width:14px;height:14px}
+ .page-heading>.lab-mode-badge{font-size:9px;padding:5px 6px}
+ .page-heading .guide-label{display:none}
+}
+@media(prefers-reduced-motion:reduce){
+ header .tabs .lab-icon,.top-actions button,.top-actions .lab-icon,.lab-tooltip,.intro .intro-link .cta-arrow,.intro .flow-node,.intro .flow-node>.node-symbol{transition:none!important}
+ .page-heading.lab-step-changed,#sidebar .lab-just-done .stepnum .lab-icon{animation:none!important}
+}
+
+/* Workflow showcase: presentation only; application windows retain their native UI. */
+header{display:flex;height:88px;min-height:88px;flex-wrap:nowrap;gap:24px}
+.header-note{display:flex;align-items:center;gap:8px;margin:auto;font-size:12px;color:var(--lab-muted);white-space:nowrap}
+.header-note>span{width:5px;height:5px;border-radius:50%;background:#7c896e}
+header .top-actions{margin-left:auto}
+.intro{width:92%;max-width:1472px;margin:28px auto 0;padding:46px 4%;grid-template-columns:1.12fr 1fr;gap:52px;border:1px solid #384239;border-radius:22px;background:radial-gradient(ellipse at 93% 6%,#444d3b 0,transparent 55%),#242c26;overflow:hidden}
+.intro .eyebrow{color:#c8cebf;font-size:10px;letter-spacing:1.1px;flex-wrap:wrap;gap:8px}
+.intro .edition-dot{background:#f5ac7c}
+.intro .edition{color:#bbc4b5;border-color:#66725d;font-size:9px}
+.intro h1{color:#f7f5eb;font-size:clamp(36px,4.3vw,66px);line-height:1.24;letter-spacing:-2.5px;margin:27px 0 22px}
+.intro h1 span{color:#f4ae82}
+.intro .intro-copy>p{max-width:410px;font-size:14px;color:#c7cebf;margin:0 0 30px;line-height:1.9}
+.intro .intro-actions{display:flex;align-items:center;flex-wrap:wrap;gap:16px}
+.intro .intro-link{display:inline-flex;align-items:center;gap:24px;background:#f2eddf;border:1px solid #f2eddf;border-radius:9px;color:#28312b;padding:14px 18px;text-decoration:none;transition:background .2s,box-shadow .2s,transform .2s}
+.intro .intro-link .cta-label{font-size:13px;font-weight:600;transform:none;line-height:1.5}
+.intro .intro-link .cta-dot{display:none}
+.intro .intro-link:focus-visible{outline:2px solid #f4ae82;outline-offset:5px}
+.intro .intro-note{font-size:11px;color:#c3cbbb}
+.journey-preview{position:relative;margin:0;padding:21px 23px 18px;border:1px solid #69725f;border-radius:16px;background:#ffffff06;box-shadow:0 14px 40px #0000000c;min-width:0}
+.journey-preview figcaption{display:flex;justify-content:space-between;gap:12px;color:#d0d6c6;font-size:10px;letter-spacing:.6px;margin-bottom:21px}
+.journey-stack{padding:0 2px}
+.journey-row{display:flex;align-items:center;gap:12px;min-width:0;padding:13px 15px;border:1px solid #5b6758;border-radius:10px;background:#323b31;color:#f7f5eb}
+.journey-row>div{min-width:0;flex:1}
+.journey-row strong{display:block;font-size:13px;font-weight:500;line-height:1.6}
+.journey-file{display:block;font:10px/1.8 Consolas,monospace;color:#c2cbb8;overflow-wrap:anywhere}
+.journey-icon{width:34px;height:36px;display:grid;place-items:center;flex-shrink:0;color:#d9dfce;background:#ffffff08;border:1px solid #69725f;border-radius:7px}
+.journey-icon .lab-icon{width:21px;height:21px}
+.journey-tag{flex-shrink:0;color:#d1d9c7;border:1px solid #69725f;border-radius:5px;padding:4px 7px;font-size:9px}
+.journey-connector{display:block;position:relative;width:1px;height:20px;background:#79886b;margin:0 0 0 32px}
+.journey-connector i{position:absolute;left:-2px;top:7px;width:5px;height:5px;border-radius:50%;background:#d7dfc9}
+.journey-process{background:#edb58e;border-color:#edb58e;color:#322b24;padding-top:15px;padding-bottom:15px;box-shadow:0 6px 20px #00000012}
+.journey-process .journey-icon{color:#473b30;border-color:#876a5266;background:#ffffff30}
+.journey-eyebrow{display:block;font:8px/1.6 Consolas,monospace;letter-spacing:.8px;color:#5d4939;margin-bottom:3px}
+.journey-process strong{font-size:17px;font-weight:600}
+.intro .journey-process p{font-size:10px;line-height:1.7;margin:5px 0 0;color:#5a4535}
+.intro .journey-caption{color:#c0cbb4;font-size:10px;text-align:center;line-height:1.6;margin:17px 0 0}
+main{display:block;width:92%;max-width:1472px;min-height:0;margin:0 auto;background:transparent;border:0;border-radius:0;box-shadow:none;overflow:visible}
+.workflow-chooser{padding:45px 0 29px;scroll-margin-top:24px}
+.chooser-heading{display:flex;justify-content:space-between;align-items:flex-end;gap:20px;margin-bottom:21px}
+.section-index{font:10px/1.7 Consolas,monospace;color:#626b56;letter-spacing:1.4px}
+.chooser-heading h2{color:var(--lab-ink);font-size:25px;font-weight:500;letter-spacing:-.7px;margin:9px 0 0}
+.workspace-jump{display:inline-flex;align-items:center;gap:12px;flex-shrink:0;font-size:12px;color:#545f49;text-decoration:none;padding:10px 0;border-bottom:1px solid #a1aa94;transition:color .2s}
+.workspace-jump .lab-icon{width:17px;height:17px;transition:transform .2s}
+.workspace-jump:focus-visible{outline:2px solid #ad4222;outline-offset:5px}
+.tabs.workflow-picker{display:grid;grid-template-columns:1fr 1fr;gap:16px;width:100%;padding:0;background:transparent;border:0;border-radius:0}
+.workflow-picker .workflow-card{position:relative;display:flex;flex-direction:column;align-items:stretch;text-align:left;white-space:normal;min-width:0;margin:0;padding:22px 24px 17px;border:1px solid #d2d6c7;border-radius:13px;background:#f8f7f0;color:#333d2c;box-shadow:none;transition:border-color .2s,background .2s,box-shadow .2s,transform .2s}
+.workflow-picker .workflow-card[aria-selected=true]{background:#e8eddf;border-color:#74855e;color:#2c3824;box-shadow:inset 0 0 0 1px #74855e}
+.workflow-picker .workflow-card:focus-visible{outline:2px solid #ad4222;outline-offset:4px}
+.card-topline{display:flex;justify-content:space-between;align-items:center;gap:12px;font-size:10px;line-height:1.5;color:#606c54}
+.card-eyebrow{font:9px/1.5 Consolas,monospace;letter-spacing:.9px}
+.card-count{white-space:nowrap}
+.workflow-picker .card-count b{font:12px Consolas,monospace;margin-right:3px;color:#3d4933}
+.card-title{display:flex;align-items:center;gap:12px;margin-top:20px;font-size:23px;font-weight:500;letter-spacing:-.5px}
+.card-icon{display:grid;place-items:center;width:39px;height:39px;border:1px solid #d3d8c8;border-radius:10px;background:#ffffff70;color:#536442}
+.card-icon .lab-icon{width:23px;height:23px}
+.card-selected{margin-left:auto;display:grid;place-items:center;color:#526a3b;opacity:0;transform:scale(.8);transition:opacity .2s,transform .2s}
+.card-selected .lab-icon{width:22px;height:22px}
+.workflow-card[aria-selected=true] .card-selected{opacity:1;transform:none}
+.card-description{font-size:12px;line-height:1.9;color:#636e57;margin:13px 0 19px;max-width:470px}
+.card-bottom{display:flex;align-items:center;justify-content:space-between;gap:12px;padding-top:14px;border-top:1px solid #d7dccc;margin-top:auto}
+.card-detail{font-size:10px;color:#606c54}
+.card-action{display:inline-flex;align-items:center;gap:9px;font-size:11px;white-space:nowrap;font-weight:500}
+.card-action .lab-icon{width:16px;height:16px;transition:transform .2s}
+.chooser-note{font-size:11px;line-height:1.8;color:#626b56;margin:12px 0 0}
+.lab-workspace{display:grid;grid-template-columns:238px minmax(0,1fr);border:1px solid #ced2c4;border-radius:12px;background:#fcfbf6;overflow:hidden}
+.workspace-caption{grid-column:1/-1;display:flex;justify-content:space-between;align-items:center;gap:16px;padding:14px 22px;background:#e3e6da;border-bottom:1px solid #ced2c4;font-size:10px;color:#59634e}
+.workspace-caption>span:first-child{display:flex;align-items:center;gap:8px;font:10px/1.5 Consolas,monospace;letter-spacing:1px}
+.workspace-caption i{display:inline-block;width:5px;height:5px;border-radius:50%;background:#758563}
+body.is-focused main{display:block;margin-top:18px;margin-bottom:24px}
+body.is-focused .workflow-chooser{padding:0 0 13px}
+body.is-focused .chooser-heading,body.is-focused .chooser-note,body.is-focused .card-topline,body.is-focused .card-description,body.is-focused .card-bottom,body.is-focused .workspace-caption{display:none}
+body.is-focused .workflow-picker{grid-template-columns:1fr 1fr;gap:10px;max-width:480px}
+body.is-focused .workflow-card{padding:9px 13px;border-radius:9px}
+body.is-focused .card-title{font-size:13px;margin:0;gap:9px}
+body.is-focused .card-icon{width:27px;height:27px;border:0;background:transparent}
+body.is-focused .card-icon .lab-icon{width:19px;height:19px}
+body.is-focused .card-selected .lab-icon{width:16px;height:16px}
+body.is-focused .lab-workspace{grid-template-columns:minmax(0,1fr)}
+body.is-focused .experience{height:calc(100dvh - 192px);min-height:640px}
+@media(hover:hover) and (pointer:fine){
+ .intro .intro-link:hover{background:#fffaf0;box-shadow:0 5px 18px #0002;transform:translateY(-2px)}
+ .workflow-picker .workflow-card:hover{border-color:#839371;box-shadow:0 8px 20px #35402509;transform:translateY(-2px)}
+ .workflow-card:hover .card-action .lab-icon,.workspace-jump:hover .lab-icon{transform:translateX(3px)}
+ .workspace-jump:hover{color:#2d3f20}
+ .journey-preview:hover .journey-connector i{animation:journey-travel 1s ease-in-out 1}
+}
+@keyframes journey-travel{0%{transform:translateY(-6px);opacity:.4}70%{opacity:1}100%{transform:translateY(6px);opacity:.4}}
+@media(max-width:1200px){
+ header{height:84px;min-height:84px}.header-note{display:none}
+ .intro{padding:35px 3.3%;gap:30px}.intro h1{font-size:clamp(36px,4.8vw,58px)}
+ .journey-preview{padding:18px 17px 15px}.journey-tag{font-size:8px;padding:4px 5px}
+ .lab-workspace{grid-template-columns:210px minmax(0,1fr)}
+ .workflow-picker .workflow-card{padding:20px 20px 17px}.card-detail{font-size:9px}
+}
+@media(max-width:900px){
+ .intro{grid-template-columns:1fr 1fr;gap:24px;padding:30px 3%}.intro h1{font-size:38px;letter-spacing:-1.5px}.intro .eyebrow{font-size:8px}.intro .edition{display:none}
+ .intro .intro-copy>p{font-size:12px}.intro .intro-actions{gap:12px}.intro .intro-note{font-size:10px}
+ .journey-preview{padding:16px 13px}.journey-row{gap:9px;padding:11px 10px}.journey-row strong{font-size:12px}.journey-process strong{font-size:15px}.journey-tag{display:none}
+ .journey-preview figcaption{font-size:9px;letter-spacing:0}.journey-eyebrow{font-size:7px}
+ .card-topline{gap:8px}.card-eyebrow{font-size:8px;letter-spacing:.4px}.card-count{font-size:9px}.card-description{min-height:46px}.card-detail{display:none}
+ .card-action{margin-left:auto}
+}
+@media(max-width:760px){
+ header{display:flex;flex-wrap:wrap;padding:16px 5%;height:auto;min-height:0;gap:13px}.brand{flex:1 1 100%}.top-actions{width:100%;justify-content:flex-end}header .top-actions{margin:0}.header-note{display:none}
+ .intro{width:94%;margin-top:16px;padding:28px 6%;grid-template-columns:1fr;gap:28px;border-radius:16px}.intro h1{font-size:clamp(34px,7vw,48px);margin:20px 0 18px}.intro .eyebrow{font-size:9px}.intro .intro-copy>p{font-size:13px;max-width:400px;margin-bottom:22px}.intro .intro-note{font-size:10px}.intro .intro-link{padding:12px 15px;gap:18px}
+ .journey-preview{padding:16px 17px}.journey-row{padding:11px 12px}.journey-tag{display:inline-block}.journey-row strong{font-size:12px}.journey-process strong{font-size:16px}.journey-preview figcaption{margin-bottom:15px}.journey-connector{height:14px}.journey-connector i{top:4px}.intro .journey-caption{margin-top:13px}
+ main{width:94%;display:block}.workflow-chooser{padding:30px 0 23px}.chooser-heading{align-items:flex-start;gap:13px;margin:0 5px 17px;flex-wrap:wrap}.chooser-heading h2{font-size:22px;margin-top:7px}.section-index{font-size:9px}.workspace-jump{font-size:11px;padding:6px 0;gap:8px}.tabs.workflow-picker{grid-template-columns:1fr;gap:12px}
+ .workflow-picker .workflow-card{padding:18px 19px 15px}.card-eyebrow{font-size:9px}.card-count{font-size:10px}.card-title{margin-top:14px;font-size:22px}.card-description{min-height:0;margin:10px 0 14px;font-size:12px;max-width:none}.card-bottom{padding-top:12px}.card-detail{display:block;font-size:9px}.card-action{font-size:10px}.chooser-note{font-size:10px;margin:11px 6px 0}
+ .lab-workspace{display:flex;flex-direction:column;border-radius:10px}.workspace-caption{padding:12px;gap:8px;flex-wrap:wrap}.workspace-caption>span:first-child{font-size:9px;letter-spacing:.5px}.workspace-caption>span:last-child{font-size:9px}.lab-workspace #sidebar{flex-shrink:0}
+ body.is-focused .experience{height:calc(100dvh - 208px);min-height:720px}
+}
+@media(max-width:380px){
+ .intro{padding:26px 6%;gap:24px}.intro h1{font-size:34px}.intro .intro-copy>p{font-size:12px}.journey-preview{padding:13px 11px}.journey-row{gap:8px;padding:10px}.journey-tag{display:none}.journey-file{font-size:9px}.journey-preview figcaption{font-size:8px}.intro .journey-process p{font-size:9px}
+ .chooser-heading h2{font-size:20px}.workflow-picker .workflow-card{padding:17px 16px 14px}.card-topline{font-size:9px}.card-eyebrow{font-size:8px}.card-count{font-size:9px}.card-detail{font-size:8px}.card-action{gap:5px}.card-action .lab-icon{width:14px}
+ body.is-focused .workflow-card{padding:8px 9px}
+}
+@media(prefers-reduced-motion:reduce){.journey-connector i{animation:none!important}.workflow-picker .workflow-card,.card-selected,.card-action .lab-icon,.workspace-jump .lab-icon,.intro .intro-link{transition:none!important}}
+
+/* Final shell pass: readable type, compact small-screen composition, persistent context. */
+.intro{padding-block:52px;isolation:isolate}
+.intro::before{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;opacity:.13;background-image:linear-gradient(#d5ddbe20 1px,transparent 1px),linear-gradient(90deg,#d5ddbe20 1px,transparent 1px);background-size:62px 62px;mask-image:linear-gradient(110deg,transparent 35%,#000)}
+.intro .intro-copy>p{font-size:15px;line-height:1.85;max-width:430px}
+.intro .intro-note{font-size:12px;color:#cbd1c3}
+.intro .eyebrow{font-size:11px;letter-spacing:1px}
+.intro .edition{font-size:10px}
+.intro h1{font-weight:500;letter-spacing:-2px}
+.intro .intro-link{min-height:52px;gap:28px}
+.intro .intro-link .cta-label{font-size:14px}
+.journey-preview{padding:23px;border-color:#697560;background:#ffffff04}
+.journey-preview figcaption{font-size:11px;margin-bottom:22px;letter-spacing:0}
+.journey-row{padding:14px 15px}
+.journey-row strong{font-size:14px}
+.journey-file{font-size:11px;line-height:1.8}
+.journey-tag{font-size:10px}
+.journey-eyebrow{font:11px/1.5 "Segoe UI","Microsoft JhengHei",sans-serif;letter-spacing:.3px;margin-bottom:5px}
+.journey-process strong{font-size:19px;line-height:1.5}
+.intro .journey-process p{font-size:12px;line-height:1.7;margin-top:6px}
+.intro .journey-caption{font-size:11px;margin-top:19px}
+.section-index{font-size:11px;letter-spacing:1px}
+.chooser-heading h2{font-size:28px;line-height:1.45}
+.workspace-jump{font-size:13px;min-height:44px}
+.workflow-picker .workflow-card{padding:24px 25px 19px;border-radius:15px}
+.card-eyebrow{font-size:10px;letter-spacing:.5px}
+.card-count{font-size:11px}
+.workflow-picker .card-count b{font-size:14px}
+.card-title{font-size:25px;margin-top:21px;gap:13px}
+.card-icon{width:43px;height:43px;border-radius:11px}
+.card-description{font-size:14px;line-height:1.85;margin:14px 0 23px}
+.card-detail{font-size:11px;line-height:1.7}
+.card-action{font-size:12px}
+.card-bottom{padding-top:16px;gap:16px}
+.chooser-note{font-size:12px;line-height:1.8;margin-top:14px}
+.workflow-picker .workflow-card[aria-selected=true]{background:linear-gradient(130deg,#e8eddf,#f1f3e9);box-shadow:inset 0 0 0 1px #74855e,0 4px 14px #3f532409}
+.workflow-card[aria-selected=true] .card-icon{background:#526a3b;color:#fffef5;border-color:#526a3b}
+.card-selected{transition:opacity .2s,transform .2s}
+.workflow-picker .workflow-card:active{transform:translateY(0);box-shadow:inset 0 0 0 1px #74855e}
+.lab-workspace{overflow:clip}
+.workspace-caption{position:sticky;top:0;z-index:3;display:flex;align-items:center;gap:20px;flex-wrap:nowrap;padding:12px 22px;background:#eef0e6f5;backdrop-filter:blur(16px);border-bottom:1px solid #cdd4c1;box-shadow:0 3px 12px #26332206;min-height:76px}
+.workspace-identity{display:flex;align-items:center;gap:12px;margin-right:auto}
+.workspace-index{font:12px Consolas,monospace;color:#59684a;width:29px;height:32px;display:grid;place-items:center;border-right:1px solid #c9d1bd;padding-right:12px}
+.workspace-identity strong{display:block;font-size:13px;font-weight:600;line-height:1.6;color:#34412b}
+.workspace-identity div>span{display:block;font-size:11px;line-height:1.6;color:#637055}
+.workspace-controls{display:flex;gap:3px;padding:4px;background:#dde3d2;border:1px solid #cbd3bd;border-radius:9px}
+.workspace-mode{min-height:36px;padding:8px 16px;background:transparent;border:0;border-radius:6px;font-size:12px;font-weight:500;line-height:1.5;color:#536145;cursor:pointer;white-space:nowrap;transition:background .18s,color .18s,box-shadow .18s}
+.workspace-mode[aria-pressed=true]{background:#34442c;color:#fffdf5;box-shadow:0 2px 4px #26332215}
+.workspace-controls .workspace-mode[aria-pressed=true]:is(:hover,:focus-visible){background:#34442c;color:#fffdf5}
+.workspace-mode:focus-visible{outline:2px solid #ad4222;outline-offset:3px}
+.workspace-position{display:flex;flex-direction:column;gap:7px;min-width:84px}
+#workspace-step-label{font-size:11px;color:#536145;font-variant-numeric:tabular-nums;white-space:nowrap}
+.workspace-meter{display:block;height:3px;border-radius:2px;background:#cfd7c2;overflow:hidden}
+#workspace-meter-fill{display:block;height:100%;width:0;background:#778d5e;transition:width .28s ease;border-radius:2px}
+html{scroll-padding-top:112px}
+#experience{scroll-margin-top:16px}
+body.is-focused .workspace-caption{display:flex}
+body.is-focused .workflow-chooser{display:none}
+body.is-focused .experience{height:calc(100dvh - 198px)}
+.site-footer{line-height:1.8}
+.footer-mark{display:none}
+@media(hover:hover) and (pointer:fine){
+ .workspace-mode[aria-pressed=false]:hover{background:#f9faef;color:#34442c}
+ .workflow-picker .workflow-card:hover{transform:translateY(-3px);box-shadow:0 10px 26px #3540250b}
+}
+@media(max-width:1200px){
+ .intro{padding-block:36px}.intro .eyebrow{font-size:10px}.intro .edition{display:none}
+ .intro .journey-process p{min-height:3.4em}
+ .journey-preview{padding:20px}.journey-row{padding:12px}.journey-process strong{font-size:17px}
+ .card-detail{display:none}.card-action{margin-left:auto}.card-description{font-size:13px}
+ .workspace-caption{gap:16px}.workspace-mode{padding-inline:13px}
+}
+@media(max-width:1000px){
+ .lab-workspace{display:flex;flex-direction:column}
+ .lab-workspace #sidebar{display:block;padding:14px 16px 0;border-right:0;border-bottom:1px solid #d7d8cd;flex-shrink:0}
+ #sidebar>.eyebrow,#sidebar .sidebar-title,#sidebar .sidebar-description,#sidebar .aside-bottom{display:none}
+ #sidebar .steps{display:flex;overflow:auto;gap:8px;scrollbar-width:thin;padding:0 0 12px}
+ #sidebar .steps li{flex:0 0 auto;font-size:12px;padding:7px 10px;margin:0;min-height:36px;gap:7px}
+ #sidebar .steps .active:after{display:none}
+ #sidebar .stepnum{width:20px;height:20px;font-size:11px}
+ body.is-focused .lab-workspace #sidebar{display:none}
+ .card-topline{align-items:flex-start;gap:9px;flex-wrap:wrap}.card-description{min-height:0}
+ .intro{gap:25px}.intro .intro-copy>p{font-size:14px}.journey-preview{padding:17px 15px}.journey-preview figcaption{font-size:10px}
+ .journey-row{gap:10px;padding:11px}.journey-row strong{font-size:13px}.journey-process strong{font-size:17px}.journey-file{font-size:10px}.journey-eyebrow{font-size:10px}.intro .journey-process p{font-size:11px}
+}
+@media(max-width:760px){
+ header{gap:10px;padding-block:14px}.brand strong{font-size:15px}.brand-overline{font-size:9px}
+ .intro{padding:30px 6%;gap:27px}.intro::before{background-size:40px 40px;mask-image:linear-gradient(180deg,transparent,#000)}
+ .intro h1{font-size:clamp(36px,7.5vw,52px);line-height:1.25;letter-spacing:-1.5px;margin:21px 0 18px}
+ .intro .intro-copy>p{font-size:14px;margin-bottom:24px}.intro .intro-actions{gap:12px}.intro .intro-note{font-size:11px}.intro .intro-link{padding:12px 16px;min-height:48px;gap:22px}
+ .journey-preview{padding:0;border:0;border-top:1px solid #65715d;border-radius:0;background:transparent;box-shadow:none;padding-top:16px}
+ .journey-preview figcaption{font-size:10px;margin-bottom:14px;color:#c8d0bd}
+ .journey-row{padding:9px 11px;gap:10px}.journey-row strong{font-size:12px}.journey-icon{width:28px;height:29px}.journey-icon .lab-icon{width:18px;height:18px}.journey-tag{display:none}
+ .journey-file{font-size:10px}.journey-connector{height:12px;margin-left:25px}.journey-connector i{top:3px}
+ .journey-process{padding:11px}.journey-process strong{font-size:16px}.journey-eyebrow{font-size:10px;margin-bottom:3px}.intro .journey-process p{font-size:11px;margin-top:3px}
+ .intro .journey-caption{display:none}
+ .workflow-chooser{padding-top:32px}.chooser-heading{position:relative;padding-right:48px;min-height:64px;align-items:center}.chooser-heading h2{font-size:22px}.section-index{font-size:10px}.workspace-jump{position:absolute;right:0;bottom:2px;display:grid;place-items:center;width:42px;height:42px;min-height:42px;padding:0;border:1px solid #b8c3a9;border-radius:50%;font-size:0;gap:0}.workspace-jump .lab-icon{width:19px;height:19px}
+ .workflow-picker .workflow-card{padding:20px;border-radius:13px}.card-topline{flex-wrap:nowrap;align-items:center}.card-eyebrow{font-size:9px}.card-count{font-size:10px}.card-title{font-size:23px;margin-top:17px}.card-icon{width:38px;height:38px}.card-description{font-size:13px;margin:12px 0 18px}.card-bottom{padding-top:13px}.card-detail{display:block;font-size:10px}.card-action{font-size:11px;gap:7px}.chooser-note{font-size:11px;margin-inline:5px}
+ .workspace-caption{gap:12px;padding:10px 12px;min-height:64px;flex-wrap:wrap}.workspace-identity{flex:1 1 100%;gap:9px}.workspace-identity strong{font-size:12px}.workspace-identity div{display:flex;align-items:center;gap:9px}.workspace-identity div>span{font-size:10px}.workspace-index{height:20px;font-size:11px;width:24px;padding-right:9px}
+ .workspace-controls{padding:3px;gap:3px;flex:1;max-width:320px}.workspace-mode{flex:1;min-height:38px;padding:9px 12px;font-size:12px}.workspace-position{min-width:80px;margin-left:auto;gap:6px}
+ #workspace-step-label{font-size:11px}html{scroll-padding-top:140px}
+ #experience{scroll-margin-top:16px}
+ body.is-focused .workspace-identity{display:none}
+ body.is-focused .experience{height:calc(100dvh - 219px)}
+}
+@media(max-width:380px){
+ .intro h1{font-size:34px}.intro .intro-copy>p{font-size:13px}.intro .intro-actions{align-items:flex-start;flex-direction:column;gap:10px}.intro .intro-note{font-size:11px}
+ .chooser-heading{padding-right:45px}.chooser-heading h2{font-size:19px}.workflow-picker .workflow-card{padding:18px 16px}.card-eyebrow{font-size:8px}.card-detail{font-size:9px}.card-action{font-size:10px}.card-title{font-size:22px}
+ .workspace-caption{gap:9px;padding-inline:10px}.workspace-mode{padding-inline:8px;font-size:11px}.workspace-position{min-width:76px}.workspace-identity div{gap:7px}.workspace-identity div>span{font-size:9px}
+}
+@media(prefers-reduced-motion:reduce){#workspace-meter-fill,.workspace-mode{transition:none!important}}
+
+/* Native manual workflow. Kept separate from the Skill explorer and outer page. */
+.mn-window{position:relative}
+.mn-window.mn-file-window .window-bar{height:44px;min-height:44px;gap:0;padding-left:14px;background:#eef2f8;border-bottom:0;color:#202020}
+.mn-file-window .window-bar>.app-icon{background:#fff;color:inherit;border-radius:7px 0 0 0;width:36px;height:34px;align-self:flex-end;padding:8px 6px 6px 12px}
+.mn-file-window .window-name{flex:0 1 230px;align-self:flex-end;background:white;height:34px;border-radius:0 7px 0 0;padding:8px 14px 6px 6px;font-size:12px;line-height:20px}
+.mn-file-window .caption-controls{margin-left:auto}
+.mn-window #stage{position:relative;display:flex;flex-direction:column;overflow:hidden;background:#fff}
+.mn-window #stage[hidden]{display:none}
+.mn-explorer{display:flex;flex-direction:column;flex:1;min-height:0;background:#fff;font:12px/1.5 "Segoe UI","Microsoft JhengHei",sans-serif;color:#222}
+.mn-excel-icon{display:inline-grid;place-items:center;flex:none;width:25px;height:29px;border-radius:3px;background:linear-gradient(90deg,#107c41 45%,#21a366 45%);box-shadow:inset 0 0 0 1px #10643840;color:white;font:bold 19px/1 "Segoe UI",sans-serif}
+.mn-window .desktop-taskbar{height:42px;flex-shrink:0}
+.mn-window .taskbar-start{display:grid;grid-template-columns:repeat(2,8px);gap:2px;border:0;border-radius:4px;padding:9px;background:transparent;cursor:pointer;width:36px;height:36px;align-content:center;justify-content:center}
+.mn-window .taskbar-start:hover,.mn-window .taskbar-start[aria-expanded=true]{background:#d6e4f2}
+.mn-window button:focus-visible{outline:2px solid #0067c0;outline-offset:-2px}
+.mn-start{position:absolute;z-index:6;bottom:49px;left:50%;transform:translateX(-50%);width:480px;max-width:calc(100% - 20px);max-height:calc(100% - 65px);overflow:auto;border:1px solid #cbd4df;border-radius:10px;background:#f3f6fcf7;box-shadow:0 8px 32px #20334840;padding:26px 28px 0;font:12px/1.5 "Segoe UI","Microsoft JhengHei",sans-serif;color:#222;backdrop-filter:blur(16px)}
+.mn-start[hidden],.mn-pinned button[hidden],#mn-start-empty[hidden]{display:none}
+.mn-start-search{display:flex;align-items:center;gap:10px;border:1px solid #cbd4df;border-bottom:2px solid #0067c0;border-radius:18px;background:#fff;padding:7px 12px}
+.mn-start-search input{width:100%;min-width:0;border:0;padding:2px;background:transparent;font-size:12px;border-radius:0;outline:none;color:#222}
+.mn-start-heading{display:flex;justify-content:space-between;align-items:center;margin:24px 6px 14px;font-size:12px}.mn-start-heading>span{font-size:11px;color:#666}
+.mn-pinned{display:grid;grid-template-columns:repeat(4,1fr);gap:6px}
+.mn-pinned button{display:flex;flex-direction:column;gap:9px;align-items:center;padding:11px 6px;border:0;border-radius:5px;background:transparent;font:12px "Segoe UI","Microsoft JhengHei",sans-serif;color:#222}
+.mn-pinned button:hover:not(:disabled){background:#fff}.mn-pinned .mn-excel-icon{width:34px;height:36px;font-size:25px}.mn-pinned .wx-folder-icon{width:36px;height:36px}
+.mn-recommended{display:flex;align-items:center;gap:14px;padding:5px 12px 25px}.mn-recommended .wx-icon{width:28px;height:32px}.mn-recommended small{display:block;font-size:11px;color:#666;margin-top:3px}
+.mn-start-footer{display:flex;justify-content:space-between;margin:0 -28px;padding:15px 30px;border-top:1px solid #dae2ed;background:#e8eef8}
+.mn-excel-surface{display:flex;flex-direction:column;flex:1;min-height:0;overflow:auto}
+.mn-excel-surface>.raw-grid{flex:1;min-height:0;overflow:auto}
+.mn-excel-surface>.excel-tabs,.mn-excel-surface>.excel-tools,.mn-excel-surface>.formula-bar,.mn-excel-surface>.ribbon{flex-shrink:0}
+.mn-window .excel-tabs button{padding:0;border:0;border-radius:0;background:transparent;font:inherit;color:inherit;min-height:26px}
+.mn-window .excel-tabs button:hover:not(:disabled){background:#deefe4;color:#17432d}
+.mn-blank{flex:1;min-height:250px;background:repeating-linear-gradient(0deg,transparent 0 23px,#ddd 23px 24px),repeating-linear-gradient(90deg,transparent 0 79px,#ddd 79px 80px);font:12px/24px "Segoe UI",sans-serif;overflow:hidden;color:#555}
+.mn-blank>div{white-space:nowrap;background:#f5f5f5;border-bottom:1px solid #ccc}.mn-blank>span{display:block;width:30px;background:#f5f5f5;text-align:center;border-right:1px solid #ccc}
+.mn-backstage{display:grid;grid-template-columns:125px minmax(0,1fr);flex:1;min-height:0;background:#fff;font:13px/1.6 "Segoe UI","Microsoft JhengHei",sans-serif;color:#222}
+.mn-backstage>nav{background:#217346;color:#fff;padding:14px 0;overflow:auto}
+.mn-backstage>nav button{display:block;width:100%;padding:13px 22px;border:0;border-radius:0;background:transparent;text-align:left;color:#fff;font:13px "Segoe UI","Microsoft JhengHei",sans-serif}
+.mn-backstage>nav button:first-child{font-size:25px;margin-bottom:15px;padding-block:3px}
+.mn-backstage>nav button[aria-current=page],.mn-backstage>nav button:hover:not(:disabled){background:#145630;color:white}.mn-backstage>nav button:disabled{opacity:.45}
+.mn-backstage>nav button:focus-visible{outline:2px solid white;outline-offset:-4px}
+.mn-backstage-main{padding:27px 30px;overflow:auto;min-width:0}.mn-backstage-main h2{font-size:29px;font-weight:400;line-height:1.4;margin:0 0 25px;color:#333}.mn-backstage-main h3{font-size:16px;font-weight:400;margin:24px 0 14px}.mn-backstage-main p{font-size:12px;color:#666;line-height:1.8}
+.mn-blank-tile{display:flex;flex-direction:column;gap:12px;align-items:center;justify-content:center;min-height:120px;width:160px;max-width:100%;border:1px solid #d4d4d4;border-radius:0;background:white;font-size:12px;color:#444}.mn-blank-tile>span{font-size:42px;color:#217346}
+.mn-storage>span{display:flex;align-items:center;gap:10px;padding:14px;background:#e8f0eb;border-left:4px solid #217346;margin-bottom:24px}.mn-storage>div{padding:0 4px}.mn-storage strong{font-weight:500}.mn-storage p{margin:9px 0 17px}.mn-storage button{display:flex;gap:10px;align-items:center;font-size:12px;background:white;color:#333;border:1px solid #aaa;border-radius:0;padding:9px 20px}
+.mn-dialog-layer{position:absolute;inset:0;z-index:4;display:flex;align-items:center;justify-content:center;padding:12px;background:#00000012;overflow:auto}
+.mn-dialog{display:flex;flex-direction:column;min-width:0;width:670px;max-width:100%;max-height:100%;border:1px solid #929ca6;border-radius:8px;background:#fff;box-shadow:0 12px 40px #18233040;overflow:auto;font:12px/1.5 "Segoe UI","Microsoft JhengHei",sans-serif;color:#222}
+.mn-dialog-title{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:0 0 0 14px;min-height:37px;flex-shrink:0;background:white;border-bottom:1px solid #e3e3e3}.mn-dialog-title strong{font-size:12px;font-weight:400}.mn-dialog-title button{font-size:20px;border:0;border-radius:0;background:transparent;padding:5px 15px;color:#333}.mn-dialog-title button:hover:not(:disabled){background:#c42b1c;color:white}
+.mn-dialog .wx-content{flex:none;height:200px;min-height:120px;grid-template-columns:125px minmax(0,1fr)}
+.mn-dialog .wx-addressbar{min-height:49px;padding:7px 12px}.mn-dialog .wx-address{font-size:11px}
+.mn-dialog-fields{display:grid;grid-template-columns:max-content minmax(0,1fr);gap:9px 12px;padding:16px;border-top:1px solid #ddd;background:#f7f7f7;flex-shrink:0;align-items:center}
+.mn-dialog-fields input,.mn-dialog-fields select{width:100%;min-width:0;padding:6px 8px;border:1px solid #aaa;border-radius:0;background:white;font:12px "Segoe UI","Microsoft JhengHei",sans-serif;color:#222;min-height:30px}
+.mn-dialog-fields input:focus,.mn-dialog-fields select:focus{outline:1px solid #0078d4;border-color:#0078d4}
+.mn-dialog-actions{display:flex;gap:10px;justify-content:flex-end;grid-column:1/-1;margin-top:4px}
+.mn-dialog .mn-dialog-actions button{min-width:80px;padding:6px 14px;border:1px solid #aaa;border-radius:2px;background:#f5f5f5;font:12px/1.5 "Segoe UI","Microsoft JhengHei",sans-serif;color:#222}.mn-dialog .mn-dialog-actions button:first-child{border:2px solid #0078d4;padding:5px 13px}.mn-dialog .mn-dialog-actions button:hover:not(:disabled){background:#e5f1fb;border-color:#0078d4}
+#mn-error{grid-column:1/-1;color:#b3261e;font-size:12px;line-height:1.6;overflow-wrap:anywhere}#mn-error:empty{display:none}
+.mn-xml-dialog{width:430px}.mn-xml-options{padding:22px}.mn-xml-options p{font-size:12px;margin:0 0 16px}.mn-xml-options label{display:flex;gap:9px;align-items:flex-start;font-size:12px;margin:13px 0}.mn-xml-options input{margin-top:2px;accent-color:#0078d4}.mn-xml-options .mn-dialog-actions{margin-top:23px}
+.mn-completion{display:flex;align-items:center;gap:15px;justify-content:space-between;padding:13px 16px;border:1px solid #d2dcc6;border-radius:6px;background:#f0f4e9;flex:none}.mn-completion h2{font-size:16px;margin:0 0 4px}.mn-completion p{font-size:12px;margin:0;color:#536145}.mn-completion button{font-size:12px;padding:10px 12px}
+@media(max-width:680px){
+ .mn-file-window .window-bar{padding-left:6px}.mn-file-window .window-name{font-size:11px;flex-basis:155px}.mn-file-window .window-bar>.app-icon{padding-left:8px;width:30px}
+ .mn-start{padding:18px 16px 0;max-width:calc(100% - 12px)}.mn-pinned{grid-template-columns:repeat(3,1fr)}.mn-start-search{padding-inline:9px}.mn-start-search input{font-size:11px}.mn-start-footer{margin-inline:-16px;padding-inline:20px}
+ .mn-explorer .wx-content{grid-template-columns:95px minmax(0,1fr)}.mn-explorer .wx-navigation{padding-inline:3px}.mn-explorer .wx-navigation button{gap:7px;font-size:11px;padding-inline:6px}
+ .mn-backstage{grid-template-columns:79px minmax(0,1fr)}.mn-backstage>nav button{font-size:11px;padding:13px 10px}.mn-backstage-main{padding:22px 16px}.mn-backstage-main h2{font-size:24px}.mn-storage p{font-size:11px}.mn-storage button{padding:8px 14px}
+ .mn-dialog-layer{padding:5px}.mn-dialog{border-radius:5px}.mn-dialog .wx-content{display:grid;grid-template-columns:75px minmax(0,1fr);height:185px}.mn-dialog .wx-navigation{display:block;padding-inline:2px}.mn-dialog .wx-navigation button{font-size:10px;gap:5px;padding:8px 4px}.mn-dialog .wx-navigation .wx-icon{width:16px;height:16px}.mn-dialog .wx-address{padding-inline:5px;gap:6px;font-size:10px}.mn-dialog .wx-addressbar{padding-inline:7px}.mn-dialog-fields{padding:13px 10px;gap:8px;grid-template-columns:1fr}.mn-dialog-fields label{font-size:11px}.mn-dialog-fields input,.mn-dialog-fields select{font-size:12px}.mn-xml-options{padding:18px 13px}.mn-xml-options label{font-size:11px}
+ .mn-completion{align-items:flex-start;flex-direction:column;gap:10px}.mn-completion h2{font-size:15px}
+}
+@media(prefers-reduced-motion:reduce){.mn-window *{transition:none!important}}
+
+/* OpenClaw is already running in the simulated Windows taskbar. */
+.win11-transfer .desktop-taskbar{height:44px;gap:9px}
+.win11-transfer .desktop-taskbar .wx-openclaw{position:relative;display:inline-flex;align-items:center;gap:7px;height:34px;padding:4px 10px 7px;border:0;background:transparent;color:#344150;font:12px/1.4 "Segoe UI","Microsoft JhengHei",sans-serif;white-space:nowrap}
+.win11-transfer .wx-openclaw::after{content:"";position:absolute;bottom:2px;left:50%;width:7px;height:3px;border-radius:3px;background:#7b8794;transform:translateX(-50%)}
+.win11-transfer .wx-openclaw .wx-claw-app{display:grid;place-items:center;width:20px;height:20px;border-radius:5px;background:#8b3549;color:white;font-size:17px}
+.win11-transfer .desktop-taskbar .wx-openclaw:hover{background:#ffffffb3}
+.win11-transfer .desktop-taskbar .wx-openclaw:focus-visible{outline:2px solid #0067c0;outline-offset:1px}
+.win11-transfer .wx-openclaw[aria-disabled=true]{color:#5b6672}
+.win11-transfer.is-maximized{bottom:100px}
+.experience:has(.win11-transfer.is-maximized)>.wx-coach{min-height:70px}
+@media(max-width:680px){
+ .win11-transfer .desktop-taskbar{gap:7px;padding:0 6px}
+ .win11-transfer .desktop-taskbar .task-app{padding-inline:8px;font-size:11px}
+ .win11-transfer .desktop-taskbar .wx-openclaw{gap:5px;padding-inline:7px}
+ .win11-transfer.is-maximized{bottom:108px}
+ .experience:has(.win11-transfer.is-maximized)>.wx-coach{min-height:90px}
+}
+
+/* Keep completion controls reachable when continuing in a maximized window. */
+.experience:has(>.mn-completion)>.window.is-maximized{bottom:108px}
+.experience:has(>.window.is-maximized)>.mn-completion{position:fixed;left:14px;right:14px;bottom:14px;z-index:9;min-height:80px}
+@media(max-width:680px){
+ .experience:has(>.mn-completion)>.window.is-maximized{bottom:172px}
+ .experience:has(>.window.is-maximized)>.mn-completion{left:6px;right:6px;bottom:6px;min-height:0;max-height:155px;overflow:auto}
+}
+/* Short landscape windows must leave usable space for file rows. */
+@media(max-height:600px){
+ .window.is-maximized .wx-columns{position:static}
+ .window.is-maximized .wx-addressbar{min-height:42px;padding-top:4px;padding-bottom:4px}
+ .window.is-maximized .wx-commandbar{min-height:40px;padding-top:4px;padding-bottom:4px}
+ .window.is-maximized .wx-statusbar{min-height:24px;padding-top:2px;padding-bottom:2px}
+ .win11-transfer.is-maximized{top:6px;bottom:70px}
+ .experience:has(>.win11-transfer.is-maximized)>.wx-coach{left:6px;right:6px;bottom:6px;min-height:0;max-height:58px;overflow:auto;padding:8px 12px}
+ .experience:has(>.win11-transfer.is-maximized)>.wx-coach .wx-coach-label{display:none}
+}
 </style>
 </head>
 <body>
-<header><div class="brand"><img class="logo" src="data:image/png;base64,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" alt="伊甸基金會" width="48" height="48"><div><strong>每月A派B報表統計作業</strong></div></div><nav class="tabs" role="tablist" aria-label="流程體驗"><button id="tab-original" role="tab" aria-selected="true" aria-controls="experience" data-mode="original"><b>01</b> Original Workflow</button><button id="tab-skill" role="tab" aria-selected="false" aria-controls="experience" data-mode="skill"><b>02</b> OpenClaw Skill</button></nav><div class="top-actions"><button id="reset" class="quiet">重來</button><button id="fullscreen" aria-label="切換全螢幕">全螢幕 ↗</button></div></header>
-<main><aside id="sidebar"></aside><section id="experience" class="experience" role="tabpanel" aria-labelledby="tab-original" tabindex="-1"></section></main>
+<!-- Iconsax linear icons, by Vuesax / Lusaxweb, https://iconsax.io/.
+Source: https://github.com/lusaxweb/iconsax/tree/e5dba15361f69d34d0f3f3f35408a28fe74c5727/static/Iconsax/Svg/All/linear
+Use terms: https://github.com/lusaxweb/iconsax/blob/e5dba15361f69d34d0f3f3f35408a28fe74c5727/components/License.vue
+Iconsax are the official icons of the Vuesax framework. Free personal and commercial
+use; do not sell or redistribute under another name, or use to create templates/UI kits
+without permission. These selected icons are embedded in this educational application.
+Colors inherit currentColor; original path geometry is retained. -->
+<svg class="lab-sprite" aria-hidden="true" focusable="false" width="0" height="0"><defs><symbol id="lab-icon-document-text" viewBox="0 0 24 24"><path d="M21 7V17C21 20 19.5 22 16 22H8C4.5 22 3 20 3 17V7C3 4 4.5 2 8 2H16C19.5 2 21 4 21 7Z" stroke="currentColor" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M14.5 4.5V6.5C14.5 7.6 15.4 8.5 16.5 8.5H18.5" stroke="currentColor" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M8 13H12" stroke="currentColor" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M8 17H16" stroke="currentColor" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/></symbol><symbol id="lab-icon-cpu" viewBox="0 0 24 24"><path d="M9.6 20H14.4C18.4 20 20 18.4 20 14.4V9.6C20 5.6 18.4 4 14.4 4H9.6C5.6 4 4 5.6 4 9.6V14.4C4 18.4 5.6 20 9.6 20Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M10.5 17H13.5C16 17 17 16 17 13.5V10.5C17 8 16 7 13.5 7H10.5C8 7 7 8 7 10.5V13.5C7 16 8 17 10.5 17Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M8.01001 4V2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M12 4V2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M16 4V2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M20 8H22" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M20 12H22" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M20 16H22" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M16 20V22" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M12.01 20V22" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M8.01001 20V22" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M2 8H4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M2 12H4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M2 16H4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></symbol><symbol id="lab-icon-scan" viewBox="0 0 24 24"><path d="M2 9V6.5C2 4.01 4.01 2 6.5 2H9" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M15 2H17.5C19.99 2 22 4.01 22 6.5V9" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M22 16V17.5C22 19.99 19.99 22 17.5 22H16" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M9 22H6.5C4.01 22 2 19.99 2 17.5V15" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M17 9.5V14.5C17 16.5 16 17.5 14 17.5H10C8 17.5 7 16.5 7 14.5V9.5C7 7.5 8 6.5 10 6.5H14C16 6.5 17 7.5 17 9.5Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M19 12H5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></symbol><symbol id="lab-icon-refresh" viewBox="0 0 24 24"><path d="M14.55 21.67C18.84 20.54 22 16.64 22 12C22 6.48 17.56 2 12 2C5.33 2 2 7.56 2 7.56M2 7.56V3M2 7.56H4.01H6.44" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M2 12C2 17.52 6.48 22 12 22" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="3 3"/></symbol><symbol id="lab-icon-maximize" viewBox="0 0 24 24"><path d="M9 22H15C20 22 22 20 22 15V9C22 4 20 2 15 2H9C4 2 2 4 2 9V15C2 20 4 22 9 22Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M18 6L6 18" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M18 10V6H14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M6 14V18H10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M6 6L18 18" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M6 10V6H10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M18 14V18H14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></symbol><symbol id="lab-icon-tick-circle" viewBox="0 0 24 24"><path d="M12 22C17.5 22 22 17.5 22 12C22 6.5 17.5 2 12 2C6.5 2 2 6.5 2 12C2 17.5 6.5 22 12 22Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M7.75 12L10.58 14.83L16.25 9.17004" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></symbol><symbol id="lab-icon-arrow-right" viewBox="0 0 24 24"><path d="M14.4301 5.92993L20.5001 11.9999L14.4301 18.0699" stroke="currentColor" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M3.5 12H20.33" stroke="currentColor" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/></symbol><symbol id="lab-icon-user-tick" viewBox="0 0 24 24"><path d="M12 12C14.7614 12 17 9.76142 17 7C17 4.23858 14.7614 2 12 2C9.23858 2 7 4.23858 7 7C7 9.76142 9.23858 12 12 12Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M3.41003 22C3.41003 18.13 7.26003 15 12 15C12.96 15 13.89 15.13 14.76 15.37" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M22 18C22 18.75 21.79 19.46 21.42 20.06C21.21 20.42 20.94 20.74 20.63 21C19.93 21.63 19.01 22 18 22C16.54 22 15.27 21.22 14.58 20.06C14.21 19.46 14 18.75 14 18C14 16.74 14.58 15.61 15.5 14.88C16.19 14.33 17.06 14 18 14C20.21 14 22 15.79 22 18Z" stroke="currentColor" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M16.4399 18L17.4299 18.99L19.5599 17.02" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></symbol><symbol id="lab-icon-element-3" viewBox="0 0 24 24"><path d="M22 8.52V3.98C22 2.57 21.36 2 19.77 2H15.73C14.14 2 13.5 2.57 13.5 3.98V8.51C13.5 9.93 14.14 10.49 15.73 10.49H19.77C21.36 10.5 22 9.93 22 8.52Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M22 19.77V15.73C22 14.14 21.36 13.5 19.77 13.5H15.73C14.14 13.5 13.5 14.14 13.5 15.73V19.77C13.5 21.36 14.14 22 15.73 22H19.77C21.36 22 22 21.36 22 19.77Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M10.5 8.52V3.98C10.5 2.57 9.86 2 8.27 2H4.23C2.64 2 2 2.57 2 3.98V8.51C2 9.93 2.64 10.49 4.23 10.49H8.27C9.86 10.5 10.5 9.93 10.5 8.52Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M10.5 19.77V15.73C10.5 14.14 9.86 13.5 8.27 13.5H4.23C2.64 13.5 2 14.14 2 15.73V19.77C2 21.36 2.64 22 4.23 22H8.27C9.86 22 10.5 21.36 10.5 19.77Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></symbol></defs></svg>
+<a class="skip-link" href="#experience">跳至互動體驗</a>
+<header><div class="brand"><img class="logo" src="data:image/png;base64,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" alt="伊甸基金會" width="48" height="48"><div><span class="brand-overline">EDEN · WORKFLOW LAB</span><strong>每月 A 派 B 報表統計作業</strong></div></div><span class="header-note"><span></span> 一份報表，兩種工作方式</span><div class="top-actions">
+ <span class="lab-action"><button id="focus-toggle" class="shell-control" type="button" aria-pressed="false" aria-controls="intro sidebar" aria-describedby="focus-tip"><svg class="lab-icon " width="20" height="20" aria-hidden="true" focusable="false"><use href="#lab-icon-scan"/></svg><span class="control-text">專注模式</span></button><span class="lab-tooltip" id="focus-tip" role="tooltip">收起介紹與導覽，保留操作進度。<small><kbd>Esc</kbd> 返回完整頁面</small></span></span>
+ <span class="lab-action"><button id="reset" class="quiet" type="button" aria-describedby="reset-tip"><svg class="lab-icon " width="20" height="20" aria-hidden="true" focusable="false"><use href="#lab-icon-refresh"/></svg><span class="control-text">重來</span></button><span class="lab-tooltip" id="reset-tip" role="tooltip">重新開始目前流程；另一流程的進度會保留。</span></span>
+ <span class="lab-action lab-fullscreen"><button id="fullscreen" type="button" aria-pressed="false" aria-label="切換全螢幕" aria-describedby="fullscreen-tip"><svg class="lab-icon " width="20" height="20" aria-hidden="true" focusable="false"><use href="#lab-icon-maximize"/></svg><span class="control-text">全螢幕</span></button><span class="lab-tooltip" id="fullscreen-tip" role="tooltip">以全螢幕檢視教學。<small><kbd>Esc</kbd> 可離開全螢幕</small></span></span>
+</div></header>
+<section id="intro" class="intro" aria-labelledby="intro-title">
+ <div class="intro-copy"><div class="eyebrow"><span class="edition-dot"></span> WORKFLOW, REIMAGINED <span class="edition">SAS / 輪派作業</span></div><h1 id="intro-title">把時間，留給<span>更重要的事。</span></h1><p>從逐筆整理，到人機協作。親手走過同一份報表的兩種工作方式。</p><div class="intro-actions"><a class="intro-link" href="#workflow-chooser"><i class="cta-dot" aria-hidden="true"></i><span class="cta-label">選擇體驗流程</span><svg class="lab-icon cta-arrow" width="20" height="20" aria-hidden="true" focusable="false"><use href="#lab-icon-arrow-right"/></svg></a><span class="intro-note">兩種流程，進度各自保留。</span></div></div>
+ <figure class="journey-preview" aria-labelledby="preview-caption">
+ <figcaption id="preview-caption"><span>流程概念圖</span><span>115.07 · 示範月份</span></figcaption>
+ <div class="journey-stack">
+  <div class="journey-row journey-source"><span class="journey-icon"><svg class="lab-icon " width="24" height="24" aria-hidden="true" focusable="false"><use href="#lab-icon-document-text"/></svg></span><div><strong>本月照會資料</strong><span class="journey-file">11507_demo.xml</span></div><span class="journey-tag">XML</span></div>
+  <span class="journey-connector" aria-hidden="true"><i></i></span>
+  <div class="journey-row journey-process"><span class="journey-icon" id="preview-process-icon"><svg class="lab-icon " width="24" height="24" aria-hidden="true" focusable="false"><use href="#lab-icon-document-text"/></svg></span><div><span class="journey-eyebrow" id="preview-process-mode">整理方式 / 手動作業</span><strong id="preview-process-name">逐步整理與填報</strong><p id="preview-process-description">匯入 Excel、建立樞紐分析，再填入報表。</p></div></div>
+  <span class="journey-connector" aria-hidden="true"><i></i></span>
+  <div class="journey-row journey-result"><span class="journey-icon"><svg class="lab-icon " width="24" height="24" aria-hidden="true" focusable="false"><use href="#lab-icon-user-tick"/></svg></span><div><strong>完成本月輪派報表</strong><span class="journey-file">11507_輪派報表.xlsx</span></div><span class="journey-tag">人工檢核</span></div>
+ </div><p class="journey-caption">相同的資料，體驗不同的協作方式。</p>
+ </figure>
+</section>
+<div id="shell-status" class="shell-sr-only" role="status" aria-live="polite" aria-atomic="true"></div>
+<main><section id="workflow-chooser" class="workflow-chooser" aria-labelledby="chooser-title">
+ <div class="chooser-heading"><div><span class="section-index">01 / 選擇工作方式</span><h2 id="chooser-title">選一種方式，親手走一遍。</h2></div><a class="workspace-jump" href="#experience">進入操作區 <svg class="lab-icon " width="24" height="24" aria-hidden="true" focusable="false"><use href="#lab-icon-arrow-right"/></svg></a></div>
+ <nav class="tabs workflow-picker" role="tablist" aria-label="流程體驗">
+  <button id="tab-original" class="workflow-card" role="tab" aria-label="手動作業" aria-selected="true" aria-controls="experience" aria-describedby="original-summary" data-mode="original">
+   <span class="card-topline"><span class="card-eyebrow">01 / ORIGINAL WORKFLOW</span><span class="card-count"><b id="original-step-count">9</b> 個教學步驟</span></span>
+   <span class="card-title"><span class="card-icon"><svg class="lab-icon " width="24" height="24" aria-hidden="true" focusable="false"><use href="#lab-icon-document-text"/></svg></span><span>手動作業</span><span class="card-selected" aria-hidden="true"><svg class="lab-icon " width="24" height="24" aria-hidden="true" focusable="false"><use href="#lab-icon-tick-circle"/></svg></span></span>
+   <span class="card-description" id="original-summary">從匯出資料、建立樞紐分析到填寫報表，理解每個環節。</span>
+   <span class="card-bottom"><span class="card-detail">整理資料 · 逐項填表 · 人工核對</span><span class="card-action"><span id="original-card-status">正在體驗</span><svg class="lab-icon " width="24" height="24" aria-hidden="true" focusable="false"><use href="#lab-icon-arrow-right"/></svg></span></span>
+  </button>
+  <button id="tab-skill" class="workflow-card" role="tab" aria-label="人機協作" aria-selected="false" aria-controls="experience" aria-describedby="skill-summary" data-mode="skill">
+   <span class="card-topline"><span class="card-eyebrow">02 / OPENCLAW SKILL</span><span class="card-count"><b id="skill-step-count">5</b> 個教學步驟</span></span>
+   <span class="card-title"><span class="card-icon"><svg class="lab-icon " width="24" height="24" aria-hidden="true" focusable="false"><use href="#lab-icon-cpu"/></svg></span><span>人機協作</span><span class="card-selected" aria-hidden="true"><svg class="lab-icon " width="24" height="24" aria-hidden="true" focusable="false"><use href="#lab-icon-tick-circle"/></svg></span></span>
+   <span class="card-description" id="skill-summary">交由 Skill 整理資料，由你決定新單位、檢核並確認歸檔。</span>
+   <span class="card-bottom"><span class="card-detail">工具處理 · 人工決策 · 確認歸檔</span><span class="card-action"><span id="skill-card-status">切換體驗</span><svg class="lab-icon " width="24" height="24" aria-hidden="true" focusable="false"><use href="#lab-icon-arrow-right"/></svg></span></span>
+  </button>
+ </nav><p class="chooser-note">隨時切換，兩種流程的進度會各自保留。步驟數為本教學的操作階段。</p>
+</section><div class="lab-workspace"><div class="workspace-caption" aria-label="操作區導覽">
+ <div class="workspace-identity"><span class="workspace-index">02</span><div><strong>輪派作業練習區</strong><span>示範資料 · 放心練習</span></div></div>
+ <div class="workspace-controls" role="group" aria-label="切換體驗流程"><button type="button" class="workspace-mode" data-mode="original" aria-pressed="true" aria-controls="experience">手動作業</button><button type="button" class="workspace-mode" data-mode="skill" aria-pressed="false" aria-controls="experience">人機協作</button></div>
+ <div class="workspace-position"><span id="workspace-step-label">步驟 01 / 09</span><span class="workspace-meter" aria-hidden="true"><span id="workspace-meter-fill"></span></span></div>
+ </div><aside id="sidebar"></aside><section id="experience" class="experience" role="tabpanel" aria-labelledby="tab-original" tabindex="0"></section></div></main>
+<footer class="site-footer"><span>SAS <span class="footer-divider">/</span> 為照顧，留一點餘裕。</span><span>互動教學 · 全程使用示範資料 <span class="footer-mark" aria-hidden="true">↗</span></span></footer>
 <div id="review" class="review-overlay" hidden role="dialog" aria-modal="true" aria-labelledby="review-title"></div>
 <script>
 'use strict';
@@ -218,11 +1097,11 @@ const rows=groups.flatMap((g,j)=>Array.from({length:[14,10,8,12][j]},(_,i)=>{
 const counts=g=>[new Set(rows.filter(r=>r[1]===g).map(r=>r[0])).size,new Set(rows.filter(r=>r[1]===g&&r[3]).map(r=>r[0])).size];
 const manualSteps=['登入照管平台','匯出照會資料','確認下載檔案','以 XML 表格匯入','檢視資料並另存','建立樞紐分析表','篩選碼別與填表','核對格式與數字','儲存完成'];
 const skillSteps=['放入本月 XML','執行 Skill','決定新單位','Excel 檢核與歸檔','完成'];
-const mHints=['使用示範帳號登入照管平台。','選擇月份與照會單，匯出資料。','不需開啟 XML，直接切換至 Excel。','選擇「XML 表格」，按確定。','資料已匯入，另存為 Excel 活頁簿。','設定欄位，建立樞紐分析表。','切換碼別，再切到輪派報表填數字。','完成三項檢核，再儲存。','切換至 Skill，體驗同一筆作業。'];
+const mHints=['使用示範帳號登入照管平台。','選擇月份與照會單，匯出資料。','按下方 Windows 開始，點選 Excel 開啟程式。','在 Excel 按「開啟 → 瀏覽」，到下載選取 XML，以 XML 表格開啟。','點選「檔案 → 另存新檔 → 瀏覽」，存成 Excel 活頁簿。','設定欄位，建立樞紐分析表。','切換碼別，再切到輪派報表填數字。','完成三項檢核，再儲存。','切換至 Skill，體驗同一筆作業。'];
 const sHints=['將下載的 XML 移入 Input 資料夾。','輸入 /sas，選擇 Skill，再輸入「執行」。','你決定加入或忽略，Skill 才會繼續。','Excel 檢核後，輸入「確認無誤，歸檔」。','去識別化 Excel 留在原位。'];
 let mode='original';
-const newManual=()=>({step:0,queried:false,imported:false,xmlMode:'table',filter:'BA',accept:'all',seen:new Set(['BA']),workbook:'pivot',values:groups.map(()=>['','']),fields:[],checked:false,actions:0});
-const newSkill=()=>({step:0,choice:null,unitReply:"",reviewed:false,actions:0,selected:false,cut:false,moved:false,command:"",skillChosen:false});
+const newManual=()=>({step:0,queried:false,imported:false,xmlMode:'table',startOpen:false,manualLocation:'downloads',manualHistory:['downloads'],manualHistoryIndex:0,manualQuery:'',manualSelected:'',backstage:'',nativeDialog:'',dialogLocation:'downloads',openName:'',saveName:'11507_照會資料.xlsx',saveType:'xlsx',rawName:'11507_照會資料.xlsx',rawLocation:'documents',completedPreview:false,filter:'BA',accept:'all',seen:new Set(['BA']),workbook:'pivot',values:groups.map(()=>['','']),fields:[],reviewChecks:[false,false,false],checked:false,actions:0});
+const newSkill=()=>({step:0,choice:null,unitReply:"",reviewed:false,reviewChecks:[false,false,false],confirmation:"",actions:0,selected:false,cut:false,moved:false,location:'downloads',fileHistory:['downloads'],fileHistoryIndex:0,fileQuery:'',command:"",skillChosen:false});
 let m=newManual(),s=newSkill(),lastFocus=null;
 const btn=(label,action,primary=true,disabled=false)=>`<button ${disabled?'disabled':''} class="${primary?'primary':''}" data-action="${action}">${label}</button>`;
 function file(name,detail,action,label){return `<div class="file-row"><div class="file-icon">${name.endsWith('.xml')?'XML':'XLSX'}</div><div class="file-info"><strong>${name}</strong><small>${detail}</small></div>${action?btn(label,action,false):''}</div>`}
@@ -239,26 +1118,27 @@ function report(includeNew=true,editable=false){
  return '<tr>'+(i===0?'<td class="yellow" rowspan="'+(ids.length+1)+'">宜<br>蘭<br>市</td>':'')+'<td>'+serial[unit.cat]+'</td><td class="unit '+unit.color+'">('+unit.cat+')'+unit.name+'</td>'+Array.from({length:7},(_,k)=>'<td>'+(k===unit.col?(editable?['assigned','accepted'].map((key,j)=>'<input type="number" min="0" step="1" data-report-group="'+g+'" data-report-kind="'+j+'" id="'+key+'-'+g+'" aria-label="'+unit.name+(j?'接案':'派案')+'" value="'+m.values[g][j]+'">').join(' / '):c.join('/')):'')+'</td>').join('')+'<td>無人力</td></tr>';
  }).join('')+'<tr class="total"><td colspan="2">總計</td>'+totals.map((v,k)=>'<td>'+(v[0]?(editable?['assigned','accepted'].map((_,j)=>{const gs=ids.filter(g=>groups[g].col===k);return gs.every(g=>m.values[g][j]!=='')?gs.reduce((n,g)=>n+Number(m.values[g][j]),0):'—'}).join('/'):v.join('/')):'')+'</td>').join('')+'<td></td></tr></tbody></table></div><p class="hint-line">數值：派案／接案。縮略預覽，非正式列印範本。</p>';
 }
-function render(){const state=mode==='original'?m:s;const steps=mode==='original'?manualSteps:skillSteps;const hints=mode==='original'?mHints:sHints;const step=state.step;const done=step===steps.length-1;$('#tab-original').setAttribute('aria-selected',mode==='original');$('#tab-skill').setAttribute('aria-selected',mode==='skill');$('#experience').setAttribute('aria-labelledby','tab-'+mode);$('#sidebar').innerHTML=`<h1>工作流程</h1><ol class="steps">${steps.map((x,i)=>`<li class="${i===step?'active':i<step?'done':''}" ${i===step?'aria-current="step"':''}><span class="stepnum">${i<step?'✓':String(i+1).padStart(2,'0')}</span>${x}</li>`).join('')}</ol><div class="aside-bottom"><div class="row spread small"><span>${done?'已完成':'進度'}</span><span>${step+1} / ${steps.length}</span></div><div class="progress-track"><div class="progress-fill" style="width:${100*(step+1)/steps.length}%"></div></div></div>`;
-$('#experience').innerHTML=`<div class="page-heading"><div><span class="page-kicker">步驟 ${String(step+1).padStart(2,'0')} / ${String(steps.length).padStart(2,'0')}</span><h2>${steps[step]}</h2></div><div class="guide"><span class="guide-label">提示</span><p>${hints[step]}</p></div><span class="badge">${mode==='skill'?'Skill 協作':done?'已完成':'人工操作'}</span></div>${applicationWindow()}`;alignGuide();updateSkillComposer();if($('#unit-reply'))$('#unit-reply').value=s.unitReply;
+let labLastMode=null,labLastStep=-1;
+function labIcon(name){return `<svg class="lab-icon" width="20" height="20" aria-hidden="true" focusable="false"><use href="#lab-icon-${name}"/></svg>`}
+function render(){const previousWindow=$('.window');const sameMode=mode===labLastMode;const keepMaximized=sameMode&&!!previousWindow?.classList.contains('is-maximized');const keepMinimized=sameMode&&(mode==='original'?m:s).step===labLastStep&&!!previousWindow?.querySelector('#stage')?.hidden;const state=mode==='original'?m:s;const steps=mode==='original'?manualSteps:skillSteps;const hints=mode==='original'?mHints:sHints;const step=state.step;const done=step===steps.length-1;const labChanged=mode!==labLastMode||step!==labLastStep;const labAdvanced=mode===labLastMode&&step>labLastStep;$('#tab-original').setAttribute('aria-selected',mode==='original');$('#tab-skill').setAttribute('aria-selected',mode==='skill');$('#experience').setAttribute('aria-labelledby','tab-'+mode);$('#tab-original').tabIndex=mode==='original'?0:-1;$('#tab-skill').tabIndex=mode==='skill'?0:-1;document.body.dataset.mode=mode;updateWorkflowShowcase();$('#sidebar').innerHTML=`<div class="eyebrow">THE PROCESS</div><h2 class="sidebar-title">${mode==='original'?'一步一步，<br>理解每個細節。':'交給工具，<br>由你掌握關鍵。'}</h2><p class="sidebar-description">${mode==='original'?'從匯出資料到完成月報':'從資料就緒到確認歸檔'}</p><ol class="steps">${steps.map((x,i)=>`<li class="${i===step?'active':i<step?'done'+(labAdvanced&&i===step-1?' lab-just-done':''):''}" ${i===step?'aria-current="step"':''}><span class="stepnum">${i<step?labIcon('tick-circle'):String(i+1).padStart(2,'0')}</span>${x}</li>`).join('')}</ol><div class="aside-bottom"><div class="progress-caption">YOUR PROGRESS</div><div class="row spread small"><span>${done?'已完成':'進度'}</span><span>${step+1} / ${steps.length}</span></div><div class="progress-track"><div class="progress-fill" style="width:${100*(step+1)/steps.length}%"></div></div></div>`;
+$('#experience').innerHTML=`<div class="page-heading ${labChanged?'lab-step-changed':''}"><div><span class="page-kicker">步驟 ${String(step+1).padStart(2,'0')} / ${String(steps.length).padStart(2,'0')}</span><h2 id="step-title" tabindex="-1">${steps[step]}</h2></div><div class="guide"><span class="guide-label">${labIcon('arrow-right')} 下一步</span><p>${hints[step]}</p></div><span class="badge lab-mode-badge ${done?'lab-complete':''}">${labIcon(done?'tick-circle':mode==='skill'?'cpu':'document-text')}<span>${done?'已完成':mode==='skill'?'Skill 協作':'人工操作'}</span></span></div>${applicationWindow()}${mode==='skill'&&s.step===0?transferCoach():mode==='original'&&m.step===8?'<div class="mn-completion"><div><h2>本月輪派報表已完成</h2><p>11507_輪派報表.xlsx 已儲存於文件（模擬）。</p></div>'+btn('體驗 OpenClaw Skill →','switch-skill')+'</div>':''}`;if(keepMaximized){$('.window').classList.add('is-maximized');$('[data-window="maximize"]').setAttribute('aria-label','還原模擬視窗')}if(keepMinimized){$('#stage').hidden=true;$('.window-resting').hidden=false;const status=$('.excel-status');if(status)status.hidden=true}alignGuide();updateSkillComposer();if($('#unit-reply'))$('#unit-reply').value=s.unitReply;if(labChanged&&labLastMode!==null)$('#shell-status').textContent=`${mode==='skill'?'人機協作':'手動作業'}，步驟 ${step+1}／${steps.length}：${steps[step]}`;if(labAdvanced){const target=keepMaximized?$('.window-name'):$('#step-title');target.tabIndex=-1;target.focus({preventScroll:true})}labLastMode=mode;labLastStep=step;
 }
-function windowTitle(){if(mode==='skill')return s.step===0?'檔案總管 / 下載 → SAS Agent / Input':'OpenClaw / sas-for-eden';return ['照顧服務管理資訊平臺 / 登入','照顧服務管理資訊平臺 / 資料匯出','檔案總管 / Downloads','Microsoft Excel / 開啟 XML','11507_照會資料.xlsx — Excel','Microsoft Excel / 建立樞紐分析表',m.workbook==='pivot'?'11507_照會資料.xlsx — 樞紐分析表':'11507_輪派報表.xlsx — Excel','Microsoft Excel / 人工檢核','月報作業 / 完成'][m.step]}
+function windowTitle(){if(mode==='skill')return s.step===0?explorerLocationLabel()+' — 檔案總管':'OpenClaw / sas-for-eden';return ['照顧服務管理資訊平臺 / 登入','照顧服務管理資訊平臺 / 資料匯出',(m.manualLocation==='downloads'?'下載':'文件')+' — 檔案總管','Excel','11507_demo.xml — Excel','Microsoft Excel / 建立樞紐分析表',m.workbook==='pivot'?escapeChatText(m.rawName)+' — 樞紐分析表':'11507_輪派報表.xlsx — Excel','Microsoft Excel / 人工檢核',m.completedPreview?(m.completedPreview==='raw'?escapeChatText(m.rawName):'11507_輪派報表.xlsx')+' — Excel':(m.manualLocation==='downloads'?'下載':'文件')+' — 檔案總管'][m.step]}
 function excelChrome(tab='資料'){
  const base=['檔案','常用','插入','版面配置','公式','資料','檢視'];
  const labels=base.includes(tab)?base:[...base,tab];
  const tools=tab==='表格設計'?['以樞紐分析表摘要','移除重複項','表格樣式','篩選按鈕']:tab==='樞紐分析表分析'?['重新整理','變更資料來源','欄位清單','插入交叉分析篩選器']:tab==='常用'?['貼上','字型','對齊方式','數值格式','框線與底色']:['開啟','另存新檔','取得資料','排序與篩選'];
- return '<div class="excel-tabs" aria-label="Excel 功能區示意">'+labels.map(x=>'<span class="'+(x===tab?'selected':'')+'">'+x+'</span>').join('')+'</div><div class="excel-tools" aria-hidden="true">'+tools.map(x=>'<span>'+x+'</span>').join('')+'</div><div class="formula-bar"><span>A1</span><em>ƒx</em><span>'+(tab==='表格設計'?'DATE_CREATED':tab==='樞紐分析表分析'?'SERVICE_CODE':'')+'</span></div>';
+ return '<div class="excel-tabs" aria-label="Excel 功能區示意">'+labels.map(x=>mode==='original'&&[3,4].includes(m.step)&&x==='檔案'?'<button type="button" data-native="backstage">檔案</button>':'<span class="'+(x===tab?'selected':'')+'">'+x+'</span>').join('')+'</div><div class="excel-tools" aria-hidden="true">'+tools.map(x=>'<span>'+x+'</span>').join('')+'</div><div class="formula-bar"><span>A1</span><em>ƒx</em><span>'+(tab==='表格設計'?'DATE_CREATED':tab==='樞紐分析表分析'?'SERVICE_CODE':'')+'</span></div>';
 }
 function applicationWindow(){
- const app=mode==='skill'?(s.step===0?'explorer':'claw'):m.step<=1?'browser':m.step===2||m.step===8?'explorer':'excel';
+ const app=mode==='skill'?(s.step===0?'explorer':'claw'):m.step<=1?'browser':m.step===2||m.step===8&&!m.completedPreview?'explorer':'excel';
  const icons={browser:'e',explorer:'▰',excel:'X',claw:'✳'};
  let view=mode==='skill'?skillView():manualView();
  if(app==='browser')view='<div class="app-toolbar"><span aria-hidden="true">←　→　⟳</span><div class="address-field">▣　照顧服務管理資訊平臺 / '+(m.step===0?'登入':'資料匯出')+'</div><span>⋯</span></div>'+view;
- if(app==='explorer'&&mode==='original')view=`<div class="app-toolbar"><span aria-hidden="true">←　↑</span><div class="address-field">本機　›　${m.step===8?'文件　›　月報':'下載'}</div><span>⌕</span></div><div class="explorer-layout"><div class="explorer-nav" aria-label="檔案總管導覽示意"><span>⌂　首頁</span><span>▧　桌面</span><span class="${m.step===2?'selected':''}">↓　下載</span><span class="${m.step===8?'selected':''}">▤　文件</span><span>▣　本機</span></div><div class="explorer-main"><div class="explorer-columns"><span>名稱</span><span>修改日期　　類型</span></div>${view}</div></div>`;
- if(app==='excel')view=excelChrome(m.step===5||m.step===6&&m.workbook==='pivot'?'樞紐分析表分析':m.step===4?'表格設計':m.step===3?'檔案':'常用')+view;
+ if(app==='excel'&&!(mode==='original'&&[3,4].includes(m.step)))view=excelChrome(m.step===5||m.step===6&&m.workbook==='pivot'?'樞紐分析表分析':'常用')+view;
  if(app==='claw')view=`<div class="app-toolbar"><div class="address-field">▣　127.0.0.1:18789</div><span>介面模擬</span></div><div class="claw-shell"><div class="claw-nav"><div class="claw-brand"><span>✳</span>OpenClaw</div><div><div class="claw-nav-label">Agent</div><div class="claw-nav-item">◈　SAS Agent</div></div><div><div class="claw-nav-label">Sessions</div><div class="claw-session">每月輪派報表<small>sas-for-eden · 11507</small></div></div><div class="claw-nav-footer">工作區<br><span class="mono">SAS Agent/</span></div></div><div class="claw-main"><div class="claw-chatbar"><div><strong>每月輪派報表</strong><small>SAS Agent / sas-for-eden</small></div><span class="claw-status">${[2,3].includes(s.step)?'◌ 等待確認':s.step===4?'✓ 已完成':'● 就緒'}</span></div>${view}</div></div>`;
  const title=windowTitle();
- return `<div class="window app-${app}"><div class="window-bar"><span class="app-icon" aria-hidden="true">${icons[app]}</span><span class="window-name">${title}</span><div class="caption-controls"><button data-window="minimize" aria-label="最小化模擬視窗" title="最小化">−</button><button data-window="maximize" aria-label="放大模擬視窗" title="放大／還原">□</button><button class="caption-close" data-window="close" aria-label="關閉模擬視窗（保留進度）" title="關閉視窗，保留進度">×</button></div></div><div class="window-body" id="stage">${view}</div><div class="window-resting" hidden><h3>視窗已收起</h3><p>操作進度已保留。</p><button data-window="restore">重新開啟視窗</button></div>${app==='excel'?'<div class="excel-status"><span>就緒</span><strong>工作表1</strong><span>＋</span><span>100%</span></div>':''}${mode==='original'||app==='explorer'?`<div class="desktop-taskbar"><span class="taskbar-start" aria-hidden="true"><i></i><i></i><i></i><i></i></span><button class="task-app" data-window="restore" title="開啟目前的模擬視窗">${icons[app]}　${app==='excel'?'Excel':app==='explorer'?'檔案總管':'行政系統'}</button><span class="taskbar-time">09:41<br>2026/7/31</span></div>`:''}</div>`;
+ return `<div class="window app-${app}${mode==='skill'&&s.step===0?' win11-transfer':mode==='original'&&[2,3,4,8].includes(m.step)?' mn-window'+(app==='explorer'?' mn-file-window':''):''}"><div class="window-bar"><span class="app-icon" aria-hidden="true">${app==='explorer'?explorerIcon('folder'):icons[app]}</span><span class="window-name">${title}</span><div class="caption-controls"><button data-window="minimize" aria-label="最小化模擬視窗" title="最小化">−</button><button data-window="maximize" aria-label="放大模擬視窗" title="放大／還原">□</button><button class="caption-close" data-window="close" aria-label="關閉模擬視窗（保留進度）" title="關閉視窗，保留進度">×</button></div></div><div class="window-body" id="stage">${view}</div><div class="window-resting" hidden><h3>視窗已收起</h3><p>操作進度已保留。</p><button data-window="restore">重新開啟視窗</button></div>${app==='excel'?'<div class="excel-status"><span>就緒</span><strong>工作表1</strong><span>＋</span><span>100%</span></div>':''}${mode==='original'&&m.step===2?manualStart():''}${mode==='original'||app==='explorer'?`<div class="desktop-taskbar">${mode==='original'&&m.step===2?'<button id="mn-start-button" class="taskbar-start" type="button" data-native="start" aria-label="Windows 開始" aria-expanded="'+m.startOpen+'" aria-controls="mn-start"><i></i><i></i><i></i><i></i></button>':'<span class="taskbar-start" aria-hidden="true"><i></i><i></i><i></i><i></i></span>'}<button class="task-app" data-window="restore" title="開啟目前的模擬視窗">${icons[app]}　${app==='excel'?'Excel':app==='explorer'?'檔案總管':'行政系統'}</button>${mode==='skill'&&s.step===0?`<button type="button" class="task-app wx-openclaw" data-action="place-xml" aria-label="切換至已開啟的 OpenClaw" aria-disabled="${!s.moved}" aria-describedby="wx-transfer-hint" title="${s.moved?'OpenClaw — 已開啟':'請先將 XML 移入 Input，再切換至 OpenClaw'}"><span class="wx-claw-app" aria-hidden="true">✳&#xfe0e;</span><span>OpenClaw</span></button>`:''}<span class="taskbar-time">09:41<br>2026/7/31</span></div>`:''}</div>`;
 }
 document.addEventListener('click',e=>{
  const control=e.target.closest('[data-window]');if(!control)return;
@@ -286,43 +1166,291 @@ function pivotView(){
  }).join('')+'</tbody></table><p class="hint-line">計數欄是服務列數；填報人數請依 CASENO 個案數核對。</p></div><div class="pivot-panel"><h3>樞紐分析表欄位</h3><p>選擇要新增到報表的欄位：</p>'+['PIB_UNIT','CASENO','ACCEPT','SERVICE_CODE'].map(f=>'<div class="pivot-field">☑ '+f+'</div>').join('')+'<div class="pivot-zones"><div>篩選<strong>SERVICE_CODE<br>ACCEPT</strong></div><div>列<strong>PIB_UNIT<br>CASENO</strong></div><div>值<strong>計數 - ACCEPT</strong></div></div></div></div>';
 }
 function workbookView(){
- return '<div class="workbook-switch" aria-label="切換 Excel 活頁簿"><button data-action="show-pivot" aria-pressed="'+(m.workbook==='pivot')+'">▤ 11507_照會資料.xlsx · 樞紐分析表</button><button data-action="show-report" aria-pressed="'+(m.workbook==='report')+'">▤ 11507_輪派報表.xlsx</button></div>'+(m.workbook==='pivot'?pivotView():'<div class="pane wide"><p class="small">對照樞紐分析表，填入派案／接案人數。可隨時切回查看。</p>'+report(true,true)+btn('填寫完成，核對報表','fill-report')+'<div id="error" class="error" role="status"></div></div>');
+ return '<div class="workbook-switch" aria-label="切換 Excel 活頁簿"><button data-action="show-pivot" aria-pressed="'+(m.workbook==='pivot')+'">▤ '+escapeChatText(m.rawName)+' · 樞紐分析表</button><button data-action="show-report" aria-pressed="'+(m.workbook==='report')+'">▤ 11507_輪派報表.xlsx</button></div>'+(m.workbook==='pivot'?pivotView():'<div class="pane wide"><p class="small">對照樞紐分析表，填入派案／接案人數。可隨時切回查看。</p>'+report(true,true)+btn('填寫完成，核對報表','fill-report')+'<div id="error" class="error" role="status"></div></div>');
 }
 function manualView(){switch(m.step){
 case 0:return '<div class="care-login">'+platformBrand()+'<div class="care-login-card"><h2>▣ 帳號密碼登入</h2><label>帳號 <input value="demo_eden" readonly aria-label="示範帳號" autocomplete="off"></label><label>密碼 <input type="password" value="demo-only" readonly aria-label="示範密碼" autocomplete="off"></label><div class="login-verified">✓ 示範驗證完成</div><div class="row">'+btn('登入','login')+'</div><div class="login-methods"><span class="selected">▣<br>帳號密碼登入</span><span>✚<br>健保卡登入</span><span>◉<br>自然人憑證登入</span></div><p>僅供模擬，不需輸入真實帳密。</p></div></div>';
 case 1:return exportView();
-case 2:return '<div class="pane"><h2>下載檔案已就緒</h2>'+file('11507_demo.xml','ZIP 解壓縮後的 XML · 示範檔案')+btn('切換至 Excel →','to-excel')+'</div>';
-case 3:return '<div class="pane"><h2>在 Excel 開啟 XML</h2>'+file('11507_demo.xml','Downloads / 11507_demo.xml','select-xml','選取 XML')+(m.imported?'<div class="native-dialog" role="dialog" aria-labelledby="xml-dialog-title"><div class="native-dialog-title" id="xml-dialog-title">開啟 XML</div><div class="native-dialog-body"><p>請選擇您要開啟這個檔案的方式：</p>'+[['table','XML 表格(T)'],['readonly','Excel 唯讀活頁簿(W)'],['source','使用 [XML 來源] 工作窗格(U)']].map(([v,t])=>'<label class="xml-option"><input type="radio" name="xml-mode" value="'+v+'" '+(m.xmlMode===v?'checked':'')+'> '+t+'</label>').join('')+'<div class="row">'+btn('確定','import',false)+btn('取消','cancel-import',false)+'</div><div id="error" class="error" role="status"></div></div></div>':'')+'</div>';
-case 4:return '<div class="ribbon"><span class="excel-title">表格設計</span><span>表格名稱：表格1</span>'+btn('另存為 Excel 活頁簿','save-raw')+'</div>'+sheet();
+case 2:return manualExplorer();
+case 3:case 4:return manualExcelView();
 case 5:return pivotSetup();
 case 6:return workbookView();
 case 7:return '<div class="pane wide">'+report()+checks()+btn('確認報表並儲存','save-report')+'<div id="error" class="error" role="status"></div></div>';
-default:return '<div class="pane completion"><div class="success-mark">✓</div><h2>本月輪派報表已完成</h2>'+file('11507_輪派報表.xlsx','虛擬檔案 · 人工填表完成')+btn('體驗 OpenClaw Skill →','switch-skill')+'</div>';
+default:return m.completedPreview?'<div class="mn-excel-surface"><div class="ribbon"><button type="button" data-native="return-explorer">← 返回資料夾</button></div>'+(m.completedPreview==='raw'?sheet():report())+'</div>':manualExplorer();
 }}
 
-function checks(){return `<div class="review-checks"><label><input type="checkbox" class="review-check">已核對派案／接案數與合計</label><label><input type="checkbox" class="review-check">已核對單位、分類、順序與新單位處理</label><label><input type="checkbox" class="review-check">已檢查框線、分類底色及總計列</label></div>`}
-function message(who,html){return `<div class="message"><div class="avatar ${who==='你'?'user':''}">${who==='你'?'你':'✳'}</div><div class="bubble"><h3>${who}</h3>${html}</div></div>`}
-function inputTransferView(){
- return '<div class="app-toolbar"><span aria-hidden="true">←　↑</span><div class="address-field">本機　›　下載 → SAS Agent / Input</div></div><div class="transfer-view"><div class="transfer-panels"><section class="transfer-folder" aria-label="下載資料夾"><div class="transfer-path">▰　下載（Downloads）</div><div class="transfer-tools">'+btn('剪下','cut-xml',false,!s.selected||s.moved)+'</div><div class="transfer-files">'+(s.moved?'<p class="folder-empty">此資料夾是空的。</p>':'<button class="transfer-file '+(s.cut?'is-cut':'')+'" id="download-xml" data-action="select-download" draggable="true" aria-pressed="'+s.selected+'"><span class="file-icon">XML</span><span><strong>11507_demo.xml</strong><small>XML 文件 · 已下載</small></span></button>')+'</div><div class="transfer-count">'+(s.moved?'0':'1')+' 個項目</div></section><div class="transfer-arrow" aria-hidden="true">→</div><section class="transfer-folder '+(s.moved?'transfer-complete':'')+'" id="input-drop" aria-label="Input 目的資料夾"><div class="transfer-path">▰　SAS Agent　›　Input</div><div class="transfer-tools">'+btn('貼上','paste-xml',false,!s.cut||s.moved)+'</div><div class="transfer-files">'+(s.moved?'<div class="transfer-file received"><span class="file-icon">XML</span><span><strong>11507_demo.xml</strong><small>已移入 Input</small></span><span class="transfer-tick">✓</span></div>':'<div class="folder-drop"><span aria-hidden="true">▰</span><p>將 XML 拖曳到這裡</p><small>或選取檔案 → 剪下 → 貼上</small></div>')+'</div><div class="transfer-count">'+(s.moved?'1':'0')+' 個項目</div></section></div><div class="transfer-bottom"><p role="status">'+(s.moved?'✓ 11507_demo.xml 已移入 SAS Agent/Input。':'從下載資料夾移入本月 XML。')+'</p>'+btn('回到 OpenClaw，執行 Skill →','place-xml',true,!s.moved)+'</div></div>';
+function checks(){
+ const saved=(mode==='original'?m:s).reviewChecks;
+ return '<div class="review-checks">'+['已核對派案／接案數與合計','已核對單位、分類、順序與新單位處理','已檢查框線、分類底色及總計列'].map((label,index)=>`<label><input type="checkbox" class="review-check" data-review-index="${index}" ${saved[index]?'checked':''}>${label}</label>`).join('')+'</div>';
 }
-// Only the in-page demo file can be moved; external files are never read.
+function message(who,html){return `<div class="message"><div class="avatar ${who==='你'?'user':''}">${who==='你'?'你':'✳'}</div><div class="bubble"><h3>${who}</h3>${html}</div></div>`}
+// Manual Windows/Excel practice. Files and dialogs stay within the simulation.
+function manualExcelIcon(){return '<span class="mn-excel-icon" aria-hidden="true">X</span>'}
+function manualFileRow(name,type,action='select-file',selected=false){return `<button type="button" class="wx-item" data-native="${action}" data-file="${escapeChatText(name)}" aria-pressed="${selected}"><span class="wx-name">${name.endsWith('.xml')?explorerIcon('xml'):manualExcelIcon()}<span>${escapeChatText(name)}</span></span><span>2026/7/31 上午 09:40</span><span>${type}</span><span>${name.endsWith('.xml')?'12':'24'} KB</span></button>`}
+function manualExplorerRows(){
+ const files=[...(m.manualLocation==='downloads'?[['11507_demo.xml','XML 文件']]:m.step===8?[['11507_輪派報表.xlsx','Microsoft Excel 工作表']]:[]),...(m.step===8&&m.rawLocation===m.manualLocation?[[m.rawName,'Microsoft Excel 工作表']]:[])];
+ const filtered=files.filter(([name])=>name.toLowerCase().includes(m.manualQuery.trim().toLowerCase()));
+ return filtered.map(([name,type])=>manualFileRow(name,type,'select-file',m.manualSelected===name)).join('')||'<p class="wx-empty">'+(m.manualQuery?'找不到符合的項目。':'此資料夾是空的。')+'</p>';
+}
+function manualExplorer(){
+ const name=m.manualLocation==='downloads'?'下載':'文件';
+ return `<div class="wx-browser mn-explorer" aria-label="Windows 檔案總管操作模擬"><div class="wx-addressbar"><div class="wx-history"><button type="button" data-native="explorer-back" aria-label="上一頁" ${m.manualHistoryIndex===0?'disabled':''}>${explorerIcon('back')}</button><button type="button" data-native="explorer-forward" aria-label="下一頁" ${m.manualHistoryIndex>=m.manualHistory.length-1?'disabled':''}>${explorerIcon('forward')}</button></div><div class="wx-address" aria-label="目前資料夾">${explorerIcon(m.manualLocation==='downloads'?'download':'folder')}${explorerIcon('chevron')}<span>${name}</span></div><label class="wx-search">${explorerIcon('search')}<input id="mn-search" type="search" aria-label="搜尋目前資料夾" placeholder="搜尋${name}" value="${escapeChatText(m.manualQuery)}"></label></div>
+ <div class="wx-commandbar" role="toolbar" aria-label="檔案操作"><button type="button" disabled class="wx-new">＋ 新增 ⌄</button><span class="wx-separator"></span>${['cut','copy','paste'].map((icon,i)=>`<button type="button" disabled aria-label="${['剪下','複製','貼上'][i]}">${explorerIcon(icon)}</button>`).join('')}<span class="wx-separator"></span><span class="wx-view-label">${explorerIcon('sort')}排序 ⌄</span><span class="wx-view-label">${explorerIcon('view')}詳細資料</span></div>
+ <div class="wx-content"><nav class="wx-navigation" aria-label="檔案總管資料夾"><div class="wx-nav-static">${explorerIcon('home')}首頁</div>${[['downloads','下載','download'],['documents','文件','folder']].map(([loc,label,icon])=>`<button type="button" data-native="folder" data-location="${loc}" ${m.manualLocation===loc?'aria-current="location"':''}>${explorerIcon(icon)}${label}</button>`).join('')}</nav><section class="wx-files" tabindex="0" aria-label="${name}的檔案清單"><div class="wx-columns" aria-hidden="true"><span>名稱</span><span>修改日期</span><span>類型</span><span>大小</span></div><div id="mn-rows">${manualExplorerRows()}</div></section></div><div class="wx-statusbar"><span id="mn-file-status">${m.manualSelected?'已選取 1 個項目':'詳細資料檢視'}</span><span>${name}</span></div></div>`;
+}
+function manualStart(){return `<section id="mn-start" class="mn-start" aria-label="Windows 開始選單" ${m.startOpen?'':'hidden'}><label class="mn-start-search">${explorerIcon('search')}<input id="mn-start-search" placeholder="搜尋應用程式、設定和文件" aria-label="搜尋開始選單"></label><div class="mn-start-heading"><strong>已釘選</strong><span>應用程式</span></div><div class="mn-pinned"><button type="button" data-native="launch-excel">${manualExcelIcon()}<span>Excel</span></button><button type="button" data-native="close-start">${explorerIcon('folder')}<span>檔案總管</span></button></div><p id="mn-start-empty" hidden>找不到符合的應用程式。</p><div class="mn-start-heading"><strong>建議</strong></div><div class="mn-recommended">${explorerIcon('xml')}<span>11507_demo.xml<small>最近下載</small></span></div><div class="mn-start-footer"><span>◉　示範使用者</span><span aria-hidden="true">⏻</span></div></section>`}
+function manualBlankSheet(){return '<div class="mn-blank" aria-label="空白工作表"><div>　　A　　　　　　 B　　　　　　C　　　　　　D</div>'+Array.from({length:16},(_,i)=>'<span>'+String(i+1)+'</span>').join('')+'</div>'}
+function manualBackstage(){
+ const active=m.backstage;
+ return `<div class="mn-backstage"><nav aria-label="Excel 檔案選單"><button type="button" data-native="back-workbook" aria-label="返回活頁簿">←</button>${[['home','首頁'],['open','開啟'],['save','另存新檔']].map(([v,t])=>`<button type="button" data-native="backstage-page" data-page="${v}" ${active===v?'aria-current="page"':''} ${v==='save'&&m.step===3?'disabled':''}>${t}</button>`).join('')}</nav><div class="mn-backstage-main">${active==='home'?`<h2>歡迎使用 Excel</h2><h3>新增</h3><button class="mn-blank-tile" type="button" data-native="back-workbook" ${m.step===4?'disabled title="請先另存目前匯入的資料活頁簿"':''}><span aria-hidden="true">▦</span>空白活頁簿</button><h3>最近使用</h3><p>尚無最近使用的活頁簿。</p>`:`<h2>${active==='save'?'另存新檔':'開啟'}</h2><div class="mn-storage"><span>${explorerIcon('view')} 這部電腦</span><div><strong>${active==='save'?'文件':'下載'}</strong><p>${active==='save'?'將活頁簿儲存到電腦上的資料夾。':'從電腦上的資料夾選擇檔案。'}</p><button type="button" data-native="browse">${explorerIcon('folder')} 瀏覽</button></div></div>`}</div></div>`;
+}
+function manualNativeDialog(){
+ const kind=m.nativeDialog;if(!kind)return '';
+ const isSave=kind==='save';
+ if(kind==='xml')return `<div class="mn-dialog-layer"><section class="mn-dialog mn-xml-dialog" id="mn-dialog" role="dialog" aria-labelledby="mn-dialog-title"><div class="mn-dialog-title"><strong id="mn-dialog-title">開啟 XML</strong><button type="button" data-native="cancel-dialog" aria-label="取消開啟 XML">×</button></div><div class="mn-xml-options"><p>請選擇您要開啟這個檔案的方式：</p>${[['table','XML 表格(T)'],['readonly','Excel 唯讀活頁簿(W)'],['source','使用 [XML 來源] 工作窗格(U)']].map(([v,t])=>`<label><input type="radio" name="xml-mode" value="${v}" ${m.xmlMode===v?'checked':''}>${t}</label>`).join('')}<div id="mn-error" role="status"></div><div class="mn-dialog-actions"><button type="button" data-native="import-xml">確定</button><button type="button" data-native="cancel-dialog">取消</button></div></div></section></div>`;
+ const loc=m.dialogLocation==='downloads'?'下載':'文件';
+ const files=m.dialogLocation==='downloads'&&!isSave?manualFileRow('11507_demo.xml','XML 文件','pick-xml',m.openName==='11507_demo.xml'):'<p class="wx-empty">'+(isSave?'此資料夾沒有其他 Excel 活頁簿。':'此資料夾沒有 XML 文件。')+'</p>';
+ return `<div class="mn-dialog-layer"><section class="mn-dialog wx-browser" id="mn-dialog" role="dialog" aria-labelledby="mn-dialog-title"><div class="mn-dialog-title"><strong id="mn-dialog-title">${isSave?'另存新檔':'開啟'}</strong><button type="button" data-native="cancel-dialog" aria-label="關閉${isSave?'另存新檔':'開啟'}視窗">×</button></div><div class="wx-addressbar"><div class="wx-address" aria-label="目前資料夾">${explorerIcon('folder')}${explorerIcon('chevron')}這部電腦${explorerIcon('chevron')}${loc}</div></div><div class="wx-content"><nav class="wx-navigation" aria-label="選擇資料夾">${[['downloads','下載','download'],['documents','文件','folder']].map(([v,t,icon])=>`<button type="button" data-native="dialog-folder" data-location="${v}" ${m.dialogLocation===v?'aria-current="location"':''}>${explorerIcon(icon)}${t}</button>`).join('')}</nav><section class="wx-files" tabindex="0" aria-label="可選取的檔案"><div class="wx-columns" aria-hidden="true"><span>名稱</span><span>修改日期</span><span>類型</span><span>大小</span></div>${files}</section></div><div class="mn-dialog-fields"><label for="mn-filename">檔案名稱(N)：</label><input id="mn-filename" autocomplete="off" value="${escapeChatText(isSave?m.saveName:m.openName)}"><label for="mn-filetype">${isSave?'存檔類型(T)':'檔案類型'}：</label><select id="mn-filetype">${isSave?`<option value="xlsx" ${m.saveType==='xlsx'?'selected':''}>Excel 活頁簿 (*.xlsx)</option><option value="xml" ${m.saveType==='xml'?'selected':''}>XML 資料 (*.xml)</option>`:'<option>所有 Excel 檔案</option><option>XML 檔案 (*.xml)</option><option>所有檔案 (*.*)</option>'}</select><div id="mn-error" role="status"></div><div class="mn-dialog-actions"><button type="button" data-native="${isSave?'save-workbook':'open-xml'}">${isSave?'儲存(S)':'開啟(O)'}</button><button type="button" data-native="cancel-dialog">取消</button></div></div></section></div>`;
+}
+function manualExcelView(){
+ const content=m.backstage?manualBackstage():excelChrome(m.step===4?'表格設計':'常用')+(m.step===4?'<div class="ribbon"><span class="excel-title">表格設計</span><span>表格名稱：表格1</span></div>'+sheet():manualBlankSheet());
+ return `<div class="mn-excel-surface" ${m.nativeDialog?'inert':''}>${content}</div>${manualNativeDialog()}`;
+}
+function refreshManual(focus){
+ const maximized=!!$('.window.is-maximized');render();
+ if(maximized){$('.window').classList.add('is-maximized');$('[data-window="maximize"]').setAttribute('aria-label','還原模擬視窗')}
+ if(focus)$(focus)?.focus({preventScroll:true});
+}
+function manualOpenXml(){
+ if(m.dialogLocation!=='downloads'||m.openName.trim().toLowerCase()!=='11507_demo.xml'){$('#mn-error').textContent='找不到這個檔案。請在「下載」選取 11507_demo.xml。';return}
+ m.nativeDialog='xml';m.imported=true;refreshManual('input[name="xml-mode"]:checked');
+}
+function runManualAction(action,button){
+ if(mode!=='original')return;
+ if(action==='start'){m.startOpen=!m.startOpen;refreshManual(m.startOpen?'#mn-start-search':'#mn-start-button');return}
+ if(action==='close-start'){m.startOpen=false;refreshManual('#mn-start-button');return}
+ if(action==='launch-excel'&&m.step===2){m.startOpen=false;m.step=3;m.backstage='home';m.actions++;refreshManual('[data-page="open"]');return}
+ if(['folder','explorer-back','explorer-forward'].includes(action)){
+  let loc;
+  if(action==='folder'){
+   loc=button.dataset.location;
+   if(m.manualLocation!==loc){m.manualHistory=m.manualHistory.slice(0,m.manualHistoryIndex+1);m.manualHistory.push(loc);m.manualHistoryIndex++}
+  }else{
+   const next=m.manualHistoryIndex+(action==='explorer-back'?-1:1);
+   if(next<0||next>=m.manualHistory.length)return;
+   m.manualHistoryIndex=next;loc=m.manualHistory[next];
+  }
+  m.manualLocation=loc;m.manualQuery='';m.manualSelected='';refreshManual('[data-native="folder"][data-location="'+loc+'"]');return;
+ }
+ if(action==='select-file'){m.manualSelected=button.dataset.file;document.querySelectorAll('.mn-explorer .wx-item').forEach(el=>el.setAttribute('aria-pressed',String(el===button)));$('#mn-file-status').textContent='已選取 1 個項目';return}
+ if(action==='return-explorer'){m.completedPreview=false;refreshManual('.mn-explorer .wx-item');return}
+ if(![3,4].includes(m.step))return;
+ if(action==='backstage'){m.backstage='home';refreshManual('[data-page="'+(m.step===4?'save':'open')+'"]');return}
+ if(action==='backstage-page'){
+  if(button.dataset.page==='save'&&m.step!==4)return;
+  m.backstage=button.dataset.page;refreshManual(m.backstage==='home'?'[data-native="back-workbook"]':'[data-native="browse"]');return;
+ }
+ if(action==='back-workbook'){m.backstage='';refreshManual('[data-native="backstage"]');return}
+ if(action==='browse'){
+  m.nativeDialog=m.backstage==='save'?'save':'open';m.dialogLocation=m.nativeDialog==='save'?'documents':'downloads';m.openName='';refreshManual(m.nativeDialog==='save'?'#mn-filename':'[data-native="pick-xml"]');return;
+ }
+ if(action==='dialog-folder'){m.dialogLocation=button.dataset.location;m.openName='';refreshManual('[data-native="dialog-folder"][data-location="'+m.dialogLocation+'"]');return}
+ if(action==='pick-xml'){m.openName='11507_demo.xml';$('#mn-filename').value=m.openName;button.setAttribute('aria-pressed','true');$('#mn-error').textContent='';return}
+ if(action==='open-xml'){manualOpenXml();return}
+ if(action==='cancel-dialog'){const wasXml=m.nativeDialog==='xml';m.nativeDialog=wasXml?'open':'';m.imported=false;refreshManual(wasXml?'[data-native="pick-xml"]':'[data-native="browse"]');return}
+ if(action==='import-xml'){
+  if(m.xmlMode!=='table'){$('#mn-error').textContent='本次練習請選擇「XML 表格」，再按確定。';return}
+  m.nativeDialog='';m.backstage='';m.step=4;m.actions++;refreshManual('[data-native="backstage"]');return;
+ }
+ if(action==='save-workbook'){
+  const name=m.saveName.trim();
+  if(m.saveType!=='xlsx'){$('#mn-error').textContent='請選擇「Excel 活頁簿 (*.xlsx)」，保留活頁簿與後續樞紐分析。';return}
+  if(!name||/[<>:"/\\|?*]/.test(name)||name.startsWith('.')||/[. ]$/.test(name)||(/\.[^.]+$/.test(name)&&!name.toLowerCase().endsWith('.xlsx'))){$('#mn-error').textContent='請輸入有效的 Excel 活頁簿檔名，副檔名為 .xlsx。';return}
+  m.rawName=name.toLowerCase().endsWith('.xlsx')?name:name+'.xlsx';m.rawLocation=m.dialogLocation;m.nativeDialog='';m.backstage='';m.step=5;m.actions++;refreshManual('#step-title');
+ }
+}
+document.addEventListener('click',e=>{const button=e.target.closest('[data-native]');if(button&&!button.disabled)runManualAction(button.dataset.native,button)});
+document.addEventListener('dblclick',e=>{
+ if(mode!=='original')return;
+ if(e.target.closest('[data-native="pick-xml"]'))manualOpenXml();
+ const row=e.target.closest('.mn-explorer [data-file]');
+ if(row&&m.step===8&&row.dataset.file.toLowerCase().endsWith('.xlsx')){m.completedPreview=row.dataset.file==='11507_輪派報表.xlsx'?'report':'raw';refreshManual('[data-native="return-explorer"]')}
+});
+document.addEventListener('input',e=>{
+ if(mode!=='original')return;
+ if(e.target.id==='mn-filename'){if(m.nativeDialog==='save')m.saveName=e.target.value;else m.openName=e.target.value;$('#mn-error').textContent=''}
+ if(e.target.id==='mn-search'){m.manualQuery=e.target.value;m.manualSelected='';$('#mn-rows').innerHTML=manualExplorerRows();$('#mn-file-status').textContent='詳細資料檢視'}
+ if(e.target.id==='mn-start-search'){
+  const q=e.target.value.trim().toLowerCase();let count=0;
+  document.querySelectorAll('.mn-pinned button').forEach(button=>{button.hidden=!button.textContent.toLowerCase().includes(q);if(!button.hidden)count++});$('#mn-start-empty').hidden=count>0;
+ }
+});
+document.addEventListener('change',e=>{if(mode==='original'&&e.target.id==='mn-filetype'&&m.nativeDialog==='save')m.saveType=e.target.value});
+document.addEventListener('pointerdown',e=>{
+ if(mode==='original'&&m.startOpen&&!e.target.closest('#mn-start,#mn-start-button')){m.startOpen=false;$('#mn-start')?.setAttribute('hidden','');$('#mn-start-button')?.setAttribute('aria-expanded','false')}
+});
+document.addEventListener('keydown',e=>{
+ if(mode!=='original'||!e.target.closest('.mn-window')||e.isComposing)return;
+ if(e.key==='Escape'&&(m.startOpen||m.nativeDialog||m.backstage)){
+  e.preventDefault();e.stopPropagation();runManualAction(m.startOpen?'close-start':m.nativeDialog?'cancel-dialog':'back-workbook');return;
+ }
+ if(e.key==='Tab'&&e.target.closest('#mn-dialog')){
+  const items=[...$('#mn-dialog').querySelectorAll('button:not(:disabled),input,select')],first=items[0],last=items.at(-1);
+  if(e.shiftKey&&e.target===first){e.preventDefault();last.focus()}else if(!e.shiftKey&&e.target===last){e.preventDefault();first.focus()}
+ }
+ if(e.key==='Enter'&&e.target.matches('[data-native="pick-xml"]')){e.preventDefault();m.openName=e.target.dataset.file;manualOpenXml();return}
+ if(e.key==='Enter'&&e.target.matches('input[name="xml-mode"]')){e.preventDefault();runManualAction('import-xml');return}
+ if(e.key==='Enter'&&e.target.id==='mn-filename'){e.preventDefault();runManualAction(m.nativeDialog==='save'?'save-workbook':'open-xml');return}
+ if(e.key==='Enter'&&e.target.id==='mn-start-search'&&!$('[data-native="launch-excel"]').hidden){e.preventDefault();runManualAction('launch-excel');return}
+ if(e.key==='Enter'&&e.target.matches('.mn-explorer [data-file]')&&m.step===8&&e.target.dataset.file.toLowerCase().endsWith('.xlsx')){e.preventDefault();m.completedPreview=e.target.dataset.file==='11507_輪派報表.xlsx'?'report':'raw';refreshManual('[data-native="return-explorer"]');return}
+ if((e.ctrlKey||e.metaKey)&&['o','s'].includes(e.key.toLowerCase())&&[3,4].includes(m.step)&&!m.nativeDialog){
+  e.preventDefault();e.stopPropagation();if(e.key.toLowerCase()==='s'&&m.step!==4)return;
+  m.backstage=e.key.toLowerCase()==='o'?'open':'save';runManualAction('browse');
+ }
+},true);
+
+// Windows 11-style File Explorer. All file operations use this demo's in-memory state.
+function explorerIcon(name){
+ const paths={back:'M14 5l-7 7 7 7M7 12h14',forward:'M10 5l7 7-7 7M17 12H3',up:'M5 10l7-7 7 7M12 3v18',chevron:'M9 5l7 7-7 7',search:'M20 20l-5-5M17 10a7 7 0 1 1-14 0 7 7 0 0 1 14 0',cut:'M9 8l10 13M9 16L19 3M10 7a3 3 0 1 1-6 0 3 3 0 0 1 6 0M10 17a3 3 0 1 1-6 0 3 3 0 0 1 6 0',paste:'M8 5H5v16h14V5h-3M8 3h8v5H8z',undo:'M8 5L3 10l5 5M3 10h11a6 6 0 0 1 6 6',download:'M12 3v12M7 10l5 5 5-5M4 17v4h16v-4',home:'M3 11l9-8 9 8M6 9v12h12V9M10 21v-7h4v7',copy:'M8 8h12v13H8zM16 8V3H3v13h5',sort:'M7 3v18m-4-4 4 4 4-4M14 5h7M14 10h5M14 15h3',view:'M3 4h18v16H3zM8 4v16M3 9h18M3 14h18',check:'M5 12l4 4L19 6'};
+ if(name==='folder')return '<svg class="wx-icon wx-folder-icon" viewBox="0 0 24 24" aria-hidden="true"><path fill="#e4a72e" d="M2 5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2v11H2z"/><path fill="#ffd56b" d="M2 9h20v10a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2z"/></svg>';
+ if(name==='xml')return '<svg class="wx-icon wx-xml-icon" viewBox="0 0 24 28" aria-hidden="true"><path fill="#fff" stroke="#8d9baa" d="M4 1h10l6 6v20H4z"/><path fill="#eaf1f8" stroke="#8d9baa" d="M14 1v7h6"/><path d="M8 13l-3 3 3 3m8-6 3 3-3 3m-3-7-3 10" fill="none" stroke="#3876a2" stroke-width="1.4"/></svg>';
+ return '<svg class="wx-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="'+(paths[name]||paths.folder)+'"/></svg>';
+}
+function explorerLocationLabel(){return {downloads:'下載',agent:'SAS Agent',input:'Input'}[s.location]}
+function explorerHasFile(){return s.location==='downloads'?!s.moved:s.location==='input'&&s.moved}
+function explorerCanPaste(){return s.location==='input'&&s.cut&&!s.moved}
+function explorerButton(label,action,icon,disabled=false){return `<button type="button" data-explorer="${action}" title="${label}" aria-label="${label}" ${disabled?'disabled':''}>${explorerIcon(icon)}</button>`}
+function explorerRows(){
+ const q=s.fileQuery.trim().toLowerCase();
+ if(s.location==='agent'&&'input'.includes(q))return `<button type="button" class="wx-item wx-folder-item" data-explorer="select-folder" aria-pressed="${s.selected}" aria-label="Input 資料夾；按 Enter 或按兩下開啟"><span class="wx-name">${explorerIcon('folder')}<span>Input</span></span><span>2026/7/31 上午 09:38</span><span>檔案資料夾</span><span></span></button>`;
+ if(explorerHasFile()&&'11507_demo.xml'.includes(q))return `<button type="button" class="wx-item ${s.cut&&!s.moved?'is-cut':''}" id="${s.moved?'input-xml':'download-xml'}" data-explorer="select-file" aria-pressed="${s.selected}" ${s.moved?'':'draggable="true"'}><span class="wx-name">${explorerIcon('xml')}<span>11507_demo.xml</span></span><span>2026/7/31 上午 09:40</span><span>XML 文件</span><span>12 KB</span></button>`;
+ return `<p class="wx-empty">${q?'找不到符合的項目。':'此資料夾是空的。'}</p>`;
+}
+function explorerStatus(){
+ const count=s.location==='agent'||explorerHasFile()?1:0;
+ const matches=!s.fileQuery||(s.location==='agent'?'input':'11507_demo.xml').includes(s.fileQuery.toLowerCase().trim());
+ return `${matches?count:0} 個項目${s.selected?'　｜　已選取 1 個項目':''}`;
+}
+function inputTransferView(){
+ const name=explorerLocationLabel();
+ const nav=(location,label,icon)=>`<button type="button" data-explorer="go-${location}" ${location==='input'?'id="input-drop" data-explorer-drop="true"':''} ${s.location===location?'aria-current="location"':''}>${explorerIcon(icon)}<span>${label}</span>${location==='downloads'?'<span class="wx-pin" aria-hidden="true">⌖</span>':''}</button>`;
+ const crumbs=s.location==='downloads'?'<span>下載</span>':`<button type="button" data-explorer="go-agent">SAS Agent</button>${s.location==='input'?explorerIcon('chevron')+'<span>Input</span>':''}`;
+ return `<div id="wx-explorer" class="wx-browser" tabindex="-1" aria-label="Windows 檔案總管操作模擬">
+ <div class="wx-addressbar"><div class="wx-history">${explorerButton('上一頁 (Alt+←)','back','back',s.fileHistoryIndex===0)}${explorerButton('下一頁 (Alt+→)','forward','forward',s.fileHistoryIndex===s.fileHistory.length-1)}${explorerButton('上一層 (Alt+↑)','up','up',s.location!=='input')}</div><div class="wx-address" aria-label="目前資料夾">${explorerIcon(s.location==='downloads'?'download':'folder')}${explorerIcon('chevron')}${crumbs}</div><label class="wx-search">${explorerIcon('search')}<input id="wx-search" type="search" aria-label="搜尋目前資料夾" placeholder="搜尋${name}" value="${escapeChatText(s.fileQuery)}"></label></div>
+ <div class="wx-commandbar" role="toolbar" aria-label="檔案操作"><button class="wx-new" type="button" disabled><span aria-hidden="true">＋</span> 新增 <span aria-hidden="true">⌄</span></button><span class="wx-separator"></span>${explorerButton('剪下 (Ctrl+X)','cut','cut',!s.selected||s.moved||s.location!=='downloads')}${explorerButton('複製','copy','copy',true)}${explorerButton('貼上 (Ctrl+V)','paste','paste',!explorerCanPaste())}${explorerButton('復原移動 (Ctrl+Z)','undo','undo',!s.moved)}<span class="wx-separator"></span><span class="wx-view-label">${explorerIcon('sort')}排序 <span>⌄</span></span><span class="wx-view-label">${explorerIcon('view')}詳細資料</span></div>
+ <div class="wx-content"><nav class="wx-navigation" aria-label="檔案總管資料夾"><div class="wx-nav-static">${explorerIcon('home')}<span>首頁</span></div>${nav('downloads','下載','download')}<div class="wx-nav-divider"></div>${nav('agent','SAS Agent','folder')}<div class="wx-child">${nav('input','Input','folder')}</div></nav><section id="wx-files" class="wx-files" tabindex="0" aria-label="${name}的檔案清單" ${s.location==='input'?'data-explorer-drop="true"':''}><div class="wx-columns" aria-hidden="true"><span>名稱 <small>⌃</small></span><span>修改日期</span><span>類型</span><span>大小</span></div><div id="wx-rows">${explorerRows()}</div></section></div>
+ <div class="wx-statusbar"><span id="wx-count">${explorerStatus()}</span><span>詳細資料</span></div><div id="wx-context" class="wx-context" tabindex="-1" role="menu" aria-label="檔案操作選單" hidden></div></div>`;
+}
+function transferCoach(){
+ const hint=s.moved?'XML 已移入 Input。點 Windows 工作列上的 OpenClaw，繼續執行 Skill。':s.cut?'已剪下。開啟左側 Input，再按「貼上」或 Ctrl+V。':'選取 XML 後剪下，再到 Input 貼上；也可拖曳至左側 Input。';
+ return `<div class="wx-coach"><div><span class="wx-coach-label">操作提示 · 示範檔案</span><p id="wx-transfer-hint" role="status">${hint}</p></div></div>`;
+}
+function refreshExplorer(focus='#wx-files'){
+ const maximized=!!$('.win11-transfer.is-maximized');
+ render();
+ if(maximized){$('.win11-transfer').classList.add('is-maximized');$('[data-window="maximize"]').setAttribute('aria-label','還原模擬視窗')}
+ $(focus)?.focus({preventScroll:true});
+}
+function navigateExplorer(location,history=true){
+ if(!['downloads','agent','input'].includes(location))return;
+ if(history&&location!==s.location){s.fileHistory=s.fileHistory.slice(0,s.fileHistoryIndex+1);s.fileHistory.push(location);s.fileHistoryIndex++}
+ s.location=location;s.selected=false;s.fileQuery='';
+ refreshExplorer();
+}
+function selectExplorerItem(selected=true){
+ s.selected=selected;
+ const row=$('.wx-item');if(row)row.setAttribute('aria-pressed',String(selected));
+ const cut=$('[data-explorer="cut"]');if(cut)cut.disabled=!selected||s.moved||s.location!=='downloads';
+ $('#wx-count').textContent=explorerStatus();
+}
+function pasteExplorerFile(){
+ if(!explorerCanPaste())return;
+ s.moved=true;s.cut=false;s.selected=true;s.fileQuery='';s.actions++;
+ refreshExplorer('#input-xml');
+}
+function runExplorerAction(action){
+ if(action.startsWith('go-')){navigateExplorer(action.slice(3));return}
+ if(action==='back'&&s.fileHistoryIndex>0){s.fileHistoryIndex--;navigateExplorer(s.fileHistory[s.fileHistoryIndex],false);return}
+ if(action==='forward'&&s.fileHistoryIndex<s.fileHistory.length-1){s.fileHistoryIndex++;navigateExplorer(s.fileHistory[s.fileHistoryIndex],false);return}
+ if(action==='up'&&s.location==='input'){navigateExplorer('agent');return}
+ if(action==='select-file'||action==='select-folder'){selectExplorerItem();return}
+ if(action==='open-folder'){navigateExplorer('input');return}
+ if(action==='cut'&&s.location==='downloads'&&s.selected&&!s.moved){s.cut=true;s.actions++;refreshExplorer('#download-xml');return}
+ if(action==='paste'){pasteExplorerFile();return}
+ if(action==='undo'&&s.moved){s.moved=false;s.cut=false;s.actions++;navigateExplorer('downloads');selectExplorerItem();$('#download-xml')?.focus();return}
+}
+function closeExplorerMenu(restore=false){
+ const menu=$('#wx-context');if(!menu||menu.hidden)return;
+ menu.hidden=true;
+ if(restore)($('.wx-item[aria-pressed="true"]')||$('#wx-files'))?.focus({preventScroll:true});
+}
+function showExplorerMenu(x,y){
+ const menu=$('#wx-context');
+ const item=(name,action,icon,shortcut,disabled)=>`<button type="button" role="menuitem" data-explorer="${action}" ${disabled?'disabled':''}>${explorerIcon(icon)}<span>${name}</span><kbd>${shortcut}</kbd></button>`;
+ menu.innerHTML=(s.location==='agent'&&s.selected?item('開啟','open-folder','folder','Enter',false):'')+item('剪下','cut','cut','Ctrl+X',s.location!=='downloads'||!s.selected||s.moved)+item('貼上','paste','paste','Ctrl+V',!explorerCanPaste())+item('復原移動','undo','undo','Ctrl+Z',!s.moved);
+ menu.hidden=false;
+ const rect=$('#wx-explorer').getBoundingClientRect();
+ menu.style.left=Math.max(4,Math.min(x-rect.left,rect.width-menu.offsetWidth-4))+'px';
+ menu.style.top=Math.max(4,Math.min(y-rect.top,rect.height-menu.offsetHeight-4))+'px';
+ (menu.querySelector('button:not(:disabled)')||menu).focus({preventScroll:true});
+}
+document.addEventListener('click',e=>{
+ const button=e.target.closest('[data-explorer]');
+ if(button&&mode==='skill'&&s.step===0&&!button.disabled){closeExplorerMenu();runExplorerAction(button.dataset.explorer);return}
+ if(e.target.closest('#wx-files')&&!e.target.closest('.wx-item'))selectExplorerItem(false);
+ if(!e.target.closest('#wx-context'))closeExplorerMenu();
+});
+document.addEventListener('dblclick',e=>{if(e.target.closest('.wx-folder-item'))navigateExplorer('input')});
+document.addEventListener('input',e=>{
+ if(e.target.id!=='wx-search')return;
+ s.fileQuery=e.target.value;s.selected=false;$('#wx-rows').innerHTML=explorerRows();selectExplorerItem(false);
+});
+document.addEventListener('contextmenu',e=>{
+ if(!e.target.closest('#wx-files'))return;
+ e.preventDefault();selectExplorerItem(!!e.target.closest('.wx-item'));showExplorerMenu(e.clientX,e.clientY);
+});
+document.addEventListener('keydown',e=>{
+ if(mode!=='skill'||s.step!==0||!e.target.closest('#wx-explorer')||e.target.matches('input,textarea'))return;
+ const menu=$('#wx-context');
+ if(!menu.hidden){
+  if(e.key==='Escape'){e.preventDefault();e.stopImmediatePropagation();closeExplorerMenu(true);return}
+  if(e.key==='Tab'){closeExplorerMenu(true);return}
+  if(['ArrowDown','ArrowUp','Home','End'].includes(e.key)){
+   e.preventDefault();const items=[...menu.querySelectorAll('button:not(:disabled)')];if(!items.length)return;
+   const index=items.indexOf(document.activeElement),next=e.key==='Home'?0:e.key==='End'?items.length-1:(index+(e.key==='ArrowDown'?1:-1)+items.length)%items.length;items[next].focus();return;
+  }
+ }
+ if(e.key==='ContextMenu'||e.shiftKey&&e.key==='F10'){e.preventDefault();const rect=e.target.getBoundingClientRect();showExplorerMenu(rect.left+20,rect.top+25);return}
+ if(e.key==='Enter'&&e.target.closest('.wx-folder-item')){e.preventDefault();navigateExplorer('input');return}
+ if((e.ctrlKey||e.metaKey)&&['x','v','z','a'].includes(e.key.toLowerCase())){
+  e.preventDefault();const key=e.key.toLowerCase();
+  if(key==='a'){if($('.wx-item'))selectExplorerItem();return}
+  runExplorerAction({x:'cut',v:'paste',z:'undo'}[key]);return;
+ }
+ if(e.altKey&&['ArrowLeft','ArrowRight','ArrowUp'].includes(e.key)){e.preventDefault();runExplorerAction({ArrowLeft:'back',ArrowRight:'forward',ArrowUp:'up'}[e.key]);return}
+ if(e.key==='Escape'&&(s.cut||s.selected)){e.preventDefault();e.stopImmediatePropagation();s.cut=false;s.selected=false;refreshExplorer();return}
+ if(['ArrowDown','ArrowUp'].includes(e.key)&&e.target.id==='wx-files'&&$('.wx-item')){e.preventDefault();selectExplorerItem();$('.wx-item').focus()}
+});
+// Accept only our simulated XML; never inspect or move real files from the user's device.
+let explorerDragging=false;
 document.addEventListener('dragstart',e=>{
  if(e.target.id!=='download-xml'||s.moved)return;
- e.dataTransfer.setData('application/x-sas-demo','11507_demo.xml');e.dataTransfer.effectAllowed='move';
+ explorerDragging=true;selectExplorerItem();e.dataTransfer.setData('application/x-sas-demo','11507_demo.xml');e.dataTransfer.effectAllowed='move';
 });
 document.addEventListener('dragover',e=>{
- const target=e.target.closest('#input-drop');
- if(!target||mode!=='skill'||s.step!==0||s.moved||!Array.from(e.dataTransfer.types).includes('application/x-sas-demo'))return;
- e.preventDefault();e.dataTransfer.dropEffect='move';target.classList.add('drag-over');
+ const target=e.target.closest('[data-explorer-drop]');
+ if(!target||!explorerDragging||mode!=='skill'||s.step!==0||s.moved)return;
+ e.preventDefault();e.dataTransfer.dropEffect='move';target.classList.add('wx-drag-over');
 });
-document.addEventListener('dragleave',e=>{const target=e.target.closest('#input-drop');if(target&&!target.contains(e.relatedTarget))target.classList.remove('drag-over')});
-document.addEventListener('dragend',()=>$('#input-drop')?.classList.remove('drag-over'));
+document.addEventListener('dragleave',e=>{const target=e.target.closest('[data-explorer-drop]');if(target&&!target.contains(e.relatedTarget))target.classList.remove('wx-drag-over')});
+document.addEventListener('dragend',()=>{explorerDragging=false;document.querySelectorAll('.wx-drag-over').forEach(el=>el.classList.remove('wx-drag-over'))});
 document.addEventListener('drop',e=>{
- const target=e.target.closest('#input-drop');if(!target)return;
- e.preventDefault();target.classList.remove('drag-over');
- if(mode!=='skill'||s.step!==0||s.moved||e.dataTransfer.getData('application/x-sas-demo')!=='11507_demo.xml')return;
- s.moved=true;s.selected=false;s.cut=false;s.actions++;render();$('[data-action="place-xml"]').focus();
+ const target=e.target.closest('[data-explorer-drop]');if(!target)return;
+ e.preventDefault();target.classList.remove('wx-drag-over');
+ if(!explorerDragging||mode!=='skill'||s.step!==0||s.moved||e.dataTransfer.getData('application/x-sas-demo')!=='11507_demo.xml')return;
+ explorerDragging=false;s.cut=true;navigateExplorer('input');pasteExplorerFile();
 });
+
 function updateSkillComposer(){
  const input=$('#command');if(!input)return;
  if(input.value!==s.command)input.value=s.command;
@@ -354,7 +1482,7 @@ function skillView(){if(s.step===0)return inputTransferView();let content='';
 switch(s.step){
 case 1:content=message('SAS Agent',`<p>XML 已就緒。請選擇 Skill，再輸入「執行」。</p>${file('11507_demo.xml','SAS Agent / Input / 11507_demo.xml')}<div class="skill-command"><div class="skill-suggestions" id="skill-suggestions" role="listbox" aria-label="Skill 建議" hidden><span class="skill-suggestion-label">SKILLS</span><button type="button" role="option" id="sas-option" aria-selected="false" data-action="select-sas"><strong>/sas-for-eden</strong><small>SAS 輪派報表</small></button></div><form class="chat-input" id="run-form"><div class="chosen-skill" id="chosen-skill" hidden><span>/sas-for-eden</span><button type="button" data-action="clear-sas" aria-label="移除所選 Skill">×</button></div><input id="command" aria-label="執行指令" role="combobox" aria-autocomplete="list" aria-controls="skill-suggestions" aria-expanded="false" autocomplete="off" placeholder="輸入 /sas 選擇 Skill"><button class="primary" type="submit" disabled>送出 ↑</button></form><div id="command-error" class="error" role="status"></div></div>`);break;
 case 2:content=message('你','<p>/sas-for-eden 執行</p>')+message('SAS Agent',`<details class="log-details"><summary>查看處理紀錄</summary><div class="log">✓ 檢查唯一 XML 與欄位<br>✓ 以本機腳本完成去識別化 Excel<br>✓ 比對日常 B 單位名冊<br>⏸ 報表暫停，等待新單位決策</div></details><div class="task-card"><span class="badge warn">發現 1 個新單位</span><div class="decision"><ol class="new-unit-list"><li><h3>新芽居家長照機構</h3><p class="small muted">分類：居服 · BA01 / BA02</p></li></ol></div><p id="unit-reply-hint">請用編號告訴我哪些要「加入」、哪些要「忽略」，或回覆「全部加入／全部忽略」。</p></div><form class="chat-input" id="unit-reply-form"><input id="unit-reply" aria-label="新單位處理回覆" aria-describedby="unit-reply-hint" placeholder="例如：1 加入，或全部忽略" autocomplete="off"><button class="primary" type="submit">送出 ↑</button></form><div id="unit-reply-error" class="error" role="status"></div>`);break;
-case 3:content=message('你',`<p>${escapeChatText(s.unitReply)}</p>`)+message('SAS Agent',`<details class="log-details"><summary>查看處理紀錄</summary><div class="log">✓ ${s.choice==='add'?'更新名冊與分類內序號公式':'新單位未寫入名冊'}<br>✓ 依 CASENO 去重，計算派案／接案<br>✓ 繼承範本底色、框線、總計及列印設定（模擬）</div></details>${file('11507_輪派報表.xlsx',s.reviewed?'Output / 等待確認歸檔':'Output / 等待人工檢核','review','開啟 Excel 預覽')}<div class="notice"><strong>尚未歸檔。</strong> Excel 檢核後，請輸入「確認無誤，歸檔」。</div><form class="chat-input" id="finalize-form"><input id="confirmation" aria-label="歸檔確認文字" placeholder="請輸入：確認無誤，歸檔" autocomplete="off" ${s.reviewed?'':'disabled'}><button class="primary" type="submit" ${s.reviewed?'':'disabled'}>送出 ↑</button></form><div id="error" class="error" role="status"></div>`);break;
+case 3:content=message('你',`<p>${escapeChatText(s.unitReply)}</p>`)+message('SAS Agent',`<details class="log-details"><summary>查看處理紀錄</summary><div class="log">✓ ${s.choice==='add'?'更新名冊與分類內序號公式':'新單位未寫入名冊'}<br>✓ 依 CASENO 去重，計算派案／接案<br>✓ 繼承範本底色、框線、總計及列印設定（模擬）</div></details>${file('11507_輪派報表.xlsx',s.reviewed?'Output / 等待確認歸檔':'Output / 等待人工檢核','review','開啟 Excel 預覽')}<div class="notice"><strong>尚未歸檔。</strong> Excel 檢核後，請輸入「確認無誤，歸檔」。</div><form class="chat-input" id="finalize-form"><input id="confirmation" value="${escapeChatText(s.confirmation)}" aria-label="歸檔確認文字" placeholder="請輸入：確認無誤，歸檔" autocomplete="off" ${s.reviewed?'':'disabled'}><button class="primary" type="submit" ${s.reviewed?'':'disabled'}>送出 ↑</button></form><div id="error" class="error" role="status"></div>`);break;
 case 4:content=message('你','<p>確認無誤，歸檔。</p>')+message('SAS Agent',`<details class="log-details"><summary>查看處理紀錄</summary><div class="log">✓ 名冊與報表一致性驗證通過<br>✓ 已同步工作區範本<br>✓ XML 與輪派報表已歸檔（模擬）</div></details><div class="success-mark">✓</div><h2>本月作業完成</h2><p>Skill 完成處理；<strong>決策、檢核與授權，仍由你掌握。</strong></p><div class="tree">Archive/11507/
   11507_demo.xml
   11507_輪派報表.xlsx
@@ -363,20 +1491,15 @@ Excel_validation/
   11507raw_data_de_identification.xlsx</div><p class="hint-line">名冊與範本保留，供下月使用。</p>${btn('回到 Original Workflow','switch-original',false)}`);break;}
 return `<div class="chat-layout"><div class="chat">${content}</div>${![1,2,3].includes(s.step)?`<div class="claw-composer-idle"><span>${s.step===4?'本月作業已完成':'依上方操作繼續此任務'}</span><small>sas-for-eden</small></div>`:''}<details class="workspace-details"><summary>工作區檔案</summary><div class="context"><div class="context-item mono">SAS Agent/<span>工作區已備妥</span></div>${[['Input/',s.step<1?'等待 XML':s.step===4?'已歸檔，資料夾淨空':'11507_demo.xml'],['Excel_validation/',s.step<2?'等待執行':'去識別化 Excel 已產生'],['Output/',s.step<3?'尚無輪派報表':s.step===4?'已歸檔，資料夾淨空':'輪派報表待確認'],['Archive/11507/',s.step===4?'XML ＋ 輪派報表':'等待明確確認'],['B_unit_roster/',`日常名冊 · ${s.step>=3&&s.choice==='add'?'4':'3'} 個 Y 單位`]].map(([a,b])=>`<div class="context-item mono">${a}<span>${b}</span></div>`).join('')}</div></details></div>`;
 }
-function setMode(next){closeReview(false);mode=next;render()}
-function openReview(){lastFocus=document.activeElement;$('#review').innerHTML=`<div class="review-modal"><div class="review-toolbar"><strong id="review-title">Microsoft Excel · 人工檢核模擬</strong><button data-action="close-review" aria-label="關閉預覽">✕</button></div>${excelChrome('輪派報表')}<div class="modal-content">${report(s.choice==='add')}<div class="notice">目前新單位選擇：${s.choice==='add'?'加入，BA 合計為 26/20':'忽略，BA 合計為 14/11'}。正式作業須以 Microsoft Excel 檢核。</div>${checks()}${btn('檢核完成，返回 OpenClaw','review-done')}<div id="review-error" class="error" role="status"></div></div></div>`;$('#review').hidden=false;$('main').inert=true;$('header').inert=true;$('#review button').focus()}
-function closeReview(restore=true){$('#review').hidden=true;$('main').inert=false;$('header').inert=false;if(restore&&lastFocus?.isConnected)lastFocus.focus()}
+function setMode(next){if(next===mode)return;closeReview(false);mode=next;render()}
+function openReview(){lastFocus=document.activeElement;$('#review').innerHTML=`<div class="review-modal"><div class="review-toolbar"><strong id="review-title">Microsoft Excel · 人工檢核模擬</strong><button data-action="close-review" aria-label="關閉預覽">✕</button></div>${excelChrome('輪派報表')}<div class="modal-content">${report(s.choice==='add')}<div class="notice">目前新單位選擇：${s.choice==='add'?'加入，BA 合計為 26/20':'忽略，BA 合計為 14/11'}。正式作業須以 Microsoft Excel 檢核。</div>${checks()}${btn('檢核完成，返回 OpenClaw','review-done')}<div id="review-error" class="error" role="status"></div></div></div>`;$('#review').hidden=false;$('main').inert=true;$('header').inert=true;$('.intro').inert=true;$('.site-footer').inert=true;$('#review button').focus()}
+function closeReview(restore=true){$('#review').hidden=true;$('main').inert=false;$('header').inert=false;$('.intro').inert=false;$('.site-footer').inert=false;if(restore&&lastFocus?.isConnected)lastFocus.focus()}
 function allChecked(root){return [...root.querySelectorAll('.review-check')].every(x=>x.checked)}
 document.addEventListener('click',e=>{const b=e.target.closest('button');if(!b||b.disabled)return;if(b.dataset.mode){setMode(b.dataset.mode);return}const a=b.dataset.action;if(!a)return;(mode==='original'?m:s).actions++;
 switch(a){
 case'login':m.step=1;break;
 case'query':m.queried=true;break;
 case'export':m.step=2;break;
-case'to-excel':m.step=3;break;
-case'select-xml':m.imported=true;break;
-case'cancel-import':m.imported=false;break;
-case'import':if(m.xmlMode!=='table'){$('#error').textContent='請選擇「XML 表格」後按確定。';return}m.step=4;break;
-case'save-raw':m.step=5;break;
 case'create-pivot':if(m.fields.length!==4){$('#error').textContent='請勾選 PIB_UNIT、CASENO、SERVICE_CODE 與 ACCEPT。';return}m.step=6;break;
 case'show-pivot':m.workbook='pivot';break;
 case'show-report':m.workbook='report';break;
@@ -387,9 +1510,10 @@ case'fill-report':{
  if(m.seen.size<3){$('#error').textContent='請先查看 BA、BB、DA 三類碼別，再完成報表。';return}
  m.step=7;break;
 }
-case'save-report':if(!allChecked($('#stage'))){$('#error').textContent='請完成三項人工檢核後再儲存。';return}m.checked=true;m.step=8;break;
-case'switch-skill':setMode('skill');return;case'switch-original':setMode('original');return;case'select-sas':selectSasSkill();return;case'clear-sas':s.skillChosen=false;s.command='';updateSkillComposer();$('#command').focus();return;case'select-download':s.selected=true;break;case'cut-xml':if(!s.selected||s.moved)return;s.cut=true;break;case'paste-xml':if(!s.cut||s.moved)return;s.moved=true;s.cut=false;break;case'place-xml':if(!s.moved)return;s.step=1;break;case'review':openReview();return;case'close-review':closeReview();return;case'review-done':if(!allChecked($('#review'))){$('#review-error').textContent='請完成三項人工檢核。';return}s.reviewed=true;closeReview(false);render();$('#confirmation').focus();$('#confirmation').scrollIntoView({block:'nearest'});return;default:return}render()});
+case'save-report':if(!allChecked($('#stage'))){$('#error').textContent='請完成三項人工檢核後再儲存。';return}m.checked=true;m.step=8;m.manualLocation='documents';m.manualHistory=['downloads','documents'];m.manualHistoryIndex=1;m.manualSelected='';m.manualQuery='';break;
+case'switch-skill':setMode('skill');return;case'switch-original':setMode('original');return;case'select-sas':selectSasSkill();return;case'clear-sas':s.skillChosen=false;s.command='';updateSkillComposer();$('#command').focus();return;case'place-xml':if(!s.moved){$('#wx-transfer-hint').textContent='請先將 XML 移入 Input，再點工作列的 OpenClaw。';return}s.step=1;render();$('#command').focus({preventScroll:true});return;case'review':openReview();return;case'close-review':closeReview();return;case'review-done':if(!allChecked($('#review'))){$('#review-error').textContent='請完成三項人工檢核。';return}s.reviewed=true;closeReview(false);render();$('#confirmation').focus();$('#confirmation').scrollIntoView({block:'nearest'});return;default:return}render()});
 document.addEventListener('input',e=>{
+ if(e.target.id==='confirmation'){s.confirmation=e.target.value;$('#error').textContent='';return}
  if(e.target.id==='unit-reply'){s.unitReply=e.target.value;$('#unit-reply-error').textContent='';return}
  if(e.target.id==='command'){s.command=e.target.value;updateSkillComposer();return}
  if(e.target.dataset.reportGroup!==undefined){
@@ -408,21 +1532,90 @@ document.addEventListener('change',e=>{
   if(el.id==='code-filter'){m.filter=el.value;m.seen.add(m.filter)}else m.accept=el.value;
   render();$('#'+el.id).focus();
  }
- if(el.classList.contains('review-check')){const root=$('#review').hidden?$('#stage'):$('#review');if(allChecked(root)){const error=root.querySelector('.error');if(error)error.textContent=''}}
+ if(el.classList.contains('review-check')){const state=mode==='original'?m:s;state.reviewChecks[Number(el.dataset.reviewIndex)]=el.checked;if(mode==='skill'&&!state.reviewChecks.every(Boolean)){s.reviewed=false;const confirmation=$('#confirmation'),submit=$('#finalize-form button');if(confirmation)confirmation.disabled=true;if(submit)submit.disabled=true}const root=$('#review').hidden?$('#stage'):$('#review');if(allChecked(root)){const error=root.querySelector('.error');if(error)error.textContent=''}}
 });
-document.addEventListener('submit',e=>{e.preventDefault();if(e.target.id==='run-form'){if(!s.skillChosen||$('#command').value.trim()!=='執行'){$('#command-error').textContent='請先選擇 /sas-for-eden，再輸入「執行」。';return}s.actions++;s.step=2;render()}else if(e.target.id==='unit-reply-form'){s.unitReply=$('#unit-reply').value;const choice=parseNewUnitReply(s.unitReply);if(!choice){$('#unit-reply-error').textContent='目前只有編號 1。請回覆「1 加入」、「1 忽略」、「全部加入」或「全部忽略」；同一單位只能選一種處理方式。';return}s.choice=choice;s.actions++;s.step=3;render()}else if(e.target.id==='finalize-form'){s.actions++;if(!s.reviewed){$('#error').textContent='請先完成 Excel 人工檢核。';return}if($('#confirmation').value.trim()!=='確認無誤，歸檔'){$('#error').textContent='請明確輸入「確認無誤，歸檔」。未確認前不會移動檔案。';return}s.step=4;render()}});
+document.addEventListener('submit',e=>{e.preventDefault();if(e.target.id==='run-form'){if(!s.skillChosen||$('#command').value.trim()!=='執行'){$('#command-error').textContent='請先選擇 /sas-for-eden，再輸入「執行」。';return}s.actions++;s.step=2;render()}else if(e.target.id==='unit-reply-form'){s.unitReply=$('#unit-reply').value;const choice=parseNewUnitReply(s.unitReply);if(!choice){$('#unit-reply-error').textContent='目前只有編號 1。請回覆「1 加入」、「1 忽略」、「全部加入」或「全部忽略」；同一單位只能選一種處理方式。';return}s.choice=choice;s.actions++;s.step=3;render()}else if(e.target.id==='finalize-form'){s.actions++;if(!s.reviewed||!s.reviewChecks.every(Boolean)){$('#error').textContent='請先完成 Excel 人工檢核。';return}if(!/^確認無誤[，,、]?歸檔[。.!！]?$/.test($('#confirmation').value.normalize('NFKC').replace(/\s/g,''))){$('#error').textContent='請明確輸入「確認無誤，歸檔」。未確認前不會移動檔案。';return}s.step=4;render()}});
 $('#reset').addEventListener('click',()=>{if(!confirm('要重新開始目前這一頁的體驗嗎？另一頁的進度會保留。'))return;closeReview(false);if(mode==='original')m=newManual();else s=newSkill();render()});
-$('#fullscreen').addEventListener('click',async()=>{try{if(document.fullscreenElement)await document.exitFullscreen();else await document.documentElement.requestFullscreen()}catch{$('#fullscreen').textContent='請按 F11 全螢幕'}});
+$('#fullscreen').addEventListener('click',async()=>{try{if(document.fullscreenElement)await document.exitFullscreen();else await document.documentElement.requestFullscreen()}catch{$('#shell-status').textContent='瀏覽器未允許全螢幕，請使用瀏覽器的全螢幕功能。';$('#fullscreen-tip').textContent='瀏覽器未允許全螢幕，請使用瀏覽器的全螢幕功能。'}});
 document.addEventListener('keydown',e=>{if(!$('#review').hidden){if(e.key==='Escape'){closeReview();return}if(e.key==='Tab'){const items=[...$('#review').querySelectorAll('button,input')];const first=items[0],last=items.at(-1);if(e.shiftKey&&document.activeElement===first){e.preventDefault();last.focus()}else if(!e.shiftKey&&document.activeElement===last){e.preventDefault();first.focus()}}}else if(e.target.getAttribute('role')==='tab'&&['ArrowLeft','ArrowRight'].includes(e.key)){e.preventDefault();setMode(mode==='original'?'skill':'original');$('#tab-'+mode).focus()}});
 function alignGuide(){
- const heading=$('.page-heading');
- if(!heading)return;
- if(window.innerWidth<=1100){heading.style.removeProperty('--guide-title-width');return}
- const gap=parseFloat(getComputedStyle(heading).columnGap);
- const titleWidth=heading.firstElementChild.getBoundingClientRect().width;
- const offset=$('.tabs').getBoundingClientRect().left-heading.getBoundingClientRect().left-gap;
- heading.style.setProperty('--guide-title-width',Math.max(titleWidth,offset)+'px');
+ const active=$('.steps .active');
+ if(active&&window.innerWidth<=1000){const list=$('.steps');list.scrollLeft=Math.max(0,active.offsetLeft-list.offsetLeft-12)}
 }
+
+// The teaching-step counts describe this demo, not measured productivity gains.
+function updateWorkflowShowcase(){
+ const isSkill=mode==='skill';
+ const current=isSkill?s:m,steps=isSkill?skillSteps:manualSteps;
+ document.querySelectorAll('.workspace-mode').forEach(button=>button.setAttribute('aria-pressed',String(button.dataset.mode===mode)));
+ $('#workspace-step-label').textContent=current.step===steps.length-1?'流程已完成':`步驟 ${String(current.step+1).padStart(2,'0')} / ${String(steps.length).padStart(2,'0')}`;
+ $('#workspace-meter-fill').style.width=`${(current.step+1)/steps.length*100}%`;
+ $('#original-step-count').textContent=manualSteps.length;
+ $('#skill-step-count').textContent=skillSteps.length;
+ $('#original-card-status').textContent=isSkill?'切換體驗':'正在體驗';
+ $('#skill-card-status').textContent=isSkill?'正在體驗':'切換體驗';
+ $('#preview-process-icon').innerHTML=labIcon(isSkill?'cpu':'document-text');
+ $('#preview-process-mode').textContent=isSkill?'整理方式 / 人機協作':'整理方式 / 手動作業';
+ $('#preview-process-name').textContent=isSkill?'工具處理，人工確認':'逐步整理與填報';
+ $('#preview-process-description').textContent=isSkill?'執行 Skill、決定新單位，檢核後歸檔。':'匯入 Excel、建立樞紐分析，再填入報表。';
+}
+
+// Shell interactions, implemented in plain JavaScript; simulation state is untouched.
+function setFocusMode(enabled){
+ document.body.classList.toggle('is-focused',enabled);
+ const toggle=$('#focus-toggle');
+ toggle.setAttribute('aria-pressed',String(enabled));
+ toggle.querySelector('.control-text').textContent=enabled?'完整頁面':'專注模式';
+ $('#focus-tip').innerHTML=enabled?'返回介紹與步驟導覽，操作進度保留。<small><kbd>Esc</kbd> 返回完整頁面</small>':'收起介紹與導覽，保留操作進度。<small><kbd>Esc</kbd> 返回完整頁面</small>';toggle.querySelector('use').setAttribute('href',enabled?'#lab-icon-element-3':'#lab-icon-scan');
+ $('#shell-status').textContent=enabled?'已開啟專注模式，介紹與側邊導覽已收起。按 Escape 返回。':'已返回完整頁面，操作進度保留。';
+ window.scrollTo({top:0,behavior:'instant'});
+}
+$('#focus-toggle').addEventListener('click',()=>setFocusMode(!document.body.classList.contains('is-focused')));
+$('.intro-link').addEventListener('click',e=>{
+ e.preventDefault();
+ $('#tab-'+mode).focus({preventScroll:true});
+ $('#workflow-chooser').scrollIntoView({block:'start',behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'instant':'smooth'});
+});
+$('.workspace-jump').addEventListener('click',e=>{e.preventDefault();$('#experience').focus({preventScroll:true});$('#experience').scrollIntoView({block:'start',behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'instant':'smooth'})});
+let reviewEscape=false;
+document.addEventListener('keydown',e=>{reviewEscape=e.key==='Escape'&&!$('#review').hidden},true);
+document.addEventListener('keydown',e=>{
+ if(e.defaultPrevented||reviewEscape)return;
+ if(e.target.matches('.tabs [role="tab"]')&&['Home','End'].includes(e.key)){
+  e.preventDefault();
+  setMode(e.key==='Home'?'original':'skill');
+  $('#tab-'+mode).focus();
+ }
+ if(e.key==='Escape'&&document.body.classList.contains('is-focused')&&$('#review').hidden&&!document.fullscreenElement&&!$('.window.is-maximized')){
+  setFocusMode(false);
+  $('#focus-toggle').focus({preventScroll:true});
+ }
+});
+
+
+// Iconsax-inspired, restrained micro-interactions around the lesson only.
+document.querySelectorAll('.lab-action').forEach(wrapper=>{
+ const resetTip=()=>delete wrapper.dataset.tipDismissed;
+ wrapper.addEventListener('pointerenter',resetTip);
+ wrapper.addEventListener('pointerleave',resetTip);
+ wrapper.addEventListener('focusin',resetTip);
+ wrapper.addEventListener('focusout',resetTip);
+ wrapper.querySelector('button').addEventListener('click',()=>{wrapper.dataset.tipDismissed='true'});
+});
+document.addEventListener('keydown',e=>{
+ if(e.key!=='Escape')return;
+ const wrapper=e.target.closest('.lab-action');
+ if(wrapper&&getComputedStyle(wrapper.querySelector('.lab-tooltip')).visibility==='visible'){
+  wrapper.dataset.tipDismissed='true';e.preventDefault();e.stopPropagation();
+ }
+},true);
+document.addEventListener('fullscreenchange',()=>{
+ const active=!!document.fullscreenElement,button=$('#fullscreen');
+ button.setAttribute('aria-pressed',String(active));
+ button.setAttribute('aria-label',active?'離開全螢幕':'切換全螢幕');
+ button.querySelector('.control-text').textContent=active?'離開全螢幕':'全螢幕';
+});
+
 window.addEventListener('resize',alignGuide);
 document.fonts.ready.then(alignGuide);
 render();

@@ -2,7 +2,7 @@
 <html lang="zh-Hant">
 <head>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="theme-color" content="#f4f2eb">
+<meta name="theme-color" content="#0a7a6e">
 <meta name="description" content="親手體驗每月 A 派 B 報表的兩種工作方式：從手動整理到人機協作，讓時間回到照顧本身。">
 <title>輪派作業｜互動體驗</title>
 <style>
@@ -1008,6 +1008,99 @@ body.is-focused .workflow-chooser{display:none}
 .intro .edition{font-size:11px;letter-spacing:.04em}
 .workflow-picker .card-eyebrow{font-family:inherit;font-size:11px;letter-spacing:.06em}
 #sidebar>.eyebrow,#sidebar .progress-caption{font-family:inherit;font-size:11px;letter-spacing:.08em}
+/* Health Token reference: mint surfaces, teal navigation and warm yellow accents.
+   Keep all application-window styles and the normal/focus workspace geometry intact. */
+:root{--lab-ink:#1a3a3c;--lab-muted:#526f70;--lab-accent:#0a7a6e;--lab-line:#d8eaeb;--lab-paper:#f8fdfd;--lab-wash:#e1f5ee;--lab-white:#fff}
+body{background:#f8fdfd}
+header{background:#fff;border-color:#d8eaeb}
+.brand strong{color:#1a3a3c}.brand-overline,.header-note{color:#526f70}.header-note>span{background:#0a7a6e}
+header .top-actions :is(#focus-toggle,#reset,#fullscreen){border-radius:999px;color:#0a7a6e;border-color:#c7e0dd;background:#fff}
+header .top-actions #fullscreen{border-color:#c7e0dd}
+header .top-actions :is(#focus-toggle,#reset,#fullscreen):hover:not(:disabled){background:#e1f5ee;border-color:#0a7a6e}
+header .top-actions :is(#focus-toggle,#reset,#fullscreen)[aria-pressed=true]{background:#0a7a6e;border-color:#0a7a6e;color:#fff}
+header .top-actions :is(#focus-toggle,#reset,#fullscreen):focus-visible,.intro .intro-link:focus-visible,.workspace-jump:focus-visible,.workflow-picker .workflow-card:focus-visible,.workspace-mode:focus-visible{outline:3px solid #0a7a6e;outline-offset:4px}
+.lab-tooltip{background:#1a3a3c;color:#fff;border-color:#1a3a3c}.lab-tooltip small{color:#d8eaeb}
+.intro{background:#e1f5ee;border:1px solid #d0e9e2;border-radius:28px;padding-block:58px;gap:54px;box-shadow:none}
+.intro::before{inset:auto -8% -190px 30%;height:280px;background:#cceae1;border-radius:50%;opacity:.7;mask-image:none;transform:rotate(-8deg)}
+.intro .intro-copy{position:relative;z-index:1}
+.intro .eyebrow{font-family:inherit;color:#0a7a6e;font-size:12px;letter-spacing:.05em;gap:9px}
+.intro .edition-dot{width:8px;height:8px;background:#ffc900;box-shadow:0 0 0 4px #fff8d8}
+.intro .edition{color:#526f70;border-color:#b2d6cc}
+.intro h1{color:#1a3a3c;font-weight:700;font-size:clamp(38px,4.3vw,64px);line-height:1.3;letter-spacing:-1.8px;margin:25px 0 22px}
+.intro h1 span{color:#0a7a6e;width:fit-content;background:linear-gradient(transparent 77%,#ffdf65 77%,#ffdf65 93%,transparent 93%)}
+.intro .intro-copy>p{color:#3f6263;font-size:16px;line-height:1.9;max-width:440px;margin-bottom:28px}
+.intro .intro-link{border-radius:999px;background:#0a7a6e;border-color:#0a7a6e;color:#fff;padding:9px 10px 9px 23px;min-height:54px;gap:24px;box-shadow:0 5px 0 #08685e12;overflow:visible}
+.intro .intro-link::before{display:none}
+.intro .intro-link .cta-label{font-size:15px;font-weight:600}
+.intro .intro-link .cta-arrow{box-sizing:content-box;padding:10px;background:#ffc900;border-radius:50%;color:#1a3a3c;width:18px;height:18px}
+.intro .intro-link:is(:hover,:focus-visible){background:#086a60;border-color:#086a60;color:#fff;box-shadow:0 7px 16px #0a7a6e20}
+.intro .intro-note{color:#526f70;font-size:12px}
+.intro-features{display:flex;gap:18px;flex-wrap:wrap;margin:23px 0 0;padding:0;list-style:none;color:#3f6263;font-size:12px;line-height:1.8}
+.intro-features li{display:flex;align-items:center;gap:6px}.intro-features .lab-icon{width:16px;height:16px;color:#0a7a6e}
+.journey-preview{padding:27px;background:#fff;border-color:#c7e4dc;border-radius:24px;box-shadow:0 14px 34px #1a3a3c09}
+.journey-preview figcaption{color:#526f70;font-size:12px;margin-bottom:23px}
+.journey-preview figcaption>span:first-child{color:#1a3a3c;font-size:14px;font-weight:600}
+.journey-row{border-color:#d8eaeb;background:#f8fdfd;color:#1a3a3c;border-radius:14px;padding:15px;box-shadow:none}
+.journey-row strong{font-weight:600}.journey-file{color:#526f70}
+.journey-icon{width:40px;height:40px;background:#fff;border:1px solid #b9dcd6;border-radius:12px;color:#0a7a6e}
+.journey-tag{background:#fff;border-color:#c7e0dd;border-radius:999px;color:#0a7a6e;padding:4px 9px}
+.journey-connector{background:#a4cec4;height:22px;margin-left:35px}.journey-connector i{background:#0a7a6e}
+.journey-process{background:#fff8db;border-color:#efdda0;padding-block:18px}
+.journey-process .journey-icon{background:#fff;border-color:#e5cc76;color:#0a7a6e}
+.journey-eyebrow{color:#6d602f}.journey-process strong{color:#1a3a3c}
+.intro .journey-process p{color:#52605b}
+.intro .journey-caption{color:#526f70;margin-top:19px}
+.workflow-chooser{padding-top:48px;padding-bottom:30px}
+.section-index{color:#0a7a6e;letter-spacing:.06em;font-family:inherit}
+.chooser-heading h2{color:#1a3a3c;font-weight:650}
+.workspace-jump{color:#0a7a6e;border-color:#87bdb3;font-weight:600}
+.workspace-jump:hover{color:#086a60}
+.tabs.workflow-picker{gap:20px}
+.workflow-picker .workflow-card{padding:26px;border-radius:22px;background:#fff;border-color:#d8eaeb;color:#1a3a3c;box-shadow:0 4px 14px #1a3a3c04}
+.workflow-picker .workflow-card[aria-selected=true]{background:#edf9f4;border-color:#0a7a6e;color:#1a3a3c;box-shadow:inset 0 0 0 1px #0a7a6e,0 6px 20px #0a7a6e08}
+.card-topline{color:#526f70}.card-count{padding:5px 10px;border-radius:999px;background:#f0f7f5;color:#436467}
+.workflow-picker .card-count b{color:#0a7a6e;font-family:inherit;font-weight:700}
+.workflow-card[aria-selected=true] .card-count{background:#d8efe6}
+.card-title{font-weight:650;margin-top:19px}.card-selected{color:#0a7a6e}
+.workflow-picker .workflow-card .card-icon{background:#fff;border-color:#d8eaeb;border-radius:13px;width:46px;height:46px}
+.card-description{color:#526f70}.card-bottom{border-color:#d8eaeb}.card-detail{color:#526f70}.card-action{color:#0a7a6e;font-weight:600}.chooser-note{color:#526f70}
+.lab-workspace{border-color:#c7e0dd;background:#fff;border-radius:20px;box-shadow:0 8px 30px #1a3a3c05}
+.workspace-caption{background:#f3faf7f5;border-color:#d8eaeb;box-shadow:0 3px 12px #1a3a3c04}
+.workspace-identity strong{color:#1a3a3c}.workspace-identity div>span,.workspace-index,#workspace-step-label{color:#526f70}.workspace-index{border-color:#bedbd4}
+.workspace-controls{border-color:#c7e0dd;background:#e1f1eb;border-radius:999px}
+.workspace-mode{border-radius:999px;color:#3f6b6d}
+.workspace-mode[aria-pressed=true],.workspace-controls .workspace-mode[aria-pressed=true]:is(:hover,:focus-visible){background:#0a7a6e;color:#fff;box-shadow:0 2px 6px #0a7a6e18}
+.workspace-meter{background:#cde6df}#workspace-meter-fill{background:#0a7a6e}
+.lab-workspace #sidebar{background:#f0f8f4;border-color:#d8eaeb}
+#sidebar>.eyebrow,.sidebar-description,#sidebar .progress-caption{color:#526f70}.sidebar-title{color:#1a3a3c}
+#sidebar .steps li{color:#526f70;border-radius:9px;opacity:1}#sidebar .steps:focus-visible{outline:3px solid #0a7a6e;outline-offset:-3px;border-radius:9px}#sidebar .steps .active{background:#fff;color:#0a7a6e;box-shadow:0 3px 10px #1a3a3c05}
+#sidebar .stepnum{color:#526f70}#sidebar .active .stepnum{background:#0a7a6e;color:#fff;border-radius:6px}
+#sidebar .done .stepnum{background:#d4eee3;color:#0a7a6e}#sidebar .steps .done{color:#3f6b6d}#sidebar .progress-track{background:#d8eaeb}#sidebar .progress-fill{background:#0a7a6e}
+.page-heading h2{color:#1a3a3c}.page-kicker{color:#526f70}
+.page-heading>.guide{background:#fff9e2;border-left-color:#e1b900;border-radius:0 10px 10px 0}
+.page-heading .guide-label{color:#0a7a6e}.page-heading .guide p{color:#485f5b}
+.page-heading>.badge{color:#0a7a6e;border-color:#c7e0dd;background:#f3faf7}
+.site-footer{color:#526f70;border-top:1px solid #d8eaeb;margin-top:26px;padding-top:23px}.footer-divider{color:#a1c6be}
+@media(hover:hover) and (pointer:fine){
+ .workflow-picker .workflow-card:hover{border-color:#0a7a6e;box-shadow:0 10px 25px #0a7a6e0d;transform:translateY(-3px)}
+ .workflow-picker .workflow-card:active{transform:none}
+ .workspace-mode[aria-pressed=false]:hover{background:#fff;color:#0a7a6e}
+}
+@media(max-width:1200px){.intro{padding:38px 3.3%;gap:30px}.intro .edition{display:none}.intro .intro-copy>p{font-size:15px}.journey-preview{padding:22px}.intro-features{gap:12px}}
+@media(max-width:1000px){.intro{gap:24px}.intro h1{font-size:40px}.journey-row{padding:12px}.journey-process strong{font-size:17px}.journey-preview{padding:19px}.intro-features{gap:8px 14px}.workflow-picker .workflow-card{padding:23px}.card-count{padding:4px 8px}}
+@media(max-width:760px){
+ .intro{padding:30px 6% 26px;border-radius:22px;gap:26px}.intro::before{inset:auto -25% -140px 0;height:300px}
+ .intro h1{font-size:clamp(35px,7.8vw,52px);line-height:1.3;margin:22px 0 17px;letter-spacing:-1.2px}.intro .eyebrow{font-size:11px}
+ .intro .intro-copy>p{font-size:14px;margin-bottom:23px}.intro .intro-actions{gap:13px}.intro .intro-link{min-height:50px;padding:7px 8px 7px 19px;gap:16px}.intro .intro-link .cta-label{font-size:14px}.intro .intro-note{font-size:11px}
+ .intro-features{margin-top:20px;font-size:11px;gap:12px}.intro-features .lab-icon{width:14px;height:14px}
+ .journey-preview{padding:18px;border:1px solid #c7e4dc;border-radius:18px;background:#ffffffed;box-shadow:0 6px 20px #1a3a3c06}
+ .journey-preview figcaption{font-size:10px;margin-bottom:17px}.journey-preview figcaption>span:first-child{font-size:12px}.journey-row{padding:11px;gap:10px}.journey-row strong{font-size:13px}.journey-icon{width:32px;height:34px;border-radius:10px}.journey-file{font-size:10px}.journey-process strong{font-size:17px}.journey-eyebrow{font-size:10px}.intro .journey-process p{font-size:11px;min-height:0}.journey-connector{height:17px;margin-left:28px}.intro .journey-caption{display:block;font-size:10px;margin-top:14px}
+ .workflow-chooser{padding-top:32px}.tabs.workflow-picker{gap:14px}.workflow-picker .workflow-card{padding:21px;border-radius:18px}.card-title{font-size:24px}.card-description{font-size:13px}.card-count{font-size:10px}.workflow-picker .workflow-card .card-icon{width:42px;height:42px}
+ .workspace-jump{border-color:#a2cbc2}.lab-workspace{border-radius:15px}
+ .site-footer{font-size:11px;margin-top:20px}
+}
+@media(max-width:380px){.intro-features{gap:8px;font-size:10px}.intro .intro-note{font-size:11px}.journey-preview{padding:14px}.journey-row{padding:10px;gap:8px}.journey-icon{width:29px;height:31px}.journey-process strong{font-size:16px}.workflow-picker .workflow-card{padding:18px}.card-topline{gap:6px}.card-count{font-size:9px;padding:4px 7px}.workflow-picker .card-eyebrow{font-size:10px}}
+
 </style>
 </head>
 <body>
@@ -1062,7 +1155,7 @@ Colors inherit currentColor; original path geometry is retained. -->
  <span class="lab-action lab-fullscreen"><button id="fullscreen" type="button" aria-pressed="false" aria-label="切換全螢幕" aria-describedby="fullscreen-tip"><svg class="lab-icon " width="20" height="20" aria-hidden="true" focusable="false"><use href="#lab-icon-maximize"/></svg><span class="control-text">全螢幕</span></button><span class="lab-tooltip" id="fullscreen-tip" role="tooltip">以全螢幕檢視教學。<small><kbd>Esc</kbd> 可離開全螢幕</small></span></span>
 </div></header>
 <section id="intro" class="intro" aria-labelledby="intro-title">
- <div class="intro-copy"><div class="eyebrow"><span class="edition-dot"></span> 讓每月作業，換一種方式 <span class="edition">輪派作業 · 互動教學</span></div><h1 id="intro-title">把時間，留給<span>更重要的事。</span></h1><p>從逐筆整理，到人機協作。親手走過同一份報表的兩種工作方式。</p><div class="intro-actions"><a class="intro-link" href="#workflow-chooser"><i class="cta-dot" aria-hidden="true"></i><span class="cta-label">選擇體驗流程</span><svg class="lab-icon cta-arrow" width="20" height="20" aria-hidden="true" focusable="false"><use href="#lab-icon-arrow-right"/></svg></a><span class="intro-note">兩種流程，進度各自保留。</span></div></div>
+ <div class="intro-copy"><div class="eyebrow"><span class="edition-dot"></span> 讓每月作業，換一種方式 <span class="edition">輪派作業 · 互動教學</span></div><h1 id="intro-title">把時間，留給<span>更重要的事。</span></h1><p>從逐筆整理，到人機協作。親手走過同一份報表的兩種工作方式。</p><div class="intro-actions"><a class="intro-link" href="#workflow-chooser"><i class="cta-dot" aria-hidden="true"></i><span class="cta-label">選擇體驗流程</span><svg class="lab-icon cta-arrow" width="20" height="20" aria-hidden="true" focusable="false"><use href="#lab-icon-arrow-right"/></svg></a><span class="intro-note">選一種方式，開始練習。</span></div><ul class="intro-features" aria-label="體驗特色"><li><svg class="lab-icon" width="16" height="16" aria-hidden="true" focusable="false"><use href="#lab-icon-tick-circle"/></svg>示範資料</li><li><svg class="lab-icon" width="16" height="16" aria-hidden="true" focusable="false"><use href="#lab-icon-refresh"/></svg>進度保留</li><li><svg class="lab-icon" width="16" height="16" aria-hidden="true" focusable="false"><use href="#lab-icon-user-tick"/></svg>自主操作</li></ul></div>
  <figure class="journey-preview" aria-labelledby="preview-caption">
  <figcaption id="preview-caption"><span>流程概念圖</span><span>115.07 · 示範月份</span></figcaption>
  <div class="journey-stack">
@@ -1135,7 +1228,7 @@ function report(includeNew=true,editable=false){
 }
 let labLastMode=null,labLastStep=-1;
 function labIcon(name){return `<svg class="lab-icon" width="20" height="20" aria-hidden="true" focusable="false"><use href="#lab-icon-${name}"/></svg>`}
-function render(){const previousWindow=$('.window');const sameMode=mode===labLastMode;const keepMaximized=sameMode&&!!previousWindow?.classList.contains('is-maximized');const keepMinimized=sameMode&&(mode==='original'?m:s).step===labLastStep&&!!previousWindow?.querySelector('#stage')?.hidden;const state=mode==='original'?m:s;const steps=mode==='original'?manualSteps:skillSteps;const hints=mode==='original'?mHints:sHints;const step=state.step;const done=step===steps.length-1;const labChanged=mode!==labLastMode||step!==labLastStep;const labAdvanced=mode===labLastMode&&step>labLastStep;$('#tab-original').setAttribute('aria-selected',mode==='original');$('#tab-skill').setAttribute('aria-selected',mode==='skill');$('#experience').setAttribute('aria-labelledby','tab-'+mode);$('#tab-original').tabIndex=mode==='original'?0:-1;$('#tab-skill').tabIndex=mode==='skill'?0:-1;document.body.dataset.mode=mode;updateWorkflowShowcase();$('#sidebar').innerHTML=`<div class="eyebrow">操作步驟</div><h2 class="sidebar-title">${mode==='original'?'一步一步，<br>理解每個細節。':'交給工具，<br>由你掌握關鍵。'}</h2><p class="sidebar-description">${mode==='original'?'從匯出資料到完成月報':'從資料就緒到確認歸檔'}</p><ol class="steps">${steps.map((x,i)=>`<li class="${i===step?'active':i<step?'done'+(labAdvanced&&i===step-1?' lab-just-done':''):''}" ${i===step?'aria-current="step"':''}><span class="stepnum">${i<step?labIcon('tick-circle'):String(i+1).padStart(2,'0')}</span>${x}</li>`).join('')}</ol><div class="aside-bottom"><div class="progress-caption">目前進度</div><div class="row spread small"><span>${done?'已完成':'進度'}</span><span>${step+1} / ${steps.length}</span></div><div class="progress-track"><div class="progress-fill" style="width:${100*(step+1)/steps.length}%"></div></div></div>`;
+function render(){const previousWindow=$('.window');const sameMode=mode===labLastMode;const keepMaximized=sameMode&&!!previousWindow?.classList.contains('is-maximized');const keepMinimized=sameMode&&(mode==='original'?m:s).step===labLastStep&&!!previousWindow?.querySelector('#stage')?.hidden;const state=mode==='original'?m:s;const steps=mode==='original'?manualSteps:skillSteps;const hints=mode==='original'?mHints:sHints;const step=state.step;const done=step===steps.length-1;const labChanged=mode!==labLastMode||step!==labLastStep;const labAdvanced=mode===labLastMode&&step>labLastStep;$('#tab-original').setAttribute('aria-selected',mode==='original');$('#tab-skill').setAttribute('aria-selected',mode==='skill');$('#experience').setAttribute('aria-labelledby','tab-'+mode);$('#tab-original').tabIndex=mode==='original'?0:-1;$('#tab-skill').tabIndex=mode==='skill'?0:-1;document.body.dataset.mode=mode;updateWorkflowShowcase();$('#sidebar').innerHTML=`<div class="eyebrow">操作步驟</div><h2 class="sidebar-title">${mode==='original'?'一步一步，<br>理解每個細節。':'交給工具，<br>由你掌握關鍵。'}</h2><p class="sidebar-description">${mode==='original'?'從匯出資料到完成月報':'從資料就緒到確認歸檔'}</p><ol class="steps" tabindex="0" aria-label="操作步驟列表">${steps.map((x,i)=>`<li class="${i===step?'active':i<step?'done'+(labAdvanced&&i===step-1?' lab-just-done':''):''}" ${i===step?'aria-current="step"':''}><span class="stepnum">${i<step?labIcon('tick-circle'):String(i+1).padStart(2,'0')}</span>${x}</li>`).join('')}</ol><div class="aside-bottom"><div class="progress-caption">目前進度</div><div class="row spread small"><span>${done?'已完成':'進度'}</span><span>${step+1} / ${steps.length}</span></div><div class="progress-track"><div class="progress-fill" style="width:${100*(step+1)/steps.length}%"></div></div></div>`;
 $('#experience').innerHTML=`<div class="page-heading ${labChanged?'lab-step-changed':''}"><div><span class="page-kicker">步驟 ${String(step+1).padStart(2,'0')} / ${String(steps.length).padStart(2,'0')}</span><h2 id="step-title" tabindex="-1">${steps[step]}</h2></div><div class="guide"><span class="guide-label">${labIcon('arrow-right')} 下一步</span><p>${hints[step]}</p></div><span class="badge lab-mode-badge ${done?'lab-complete':''}">${labIcon(done?'tick-circle':mode==='skill'?'cpu':'document-text')}<span>${done?'已完成':mode==='skill'?'人機協作':'人工操作'}</span></span></div>${applicationWindow()}${mode==='skill'&&s.step===0?transferCoach():mode==='original'&&m.step===8?'<div class="mn-completion"><div><h2>本月輪派報表已完成</h2><p>11507_輪派報表.xlsx 已儲存於文件（模擬）。</p></div>'+btn('體驗人機協作 →','switch-skill')+'</div>':''}`;if(keepMaximized){$('.window').classList.add('is-maximized');$('[data-window="maximize"]').setAttribute('aria-label','還原模擬視窗')}if(keepMinimized){$('#stage').hidden=true;$('.window-resting').hidden=false;const status=$('.excel-status');if(status)status.hidden=true}alignGuide();updateSkillComposer();if($('#unit-reply'))$('#unit-reply').value=s.unitReply;if(labChanged&&labLastMode!==null)$('#shell-status').textContent=`${mode==='skill'?'人機協作':'手動作業'}，步驟 ${step+1}／${steps.length}：${steps[step]}`;if(labAdvanced){const target=keepMaximized?$('.window-name'):$('#step-title');target.tabIndex=-1;target.focus({preventScroll:true})}labLastMode=mode;labLastStep=step;
 }
 function windowTitle(){if(mode==='skill')return s.step===0?explorerLocationLabel()+' — 檔案總管':'OpenClaw / sas-for-eden';return ['照顧服務管理資訊平臺 / 登入','照顧服務管理資訊平臺 / 資料匯出',(m.manualLocation==='downloads'?'下載':'文件')+' — 檔案總管','Excel','11507_demo.xml — Excel','Microsoft Excel / 建立樞紐分析表',m.workbook==='pivot'?escapeChatText(m.rawName)+' — 樞紐分析表':'11507_輪派報表.xlsx — Excel','Microsoft Excel / 人工檢核',m.completedPreview?(m.completedPreview==='raw'?escapeChatText(m.rawName):'11507_輪派報表.xlsx')+' — Excel':(m.manualLocation==='downloads'?'下載':'文件')+' — 檔案總管'][m.step]}

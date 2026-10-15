@@ -1101,6 +1101,115 @@ header .top-actions :is(#focus-toggle,#reset,#fullscreen):focus-visible,.intro .
 }
 @media(max-width:380px){.intro-features{gap:8px;font-size:10px}.intro .intro-note{font-size:11px}.journey-preview{padding:14px}.journey-row{padding:10px;gap:8px}.journey-icon{width:29px;height:31px}.journey-process strong{font-size:16px}.workflow-picker .workflow-card{padding:18px}.card-topline{gap:6px}.card-count{font-size:9px;padding:4px 7px}.workflow-picker .card-eyebrow{font-size:10px}}
 
+/* OpenClaw light workspace, matched to the supplied Assistant screenshot.
+   Scoped to the OpenClaw simulation; state, commands and validation stay unchanged. */
+.app-claw{--muted:#79756e;--line:#e3dfd8;background:#f4f1ec;color:#383b3c;border-color:#d6d2cb}
+.app-claw .window-bar{background:#faf8f5;color:#575750;border-color:#e5e1da}
+.app-claw .app-icon{background:#dbc763;color:#514720}
+.app-claw .caption-controls button{background:transparent;color:#73726c;border-color:transparent}
+.app-claw .caption-controls button:hover{background:#ebe7e0}.app-claw .caption-controls .caption-close:hover{background:#c42b1c;color:#fff}
+.app-claw #stage{overflow:hidden;background:#f4f1ec}
+.app-claw .claw-shell{height:100%;min-height:0;grid-template-columns:clamp(155px,20%,240px) minmax(0,1fr);background:#f4f1ec}
+.app-claw .claw-nav{padding:0;gap:0;background:#faf9f7;border-color:#e7e3dd;overflow:auto;scrollbar-width:thin}
+.app-claw .claw-brand{display:flex;align-items:center;gap:7px;padding:15px 12px 17px;font-size:13px;letter-spacing:0;color:#262c2d}
+.app-claw .claw-brand strong{font-size:13px;color:#262c2d}
+.app-claw .claw-assistant-mark{display:inline-flex;width:29px;height:29px;flex:none;margin:0;color:inherit;align-items:center;justify-content:center}
+.app-claw .claw-assistant-mark svg{width:100%;height:100%;display:block}
+.app-claw .claw-chrome-tools{color:#6d6a63;font-size:17px;letter-spacing:1px;white-space:nowrap;margin-left:auto;line-height:1;user-select:none}
+.app-claw .claw-nav-menu{padding:0 10px 15px;display:grid;gap:4px;border-bottom:1px solid #eeebe6;margin:0 5px}
+.app-claw .claw-nav-item{display:flex;align-items:center;gap:10px;padding:6px 9px;min-height:32px;color:#63635e;font-size:12px;border:1px solid transparent;border-radius:9px}
+.app-claw .claw-nav-item .lab-icon,.app-claw .claw-nav-item svg{width:15px;height:15px;flex:none;color:#9b9890}
+.app-claw .claw-nav-item.is-current{background:#f7edeb;border-color:#efd1ca;color:#4c3d39}
+.app-claw .claw-nav-item.is-current svg{color:#d96550}
+.app-claw .claw-online{padding:17px 15px 21px}
+.app-claw .claw-nav-label{display:flex;align-items:center;justify-content:space-between;font-size:11px;letter-spacing:0;text-transform:none;color:#6d685e;margin-bottom:12px}
+.app-claw .claw-presence{display:flex;align-items:center;gap:8px;font-size:11px}.app-claw .claw-presence strong{font-size:11px;color:#343a38}
+.app-claw .claw-owner-avatar{display:inline-grid;place-items:center;width:23px;height:23px;border-radius:50%;background:#35a1a2;color:white;flex:none;font-size:10px;font-weight:600}
+.app-claw .claw-presence-count{margin-left:auto;color:#6d685e;font-size:10px}
+.app-claw .claw-sessions{padding:0 15px 18px}.app-claw .claw-sessions .claw-nav-label{margin-bottom:9px}
+.app-claw .claw-session{padding:9px 10px;border-color:#e6e0d7;background:#f2efea;color:#5b5c56;font-size:11px;border-radius:7px}
+.app-claw .claw-session small{color:#6d685e;font-size:10px;margin-top:3px}
+.app-claw .claw-nav-footer{display:flex;align-items:center;gap:9px;margin-top:auto;padding:13px 15px;border-top:1px solid #eeebe6;font-size:11px;color:#383b3c}
+.app-claw .claw-nav-footer strong{color:#383b3c;font-size:11px}
+.app-claw .claw-main{display:flex;flex-direction:column;min-height:0;overflow:hidden;background-color:#f4f1ec;background-image:repeating-radial-gradient(ellipse at 120% -20%,transparent 0 58px,#e7e1d833 59px 60px,transparent 61px 100px)}
+.app-claw .claw-chatbar{min-height:45px;flex:none;padding:10px 17px;border:0;background:#f4f1ecee;gap:12px}
+.app-claw .claw-breadcrumb{display:flex;align-items:center;gap:8px;font-size:11px;color:#8a8177;min-width:0}
+.app-claw .claw-breadcrumb>svg{width:15px;height:15px;flex:none;color:#948e84}
+.app-claw .claw-breadcrumb strong{font-size:11px;font-weight:400;color:#4d5c61;white-space:nowrap}
+.app-claw .claw-status{color:#79746b;font-size:10px;margin-left:auto}.app-claw .claw-chatbar>.claw-chrome-tools{margin-left:0;font-size:15px}
+.app-claw .chat-layout{display:flex;flex-direction:column;flex:1;min-height:0;max-width:none;width:100%;margin:0;padding:0}
+.app-claw .claw-conversation{flex:1;min-height:0;overflow:auto;overscroll-behavior:contain;scrollbar-width:thin;scrollbar-color:#c7c3bc transparent;padding:24px 26px 20px}
+.app-claw .chat{max-width:780px;margin:0 auto;gap:27px}
+.app-claw .message{gap:12px;align-items:flex-start;min-width:0}
+.app-claw .avatar{width:31px;height:31px;flex:none;background:transparent;color:#514720;border-radius:50%;font-size:12px}
+.app-claw .avatar .claw-assistant-mark{width:31px;height:31px}
+.app-claw .avatar.user{background:#35a1a2;color:#fff;box-shadow:0 0 0 3px #e4f0ee;font-weight:600;font-size:11px}
+.app-claw .bubble{min-width:0;color:#39454a;font-size:13px;line-height:1.8}
+.app-claw .bubble>h3{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
+.app-claw .bubble p{font-size:13px;line-height:1.8;margin-bottom:12px}
+.app-claw .message:has(.avatar.user){flex-direction:row-reverse;align-self:flex-end;max-width:85%}
+.app-claw .message:has(.avatar.user) .bubble{flex:0 1 auto;background:#e4f8f8;border:0;border-radius:17px;padding:13px 17px;color:#365964}
+.app-claw h2,.app-claw h3,.app-claw strong{color:#39454a}.app-claw h2{font-size:21px}.app-claw .bubble strong{font-weight:600}
+.app-claw .task-card{background:#faf8f4;border-color:#dfd9ce;border-radius:12px;padding:17px;margin-top:16px}
+.app-claw .task-card:has(.decision){background:#faf8f4;border-color:#dfd9ce}
+.app-claw .badge.warn{background:#f5edd2;color:#71602e;border-color:#d6c079}
+.app-claw .decision{padding-top:8px}.app-claw .new-unit-list{margin-top:6px}
+.app-claw .new-unit-list h3{font-size:19px!important}.app-claw .new-unit-list li::marker{color:#7a6b44;font-size:18px}
+.app-claw .decision .hint-line,.app-claw .bubble .muted,.app-claw .context-item span,.app-claw .log,.app-claw .log-details,.app-claw .workspace-details{color:#756f65}
+.app-claw .log-details{font-size:11px;margin-bottom:12px}.app-claw .log-details summary{color:#81796e;padding-top:0}
+.app-claw .log{font-size:11px;line-height:1.9}
+.app-claw .file-row{background:#faf9f6;border-color:#ded8cf;border-radius:9px;padding:14px;gap:11px;margin:16px 0}
+.app-claw .file-info small{color:#777168;overflow-wrap:anywhere}.app-claw .file-info strong{font-size:12px}
+.app-claw .file-icon{background:#eee8dc;border-radius:6px;color:#71613b;width:32px;height:38px;font-size:10px}
+.app-claw .tree{background:#efebe4;color:#4d5c61;border:1px solid #ddd6ca;border-radius:7px;padding:13px;font-size:11px}
+.app-claw .notice{background:#ecefe6;border-color:#9aab82;color:#4b5946;border-radius:0 6px 6px 0;font-size:12px}
+.app-claw .success-mark{background:#e4ede2;color:#58774b;width:40px;height:40px;font-size:19px;margin-top:12px}
+.app-claw button{background:#faf9f6;border-color:#d6d0c6;color:#555a56;border-radius:7px}
+.app-claw button:hover:not(:disabled){background:#eae5dc}
+.app-claw .primary{background:#587e79;border-color:#587e79;color:#fff;box-shadow:none}
+.app-claw .primary:hover:not(:disabled){background:#456862}
+.app-claw :is(button,input,summary):focus-visible{outline:2px solid #319294;outline-offset:3px}
+.app-claw .file-row button{padding:8px 11px;font-size:11px;white-space:normal}
+.app-claw .workspace-details{max-width:737px;margin:24px auto 0;padding-top:12px;border-color:#ded8cf;font-size:11px}
+.app-claw .context{gap:3px 18px}.app-claw .context-item{font-size:11px}.app-claw .context-item span{font-size:10px}
+.app-claw .claw-composer-dock{width:calc(100% - 48px);max-width:780px;flex:none;margin:0 auto 15px}
+.app-claw .skill-command{margin-top:0}
+.app-claw .chat-input{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:8px 12px;margin:0;padding:15px 15px 10px;background:#fff;border:1px solid #dfdcd6;border-radius:20px;box-shadow:0 2px 4px #665d4510;align-items:center}
+.app-claw .chat-input input{grid-column:1/-1;width:100%;min-width:0;min-height:42px;padding:4px 0 10px;color:#44565d;background:transparent;font-size:14px;border:0;border-radius:0;line-height:1.6}
+.app-claw .chat-input input::placeholder{color:#746b5f;opacity:1}
+.app-claw .chat-input input:disabled{color:#746b5f;opacity:.65}
+.app-claw .chat-input button[type=submit]{grid-column:2;display:grid;place-items:center;width:32px;height:32px;min-height:0;padding:0;margin:0;border-radius:50%;background:#e9e8e6;color:#4e625e;border-color:transparent;font-size:23px;font-weight:400;line-height:1;box-shadow:none}
+.app-claw .chat-input button[type=submit]:hover:not(:disabled){background:#d5e8e5;color:#245b58}
+.app-claw .chat-input button[type=submit]:disabled{opacity:.5}
+.app-claw .claw-composer-meta{grid-column:1;display:flex;align-items:center;justify-content:space-between;gap:8px;min-width:0;color:#6b706c;font-size:10px;line-height:1.5;pointer-events:none;user-select:none}
+.app-claw .claw-composer-permission{display:inline-flex;align-items:center;gap:5px;color:#b34f3c;white-space:nowrap}.app-claw .claw-composer-model{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.app-claw .claw-composer-model>span{color:#6d685e}
+.app-claw .skill-suggestions{background:#fff;border-color:#ded8cf;box-shadow:0 5px 20px #42362618;border-radius:12px}
+.app-claw .skill-suggestion-label{color:#7c7468}.app-claw .skill-suggestions button{background:#f6f3ed}
+.app-claw .skill-suggestions small{color:#756f65}.app-claw .skill-suggestions button[aria-selected=true]{background:#f7ece8;box-shadow:inset 0 0 0 1px #d8927e}
+.app-claw .chosen-skill{grid-column:1/-1;width:fit-content;background:#f5efde;border-color:#d8c99d;color:#68592f}
+.app-claw .chosen-skill button{color:#68592f!important}
+.app-claw .error{color:#ad4934;font-size:12px;margin-top:6px;min-height:0}.app-claw .error:empty{display:none}
+.app-claw .claw-composer-idle{margin:0;min-height:90px;align-items:flex-start;padding:17px;background:#fff;border-color:#dfdcd6;border-radius:20px;box-shadow:0 2px 4px #665d4510;color:#746b5f}
+.app-claw .claw-composer-idle small{color:#746b5f;font-size:10px}
+.app-claw .window-resting{background:#f4f1ec;color:#625f57}
+@media(max-width:1200px){.app-claw .claw-shell{grid-template-columns:146px minmax(0,1fr)}.app-claw .claw-brand{padding-inline:10px;gap:5px}.app-claw .claw-brand>.claw-chrome-tools{display:none}.app-claw .claw-conversation{padding:22px 19px}.app-claw .claw-composer-dock{width:calc(100% - 36px)}.app-claw .claw-composer-model>span{display:none}}
+@media(max-width:900px){.app-claw .claw-shell{grid-template-columns:132px minmax(0,1fr)}.app-claw .claw-online,.app-claw .claw-sessions{padding-inline:10px}.app-claw .claw-nav-menu{padding-inline:5px}.app-claw .claw-presence{gap:5px}.app-claw .claw-nav-footer{padding-inline:10px}.app-claw .claw-composer-meta{font-size:9px}}
+@media(max-width:680px){
+ .app-claw .claw-shell{grid-template-columns:minmax(0,1fr)}.app-claw .claw-nav{display:none}
+ .app-claw .claw-chatbar{min-height:40px;padding:10px 13px;gap:8px}.app-claw .claw-chatbar>.claw-chrome-tools{display:none}
+ .app-claw .claw-breadcrumb{font-size:10px;gap:6px}.app-claw .claw-breadcrumb strong{font-size:10px}.app-claw .claw-status{font-size:9px}
+ .app-claw .claw-conversation{padding:20px 12px}.app-claw .chat{gap:22px}.app-claw .message{gap:9px}
+ .app-claw .avatar,.app-claw .avatar .claw-assistant-mark{width:26px;height:26px}.app-claw .bubble p{font-size:12px}
+ .app-claw .message:has(.avatar.user){max-width:92%}.app-claw .message:has(.avatar.user) .bubble{padding:11px 13px;border-radius:15px}
+ .app-claw .file-row{padding:11px;gap:8px;flex-wrap:wrap}.app-claw .file-row>button{margin-left:40px}.app-claw .task-card{padding:13px}.app-claw .new-unit-list h3{font-size:17px!important}
+ .app-claw .claw-composer-dock{width:calc(100% - 20px);margin-bottom:10px}.app-claw .chat-input{padding:12px 12px 8px;gap:5px 8px;border-radius:17px}.app-claw .chat-input input{font-size:16px;min-height:42px;padding-bottom:6px}
+ .app-claw .claw-composer-meta{gap:4px;flex-wrap:wrap;font-size:9px}.app-claw .claw-composer-permission{flex:1 1 100%}.app-claw .claw-composer-model{font-size:10px}
+ .app-claw .workspace-details{margin-top:20px}.app-claw .context{grid-template-columns:minmax(0,1fr)}.app-claw .claw-composer-idle{min-height:80px;padding:14px}
+}
+@media(max-height:600px){.app-claw .claw-conversation{padding-block:12px}.app-claw .chat-input{padding-top:8px}.app-claw .chat-input input{min-height:32px}.app-claw .claw-composer-dock{margin-bottom:8px}}
+
+
+.app-claw .claw-permission-icon{width:13px;height:13px;flex:none;stroke:currentColor;fill:none}
 </style>
 </head>
 <body>
@@ -1238,13 +1347,17 @@ function excelChrome(tab='資料'){
  const tools=tab==='表格設計'?['以樞紐分析表摘要','移除重複項','表格樣式','篩選按鈕']:tab==='樞紐分析表分析'?['重新整理','變更資料來源','欄位清單','插入交叉分析篩選器']:tab==='常用'?['貼上','字型','對齊方式','數值格式','框線與底色']:['開啟','另存新檔','取得資料','排序與篩選'];
  return '<div class="excel-tabs" aria-label="Excel 功能區示意">'+labels.map(x=>mode==='original'&&[3,4].includes(m.step)&&x==='檔案'?'<button type="button" data-native="backstage">檔案</button>':'<span class="'+(x===tab?'selected':'')+'">'+x+'</span>').join('')+'</div><div class="excel-tools" aria-hidden="true">'+tools.map(x=>'<span>'+x+'</span>').join('')+'</div><div class="formula-bar"><span>A1</span><em>ƒx</em><span>'+(tab==='表格設計'?'DATE_CREATED':tab==='樞紐分析表分析'?'SERVICE_CODE':'')+'</span></div>';
 }
+// OpenClaw presentation helpers: decorative chrome only; no new app actions.
+function clawAssistantMark(){return '<span class="claw-assistant-mark" aria-hidden="true"><svg viewBox="0 0 32 32" width="28" height="28"><circle cx="16" cy="16" r="16" fill="#dbc763"/><rect x="7" y="9" width="18" height="12" rx="5" fill="#514720"/><circle cx="12" cy="14" r="2" fill="#fff5c4"/><circle cx="20" cy="14" r="2" fill="#fff5c4"/><path d="M12 23q4 5 8 0" fill="#514720"/><path d="M14 24h4" stroke="#fff5c4" stroke-width="2"/></svg></span>'}
+function clawComposerMeta(){return '<span class="claw-composer-meta" aria-hidden="true"><span class="claw-composer-permission"><svg class="claw-permission-icon" viewBox="0 0 20 20" aria-hidden="true"><path d="m10 2 6 3v5c0 4-6 7-6 7s-6-3-6-7V5z" stroke-width="1.5"/><path d="m7 9 2 2 4-4" stroke-width="1.5"/></svg><span>預設（完整存取權）</span></span><span class="claw-composer-model">OpenAI: GPT-6 Luna <span>⌄　Low ⌄</span></span></span>'}
+function clawSidebar(){return `<div class="claw-nav" aria-label="OpenClaw 側欄示意"><div class="claw-brand">${clawAssistantMark()}<strong>Assistant</strong><span class="claw-chrome-tools" aria-hidden="true">⌕ ＋</span></div><div class="claw-nav-menu">${[['home','首頁'],['cpu','代理程式'],['element-3','儀表板'],['scan','系統'],['refresh','自動化'],['element-3','外掛程式']].map(([icon,label],i)=>`<div class="claw-nav-item ${i===0?'is-current':''}">${icon==='home'?explorerIcon('home'):labIcon(icon)}<span>${label}</span></div>`).join('')}</div><div class="claw-online"><div class="claw-nav-label">⌄　線上</div><div class="claw-presence"><span class="claw-owner-avatar" aria-hidden="true">你</span><strong>共用擁有者</strong><span class="claw-presence-count">◌ 1</span></div></div><div class="claw-sessions"><div class="claw-nav-label">工作階段<span aria-hidden="true">☷　＋</span></div><div class="claw-session">Main Session<small>每月輪派報表</small></div></div><div class="claw-nav-footer"><span class="claw-owner-avatar" aria-hidden="true">你</span><strong>擁有者</strong><span class="claw-chrome-tools" aria-hidden="true">⌂　▱</span></div></div>`}
 function applicationWindow(){
  const app=mode==='skill'?(s.step===0?'explorer':'claw'):m.step<=1?'browser':m.step===2||m.step===8&&!m.completedPreview?'explorer':'excel';
  const icons={browser:'e',explorer:'▰',excel:'X',claw:'✳'};
  let view=mode==='skill'?skillView():manualView();
  if(app==='browser')view='<div class="app-toolbar"><span aria-hidden="true">←　→　⟳</span><div class="address-field">▣　照顧服務管理資訊平臺 / '+(m.step===0?'登入':'資料匯出')+'</div><span>⋯</span></div>'+view;
  if(app==='excel'&&!(mode==='original'&&[3,4].includes(m.step)))view=excelChrome(m.step===5||m.step===6&&m.workbook==='pivot'?'樞紐分析表分析':'常用')+view;
- if(app==='claw')view=`<div class="app-toolbar"><div class="address-field">▣　127.0.0.1:18789</div><span>介面模擬</span></div><div class="claw-shell"><div class="claw-nav"><div class="claw-brand"><span>✳</span>OpenClaw</div><div><div class="claw-nav-label">Agent</div><div class="claw-nav-item">◈　SAS Agent</div></div><div><div class="claw-nav-label">Sessions</div><div class="claw-session">每月輪派報表<small>sas-for-eden · 11507</small></div></div><div class="claw-nav-footer">工作區<br><span class="mono">SAS Agent/</span></div></div><div class="claw-main"><div class="claw-chatbar"><div><strong>每月輪派報表</strong><small>SAS Agent / sas-for-eden</small></div><span class="claw-status">${[2,3].includes(s.step)?'◌ 等待確認':s.step===4?'✓ 已完成':'● 就緒'}</span></div>${view}</div></div>`;
+ if(app==='claw')view=`<div class="claw-shell">${clawSidebar()}<div class="claw-main"><div class="claw-chatbar"><div class="claw-breadcrumb">${explorerIcon('folder')}<span>workspace</span><span>/</span><strong>Main Session</strong></div><span class="claw-status">${[2,3].includes(s.step)?'等待確認':s.step===4?'已完成':'就緒'}</span><span class="claw-chrome-tools" aria-hidden="true">◉　◫　⋯</span></div>${view}</div></div>`;
  const title=windowTitle();
  return `<div class="window app-${app}${mode==='skill'&&s.step===0?' win11-transfer':mode==='original'&&[2,3,4,8].includes(m.step)?' mn-window'+(app==='explorer'?' mn-file-window':''):''}"><div class="window-bar"><span class="app-icon" aria-hidden="true">${app==='explorer'?explorerIcon('folder'):icons[app]}</span><span class="window-name">${title}</span><div class="caption-controls"><button data-window="minimize" aria-label="最小化模擬視窗" title="最小化">−</button><button data-window="maximize" aria-label="放大模擬視窗" title="放大／還原">□</button><button class="caption-close" data-window="close" aria-label="關閉模擬視窗（保留進度）" title="關閉視窗，保留進度">×</button></div></div><div class="window-body" id="stage">${view}</div><div class="window-resting" hidden><h3>視窗已收起</h3><p>操作進度已保留。</p><button data-window="restore">重新開啟視窗</button></div>${app==='excel'?'<div class="excel-status"><span>就緒</span><strong>工作表1</strong><span>＋</span><span>100%</span></div>':''}${mode==='original'&&m.step===2?manualStart():''}${mode==='original'||app==='explorer'?`<div class="desktop-taskbar">${mode==='original'&&m.step===2?'<button id="mn-start-button" class="taskbar-start" type="button" data-native="start" aria-label="Windows 開始" aria-expanded="'+m.startOpen+'" aria-controls="mn-start"><i></i><i></i><i></i><i></i></button>':'<span class="taskbar-start" aria-hidden="true"><i></i><i></i><i></i><i></i></span>'}<button class="task-app" data-window="restore" title="開啟目前的模擬視窗">${icons[app]}　${app==='excel'?'Excel':app==='explorer'?'檔案總管':'行政系統'}</button>${mode==='skill'&&s.step===0?`<button type="button" class="task-app wx-openclaw" data-action="place-xml" aria-label="切換至已開啟的 OpenClaw" aria-disabled="${!s.moved}" aria-describedby="wx-transfer-hint" title="${s.moved?'OpenClaw — 已開啟':'請先將 XML 移入 Input，再切換至 OpenClaw'}"><span class="wx-claw-app" aria-hidden="true">✳&#xfe0e;</span><span>OpenClaw</span></button>`:''}<span class="taskbar-time">09:41<br>2026/7/31</span></div>`:''}</div>`;
 }
@@ -1291,7 +1404,7 @@ function checks(){
  const saved=(mode==='original'?m:s).reviewChecks;
  return '<div class="review-checks">'+['已核對派案／接案數與合計','已核對單位、分類、順序與新單位處理','已檢查框線、分類底色及總計列'].map((label,index)=>`<label><input type="checkbox" class="review-check" data-review-index="${index}" ${saved[index]?'checked':''}>${label}</label>`).join('')+'</div>';
 }
-function message(who,html){return `<div class="message"><div class="avatar ${who==='你'?'user':''}">${who==='你'?'你':'✳'}</div><div class="bubble"><h3>${who}</h3>${html}</div></div>`}
+function message(who,html){return `<div class="message"><div class="avatar ${who==='你'?'user':''}">${who==='你'?'你':clawAssistantMark()}</div><div class="bubble"><h3>${who}</h3>${html}</div></div>`}
 // Manual Windows/Excel practice. Files and dialogs stay within the simulation.
 function manualExcelIcon(){return '<span class="mn-excel-icon" aria-hidden="true">X</span>'}
 function manualFileRow(name,type,action='select-file',selected=false){return `<button type="button" class="wx-item" data-native="${action}" data-file="${escapeChatText(name)}" aria-pressed="${selected}"><span class="wx-name">${name.endsWith('.xml')?explorerIcon('xml'):manualExcelIcon()}<span>${escapeChatText(name)}</span></span><span>2026/7/31 上午 09:40</span><span>${type}</span><span>${name.endsWith('.xml')?'12':'24'} KB</span></button>`}
@@ -1586,18 +1699,18 @@ function parseNewUnitReply(reply){
  return null;
 }
 function escapeChatText(text){return text.replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
-function skillView(){if(s.step===0)return inputTransferView();let content='';
+function skillView(){if(s.step===0)return inputTransferView();let content='',composer='';
 switch(s.step){
-case 1:content=message('SAS Agent',`<p>XML 已就緒。請選擇 Skill，再輸入「執行」。</p>${file('11507_demo.xml','SAS Agent / Input / 11507_demo.xml')}<div class="skill-command"><div class="skill-suggestions" id="skill-suggestions" role="listbox" aria-label="Skill 建議" hidden><span class="skill-suggestion-label">SKILLS</span><button type="button" role="option" id="sas-option" aria-selected="false" data-action="select-sas"><strong>/sas-for-eden</strong><small>SAS 輪派報表</small></button></div><form class="chat-input" id="run-form"><div class="chosen-skill" id="chosen-skill" hidden><span>/sas-for-eden</span><button type="button" data-action="clear-sas" aria-label="移除所選 Skill">×</button></div><input id="command" aria-label="執行指令" role="combobox" aria-autocomplete="list" aria-controls="skill-suggestions" aria-expanded="false" autocomplete="off" placeholder="輸入 /sas 選擇 Skill"><button class="primary" type="submit" disabled>送出 ↑</button></form><div id="command-error" class="error" role="status"></div></div>`);break;
-case 2:content=message('你','<p>/sas-for-eden 執行</p>')+message('SAS Agent',`<details class="log-details"><summary>查看處理紀錄</summary><div class="log">✓ 檢查唯一 XML 與欄位<br>✓ 以本機腳本完成去識別化 Excel<br>✓ 比對日常 B 單位名冊<br>⏸ 報表暫停，等待新單位決策</div></details><div class="task-card"><span class="badge warn">發現 1 個新單位</span><div class="decision"><ol class="new-unit-list"><li><h3>新芽居家長照機構</h3><p class="small muted">分類：居服 · BA01 / BA02</p></li></ol></div><p id="unit-reply-hint">請用編號告訴我哪些要「加入」、哪些要「忽略」，或回覆「全部加入／全部忽略」。</p></div><form class="chat-input" id="unit-reply-form"><input id="unit-reply" aria-label="新單位處理回覆" aria-describedby="unit-reply-hint" placeholder="例如：1 加入，或全部忽略" autocomplete="off"><button class="primary" type="submit">送出 ↑</button></form><div id="unit-reply-error" class="error" role="status"></div>`);break;
-case 3:content=message('你',`<p>${escapeChatText(s.unitReply)}</p>`)+message('SAS Agent',`<details class="log-details"><summary>查看處理紀錄</summary><div class="log">✓ ${s.choice==='add'?'更新名冊與分類內序號公式':'新單位未寫入名冊'}<br>✓ 依 CASENO 去重，計算派案／接案<br>✓ 繼承範本底色、框線、總計及列印設定（模擬）</div></details>${file('11507_輪派報表.xlsx',s.reviewed?'Output / 等待確認歸檔':'Output / 等待人工檢核','review','開啟 Excel 預覽')}<div class="notice"><strong>尚未歸檔。</strong> Excel 檢核後，請輸入「確認無誤，歸檔」。</div><form class="chat-input" id="finalize-form"><input id="confirmation" value="${escapeChatText(s.confirmation)}" aria-label="歸檔確認文字" placeholder="請輸入：確認無誤，歸檔" autocomplete="off" ${s.reviewed?'':'disabled'}><button class="primary" type="submit" ${s.reviewed?'':'disabled'}>送出 ↑</button></form><div id="error" class="error" role="status"></div>`);break;
+case 1:content=message('SAS Agent',`<p>XML 已就緒。請選擇 Skill，再輸入「執行」。</p>${file('11507_demo.xml','SAS Agent / Input / 11507_demo.xml')}`);composer=`<div class="skill-command"><div class="skill-suggestions" id="skill-suggestions" role="listbox" aria-label="Skill 建議" hidden><span class="skill-suggestion-label">SKILLS</span><button type="button" role="option" id="sas-option" aria-selected="false" data-action="select-sas"><strong>/sas-for-eden</strong><small>SAS 輪派報表</small></button></div><form class="chat-input" id="run-form"><div class="chosen-skill" id="chosen-skill" hidden><span>/sas-for-eden</span><button type="button" data-action="clear-sas" aria-label="移除所選 Skill">×</button></div><input id="command" aria-label="執行指令" role="combobox" aria-autocomplete="list" aria-controls="skill-suggestions" aria-expanded="false" autocomplete="off" placeholder="輸入 /sas 選擇 Skill">${clawComposerMeta()}<button class="primary" type="submit" aria-label="送出訊息" title="送出" disabled><span aria-hidden="true">↑</span></button></form><div id="command-error" class="error" role="status"></div></div>`;break;
+case 2:content=message('你','<p>/sas-for-eden 執行</p>')+message('SAS Agent',`<details class="log-details"><summary>查看處理紀錄</summary><div class="log">✓ 檢查唯一 XML 與欄位<br>✓ 以本機腳本完成去識別化 Excel<br>✓ 比對日常 B 單位名冊<br>⏸ 報表暫停，等待新單位決策</div></details><div class="task-card"><span class="badge warn">發現 1 個新單位</span><div class="decision"><ol class="new-unit-list"><li><h3>新芽居家長照機構</h3><p class="small muted">分類：居服 · BA01 / BA02</p></li></ol></div><p id="unit-reply-hint">請用編號告訴我哪些要「加入」、哪些要「忽略」，或回覆「全部加入／全部忽略」。</p></div>`);composer=`<form class="chat-input" id="unit-reply-form"><input id="unit-reply" aria-label="新單位處理回覆" aria-describedby="unit-reply-hint" placeholder="例如：1 加入，或全部忽略" autocomplete="off">${clawComposerMeta()}<button class="primary" type="submit" aria-label="送出訊息" title="送出"><span aria-hidden="true">↑</span></button></form><div id="unit-reply-error" class="error" role="status"></div>`;break;
+case 3:content=message('你',`<p>${escapeChatText(s.unitReply)}</p>`)+message('SAS Agent',`<details class="log-details"><summary>查看處理紀錄</summary><div class="log">✓ ${s.choice==='add'?'更新名冊與分類內序號公式':'新單位未寫入名冊'}<br>✓ 依 CASENO 去重，計算派案／接案<br>✓ 繼承範本底色、框線、總計及列印設定（模擬）</div></details>${file('11507_輪派報表.xlsx',s.reviewed?'Output / 等待確認歸檔':'Output / 等待人工檢核','review','開啟 Excel 預覽')}<div class="notice"><strong>尚未歸檔。</strong> Excel 檢核後，請輸入「確認無誤，歸檔」。</div>`);composer=`<form class="chat-input" id="finalize-form"><input id="confirmation" value="${escapeChatText(s.confirmation)}" aria-label="歸檔確認文字" placeholder="請輸入：確認無誤，歸檔" autocomplete="off" ${s.reviewed?'':'disabled'}>${clawComposerMeta()}<button class="primary" type="submit" aria-label="送出訊息" title="送出" ${s.reviewed?'':'disabled'}><span aria-hidden="true">↑</span></button></form><div id="error" class="error" role="status"></div>`;break;
 case 4:content=message('你','<p>確認無誤，歸檔。</p>')+message('SAS Agent',`<details class="log-details"><summary>查看處理紀錄</summary><div class="log">✓ 名冊與報表一致性驗證通過<br>✓ 已同步工作區範本<br>✓ XML 與輪派報表已歸檔（模擬）</div></details><div class="success-mark">✓</div><h2>本月作業完成</h2><p>Skill 完成處理；<strong>決策、檢核與授權，仍由你掌握。</strong></p><div class="tree">Archive/11507/
   11507_demo.xml
   11507_輪派報表.xlsx
 
 Excel_validation/
   11507raw_data_de_identification.xlsx</div><p class="hint-line">名冊與範本保留，供下月使用。</p>${btn('回到 Original Workflow','switch-original',false)}`);break;}
-return `<div class="chat-layout"><div class="chat">${content}</div>${![1,2,3].includes(s.step)?`<div class="claw-composer-idle"><span>${s.step===4?'本月作業已完成':'依上方操作繼續此任務'}</span><small>sas-for-eden</small></div>`:''}<details class="workspace-details"><summary>工作區檔案</summary><div class="context"><div class="context-item mono">SAS Agent/<span>工作區已備妥</span></div>${[['Input/',s.step<1?'等待 XML':s.step===4?'已歸檔，資料夾淨空':'11507_demo.xml'],['Excel_validation/',s.step<2?'等待執行':'去識別化 Excel 已產生'],['Output/',s.step<3?'尚無輪派報表':s.step===4?'已歸檔，資料夾淨空':'輪派報表待確認'],['Archive/11507/',s.step===4?'XML ＋ 輪派報表':'等待明確確認'],['B_unit_roster/',`日常名冊 · ${s.step>=3&&s.choice==='add'?'4':'3'} 個 Y 單位`]].map(([a,b])=>`<div class="context-item mono">${a}<span>${b}</span></div>`).join('')}</div></details></div>`;
+return `<div class="chat-layout"><div class="claw-conversation"><div class="chat">${content}</div><details class="workspace-details"><summary>工作區檔案</summary><div class="context"><div class="context-item mono">SAS Agent/<span>工作區已備妥</span></div>${[['Input/',s.step<1?'等待 XML':s.step===4?'已歸檔，資料夾淨空':'11507_demo.xml'],['Excel_validation/',s.step<2?'等待執行':'去識別化 Excel 已產生'],['Output/',s.step<3?'尚無輪派報表':s.step===4?'已歸檔，資料夾淨空':'輪派報表待確認'],['Archive/11507/',s.step===4?'XML ＋ 輪派報表':'等待明確確認'],['B_unit_roster/',`日常名冊 · ${s.step>=3&&s.choice==='add'?'4':'3'} 個 Y 單位`]].map(([a,b])=>`<div class="context-item mono">${a}<span>${b}</span></div>`).join('')}</div></details></div><div class="claw-composer-dock">${composer||`<div class="claw-composer-idle"><span>${s.step===4?'本月作業已完成':'依上方操作繼續此任務'}</span><small>sas-for-eden</small></div>`}</div></div>`;
 }
 function setMode(next){if(next===mode)return;closeReview(false);mode=next;render()}
 function openReview(){lastFocus=document.activeElement;$('#review').innerHTML=`<div class="review-modal"><div class="review-toolbar"><strong id="review-title">Microsoft Excel · 人工檢核模擬</strong><button data-action="close-review" aria-label="關閉預覽">✕</button></div>${excelChrome('輪派報表')}<div class="modal-content">${report(s.choice==='add')}<div class="notice">目前新單位選擇：${s.choice==='add'?'加入，BA 合計為 26/20':'忽略，BA 合計為 14/11'}。正式作業須以 Microsoft Excel 檢核。</div>${checks()}${btn('檢核完成，返回 OpenClaw','review-done')}<div id="review-error" class="error" role="status"></div></div></div>`;$('#review').hidden=false;$('main').inert=true;$('header').inert=true;$('.intro').inert=true;$('.site-footer').inert=true;$('#review button').focus()}
